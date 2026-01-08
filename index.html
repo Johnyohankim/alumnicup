@@ -35,6 +35,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
     }
     
     nav .logo {
@@ -56,6 +57,21 @@
     
     nav a:hover {
       opacity: 0.8;
+    }
+    
+    .lang-toggle {
+      background: white;
+      color: #bf5700;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    
+    .lang-toggle:hover {
+      background: #f0f0f0;
     }
     
     /* Announcement Banner */
@@ -328,6 +344,11 @@
       padding: 2rem;
     }
     
+    /* Hide inactive language */
+    .lang-ko { display: none; }
+    body.korean .lang-en { display: none; }
+    body.korean .lang-ko { display: block; }
+    
     /* Mobile */
     @media (max-width: 768px) {
       nav ul {
@@ -351,227 +372,333 @@
     <div class="container">
       <div class="logo">🏆 ALUMNI CUP</div>
       <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#events">Events</a></li>
-        <li><a href="#schools">Schools</a></li>
-        <li><a href="#results">Results</a></li>
-        <li><a href="#join">Join Us</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#home" class="lang-en">Home</a><a href="#home" class="lang-ko">홈</a></li>
+        <li><a href="#about" class="lang-en">About</a><a href="#about" class="lang-ko">소개</a></li>
+        <li><a href="#events" class="lang-en">Events</a><a href="#events" class="lang-ko">대회</a></li>
+        <li><a href="#schools" class="lang-en">Schools</a><a href="#schools" class="lang-ko">참가대학</a></li>
+        <li><a href="#results" class="lang-en">Results</a><a href="#results" class="lang-ko">결과</a></li>
+        <li><a href="#join" class="lang-en">Join Us</a><a href="#join" class="lang-ko">참가신청</a></li>
+        <li><a href="#contact" class="lang-en">Contact</a><a href="#contact" class="lang-ko">문의</a></li>
       </ul>
+      <button class="lang-toggle" onclick="toggleLanguage()">
+        <span class="lang-en">한국어</span>
+        <span class="lang-ko">English</span>
+      </button>
     </div>
   </nav>
 
   <!-- Announcement Banner -->
   <div class="announcement">
-    🎉 Alumni Cup 2026 - Expanding to 4 Schools! Registration Opens March 2026
+    <span class="lang-en">🎉 Alumni Cup 2026 - Expanding to 4 Schools! Registration Opens March 2026</span>
+    <span class="lang-ko">🎉 알럼나이 컵 2026 - 4개 대학으로 확대! 등록은 2026년 3월 시작</span>
   </div>
 
   <!-- Hero Section -->
   <section id="home" class="hero">
-    <h1>The Alumni Cup</h1>
-    <p>Where University Alumni Compete in Golf & 10K Running</p>
-    <a href="#join" class="cta-button">Join the Competition</a>
-    <a href="#about" class="cta-button secondary">Learn More</a>
+    <h1 class="lang-en">The Alumni Cup</h1>
+    <h1 class="lang-ko">알럼나이 컵</h1>
+    <p class="lang-en">Where University Alumni Compete in Golf & 10K Running</p>
+    <p class="lang-ko">대학 동문들이 골프와 10K 마라톤으로 경쟁하는 대회</p>
+    <a href="#join" class="cta-button lang-en">Join the Competition</a>
+    <a href="#join" class="cta-button lang-ko">참가 신청하기</a>
+    <a href="#about" class="cta-button secondary lang-en">Learn More</a>
+    <a href="#about" class="cta-button secondary lang-ko">자세히 보기</a>
   </section>
 
   <!-- About Section -->
   <div class="container">
     <section id="about">
-      <h2>About the Alumni Cup</h2>
-      <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 2rem auto;">
+      <h2 class="lang-en">About the Alumni Cup</h2>
+      <h2 class="lang-ko">알럼나이 컵 소개</h2>
+      <p class="lang-en" style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 2rem auto;">
         The Alumni Cup is an annual athletic competition bringing together university alumni from across the nation. Founded in 2025 by the University of Texas at Austin and the University of Michigan, we celebrate school spirit, healthy competition, and lifelong connections through golf and 10K running.
+      </p>
+      <p class="lang-ko" style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 2rem auto;">
+        알럼나이 컵은 전국의 대학 동문들이 함께하는 연례 스포츠 대회입니다. 2025년 텍사스 대학교 오스틴과 미시간 대학교가 창립한 이 대회는 골프와 10K 마라톤을 통해 모교 정신, 건강한 경쟁, 그리고 평생의 인연을 기념합니다.
       </p>
       
       <div class="event-grid">
         <div class="event-card">
           <div class="icon">⛳</div>
-          <h3>18-Hole Golf</h3>
-          <p>Competitive stroke play format with team and individual prizes. All skill levels welcome.</p>
+          <h3 class="lang-en">18-Hole Golf</h3>
+          <h3 class="lang-ko">18홀 골프</h3>
+          <p class="lang-en">Competitive stroke play format with team and individual prizes. All skill levels welcome.</p>
+          <p class="lang-ko">단체 및 개인 상품이 있는 스트로크 플레이 형식. 모든 실력의 참가자 환영합니다.</p>
         </div>
         <div class="event-card">
           <div class="icon">🏃</div>
-          <h3>10K Run</h3>
-          <p>Scenic course through campus and surrounding areas. Chip-timed for accurate results.</p>
+          <h3 class="lang-en">10K Run</h3>
+          <h3 class="lang-ko">10K 마라톤</h3>
+          <p class="lang-en">Scenic course through campus and surrounding areas. Chip-timed for accurate results.</p>
+          <p class="lang-ko">캠퍼스와 주변 지역을 통과하는 코스. 칩 타이밍으로 정확한 기록 측정.</p>
         </div>
         <div class="event-card">
           <div class="icon">🤝</div>
-          <h3>Alumni Network</h3>
-          <p>Connect with fellow alumni, build relationships, and celebrate your university pride.</p>
+          <h3 class="lang-en">Alumni Network</h3>
+          <h3 class="lang-ko">동문 네트워크</h3>
+          <p class="lang-en">Connect with fellow alumni, build relationships, and celebrate your university pride.</p>
+          <p class="lang-ko">동문들과 교류하고, 관계를 구축하며, 모교 자긍심을 함께 나누세요.</p>
         </div>
       </div>
     </section>
 
     <!-- Events Section -->
     <section id="events">
-      <h2>2026 Event Details</h2>
+      <h2 class="lang-en">2026 Event Details</h2>
+      <h2 class="lang-ko">2026 대회 정보</h2>
       <div style="background: #f9f9f9; padding: 2rem; border-radius: 10px; margin-top: 2rem;">
-        <h3>📅 Date: September 2026 (Exact date TBA)</h3>
-        <h3>📍 Location: To be announced</h3>
-        <h3>💰 Registration Fee: TBA</h3>
-        <p style="margin-top: 1.5rem; font-size: 1.1rem;">
+        <h3 class="lang-en">📅 Date: September 2026 (Exact date TBA)</h3>
+        <h3 class="lang-ko">📅 일정: 2026년 9월 (정확한 날짜 추후 공지)</h3>
+        <h3 class="lang-en">📍 Location: To be announced</h3>
+        <h3 class="lang-ko">📍 장소: 추후 공지</h3>
+        <h3 class="lang-en">💰 Registration Fee: TBA</h3>
+        <h3 class="lang-ko">💰 참가비: 추후 공지</h3>
+        <p class="lang-en" style="margin-top: 1.5rem; font-size: 1.1rem;">
           <strong>What's Included:</strong> Golf green fees, 10K race entry, post-event reception, prizes and trophies, commemorative swag, and networking opportunities with alumni from multiple universities.
         </p>
-        <p style="margin-top: 1rem; font-size: 1.1rem;">
+        <p class="lang-ko" style="margin-top: 1.5rem; font-size: 1.1rem;">
+          <strong>포함 내역:</strong> 골프 그린피, 10K 마라톤 참가비, 행사 후 리셉션, 상품 및 트로피, 기념품, 그리고 여러 대학 동문들과의 네트워킹 기회.
+        </p>
+        <p class="lang-en" style="margin-top: 1rem; font-size: 1.1rem;">
           <strong>Registration opens:</strong> March 2026. Sign up early as spots are limited!
+        </p>
+        <p class="lang-ko" style="margin-top: 1rem; font-size: 1.1rem;">
+          <strong>등록 시작:</strong> 2026년 3월. 선착순 마감되니 서둘러 신청하세요!
         </p>
       </div>
     </section>
 
     <!-- Participating Schools -->
     <section id="schools">
-      <h2>Participating Schools</h2>
+      <h2 class="lang-en">Participating Schools</h2>
+      <h2 class="lang-ko">참가 대학</h2>
       <div class="schools-grid">
         <div class="school-card confirmed">
-          <h4>University of Texas at Austin</h4>
+          <h4 class="lang-en">University of Texas at Austin</h4>
+          <h4 class="lang-ko">텍사스 대학교 오스틴</h4>
           <p>🤘 Hook 'em Horns</p>
-          <span class="badge founding">Founding Member 2025</span>
+          <span class="badge founding lang-en">Founding Member 2025</span>
+          <span class="badge founding lang-ko">창립 멤버 2025</span>
         </div>
         <div class="school-card confirmed">
-          <h4>University of Michigan</h4>
+          <h4 class="lang-en">University of Michigan</h4>
+          <h4 class="lang-ko">미시간 대학교</h4>
           <p>〽️ Go Blue</p>
-          <span class="badge founding">Founding Member 2025</span>
+          <span class="badge founding lang-en">Founding Member 2025</span>
+          <span class="badge founding lang-ko">창립 멤버 2025</span>
         </div>
         <div class="school-card interested">
-          <h4>Your School Here?</h4>
-          <p>Join the competition!</p>
-          <span class="badge">Spots Available</span>
+          <h4 class="lang-en">Your School Here?</h4>
+          <h4 class="lang-ko">귀교를 여기에?</h4>
+          <p class="lang-en">Join the competition!</p>
+          <p class="lang-ko">대회에 참가하세요!</p>
+          <span class="badge lang-en">Spots Available</span>
+          <span class="badge lang-ko">참가 가능</span>
         </div>
         <div class="school-card interested">
-          <h4>Your School Here?</h4>
-          <p>Join the competition!</p>
-          <span class="badge">Spots Available</span>
+          <h4 class="lang-en">Your School Here?</h4>
+          <h4 class="lang-ko">귀교를 여기에?</h4>
+          <p class="lang-en">Join the competition!</p>
+          <p class="lang-ko">대회에 참가하세요!</p>
+          <span class="badge lang-en">Spots Available</span>
+          <span class="badge lang-ko">참가 가능</span>
         </div>
       </div>
     </section>
 
     <!-- 2025 Results -->
     <section id="results">
-      <h2>2025 Inaugural Results</h2>
-      <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">
+      <h2 class="lang-en">2025 Inaugural Results</h2>
+      <h2 class="lang-ko">2025 창립 대회 결과</h2>
+      <p class="lang-en" style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">
         Ann Arbor, Michigan - September 2025
+      </p>
+      <p class="lang-ko" style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">
+        미시간주 앤아버 - 2025년 9월
       </p>
       
       <div class="results-box">
-        <h3>⛳ Golf Championship</h3>
+        <h3 class="lang-en">⛳ Golf Championship</h3>
+        <h3 class="lang-ko">⛳ 골프 챔피언십</h3>
         <div class="result-row">
-          <span class="school">🏆 University of Texas</span>
-          <span class="score">Team Score: 312</span>
+          <span class="school lang-en">🏆 University of Texas</span>
+          <span class="school lang-ko">🏆 텍사스 대학교</span>
+          <span class="score lang-en">Team Score: 312</span>
+          <span class="score lang-ko">팀 점수: 312</span>
         </div>
         <div class="result-row">
-          <span class="school">University of Michigan</span>
-          <span class="score">Team Score: 325</span>
+          <span class="school lang-en">University of Michigan</span>
+          <span class="school lang-ko">미시간 대학교</span>
+          <span class="score lang-en">Team Score: 325</span>
+          <span class="score lang-ko">팀 점수: 325</span>
         </div>
       </div>
       
       <div class="results-box">
-        <h3>🏃 10K Run Championship</h3>
+        <h3 class="lang-en">🏃 10K Run Championship</h3>
+        <h3 class="lang-ko">🏃 10K 마라톤 챔피언십</h3>
         <div class="result-row">
-          <span class="school">🏆 University of Michigan</span>
-          <span class="score">Avg Time: 48:23</span>
+          <span class="school lang-en">🏆 University of Michigan</span>
+          <span class="school lang-ko">🏆 미시간 대학교</span>
+          <span class="score lang-en">Avg Time: 48:23</span>
+          <span class="score lang-ko">평균 기록: 48:23</span>
         </div>
         <div class="result-row">
-          <span class="school">University of Texas</span>
-          <span class="score">Avg Time: 49:15</span>
+          <span class="school lang-en">University of Texas</span>
+          <span class="school lang-ko">텍사스 대학교</span>
+          <span class="score lang-en">Avg Time: 49:15</span>
+          <span class="score lang-ko">평균 기록: 49:15</span>
         </div>
       </div>
       
-      <p style="text-align: center; margin-top: 2rem; font-style: italic;">
+      <p class="lang-en" style="text-align: center; margin-top: 2rem; font-style: italic;">
         Over 100 alumni participated in the inaugural event. Detailed results and photos coming soon!
+      </p>
+      <p class="lang-ko" style="text-align: center; margin-top: 2rem; font-style: italic;">
+        창립 대회에 100명 이상의 동문이 참가했습니다. 자세한 결과와 사진은 곧 공개됩니다!
       </p>
     </section>
   </div>
 
   <!-- Join Section -->
   <section id="join" class="join-section">
-    <h2>Is Your School Ready to Compete?</h2>
-    <p style="font-size: 1.2rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+    <h2 class="lang-en">Is Your School Ready to Compete?</h2>
+    <h2 class="lang-ko">귀교도 참가할 준비가 되셨나요?</h2>
+    <p class="lang-en" style="font-size: 1.2rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
       We're looking for 2 more universities to join the 2026 Alumni Cup! This is a perfect opportunity to:
     </p>
-    <div style="max-width: 600px; margin: 0 auto; text-align: left;">
+    <p class="lang-ko" style="font-size: 1.2rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+      2026 알럼나이 컵에 참가할 2개 대학을 더 찾고 있습니다! 이것은 다음과 같은 완벽한 기회입니다:
+    </p>
+    <div class="lang-en" style="max-width: 600px; margin: 0 auto; text-align: left;">
       <p style="margin: 0.5rem 0;">✓ Engage your alumni network with exciting athletic competition</p>
       <p style="margin: 0.5rem 0;">✓ Build connections with other prestigious universities</p>
       <p style="margin: 0.5rem 0;">✓ Create lasting traditions and school spirit</p>
       <p style="margin: 0.5rem 0;">✓ Showcase your university on a regional/national stage</p>
     </div>
-    <p style="font-size: 1.2rem; margin-top: 2rem;">
+    <div class="lang-ko" style="max-width: 600px; margin: 0 auto; text-align: left;">
+      <p style="margin: 0.5rem 0;">✓ 흥미진진한 스포츠 경쟁으로 동문 네트워크 활성화</p>
+      <p style="margin: 0.5rem 0;">✓ 다른 명문 대학들과 교류 구축</p>
+      <p style="margin: 0.5rem 0;">✓ 지속적인 전통과 모교 정신 조성</p>
+      <p style="margin: 0.5rem 0;">✓ 지역/전국 무대에서 대학 홍보</p>
+    </div>
+    <p class="lang-en" style="font-size: 1.2rem; margin-top: 2rem;">
       <strong>Interested in bringing the Alumni Cup to your school?</strong>
     </p>
-    <a href="#contact" class="cta-button secondary">Contact Us Today</a>
+    <p class="lang-ko" style="font-size: 1.2rem; margin-top: 2rem;">
+      <strong>알럼나이 컵을 귀교에 유치하는 데 관심이 있으신가요?</strong>
+    </p>
+    <a href="#contact" class="cta-button secondary lang-en">Contact Us Today</a>
+    <a href="#contact" class="cta-button secondary lang-ko">지금 문의하기</a>
   </section>
 
   <!-- Contact Section -->
   <div class="container">
     <section id="contact">
-      <h2>Get In Touch</h2>
-      <p style="text-align: center; margin-bottom: 2rem;">
+      <h2 class="lang-en">Get In Touch</h2>
+      <h2 class="lang-ko">문의하기</h2>
+      <p class="lang-en" style="text-align: center; margin-bottom: 2rem;">
         Questions about the event? Interested in having your school participate? Contact us below!
+      </p>
+      <p class="lang-ko" style="text-align: center; margin-bottom: 2rem;">
+        대회에 대한 질문이 있으신가요? 귀교의 참가에 관심이 있으신가요? 아래로 문의해주세요!
       </p>
       
       <div class="contact-form">
         <form id="contactForm">
           <div class="form-group">
-            <label>Name *</label>
-            <input type="text" name="name" required placeholder="Your full name">
+            <label class="lang-en">Name *</label>
+            <label class="lang-ko">이름 *</label>
+            <input type="text" name="name" required placeholder="">
           </div>
           
           <div class="form-group">
-            <label>Email *</label>
-            <input type="email" name="email" required placeholder="your.email@example.com">
+            <label class="lang-en">Email *</label>
+            <label class="lang-ko">이메일 *</label>
+            <input type="email" name="email" required placeholder="">
           </div>
           
           <div class="form-group">
-            <label>University/Affiliation</label>
-            <input type="text" name="university" placeholder="Your university name">
+            <label class="lang-en">University/Affiliation</label>
+            <label class="lang-ko">대학/소속</label>
+            <input type="text" name="university" placeholder="">
           </div>
           
           <div class="form-group">
-            <label>Interest *</label>
+            <label class="lang-en">Interest *</label>
+            <label class="lang-ko">문의 유형 *</label>
             <select name="interest" required>
-              <option value="">Select one...</option>
-              <option>Participant Registration</option>
-              <option>School Partnership Inquiry</option>
-              <option>Sponsorship Opportunities</option>
-              <option>General Questions</option>
-              <option>Media/Press</option>
+              <option value="" class="lang-en">Select one...</option>
+              <option value="" class="lang-ko">선택하세요...</option>
+              <option class="lang-en">Participant Registration</option>
+              <option class="lang-ko">참가자 등록</option>
+              <option class="lang-en">School Partnership Inquiry</option>
+              <option class="lang-ko">학교 파트너십 문의</option>
+              <option class="lang-en">Sponsorship Opportunities</option>
+              <option class="lang-ko">후원 기회</option>
+              <option class="lang-en">General Questions</option>
+              <option class="lang-ko">일반 문의</option>
+              <option class="lang-en">Media/Press</option>
+              <option class="lang-ko">언론/보도</option>
             </select>
           </div>
           
           <div class="form-group">
-            <label>Message *</label>
-            <textarea name="message" required placeholder="Tell us more about your inquiry..."></textarea>
+            <label class="lang-en">Message *</label>
+            <label class="lang-ko">메시지 *</label>
+            <textarea name="message" required placeholder=""></textarea>
           </div>
           
-          <button type="submit">Send Message</button>
+          <button type="submit">
+            <span class="lang-en">Send Message</span>
+            <span class="lang-ko">메시지 보내기</span>
+          </button>
           
           <div class="success-message" id="successMessage">
-            Thank you! Your message has been sent. We'll get back to you within 48 hours.
+            <span class="lang-en">Thank you! Your message has been sent. We'll get back to you within 48 hours.</span>
+            <span class="lang-ko">감사합니다! 메시지가 전송되었습니다. 48시간 이내에 답변드리겠습니다.</span>
           </div>
         </form>
       </div>
       
-      <p style="text-align: center; margin-top: 2rem; font-size: 1.1rem;">
+      <p class="lang-en" style="text-align: center; margin-top: 2rem; font-size: 1.1rem;">
         <strong>Event Coordinators:</strong><br>
         📧 letmegeton@gmail.com<br>
         📱 Contact form submissions reviewed within 48 hours
+      </p>
+      <p class="lang-ko" style="text-align: center; margin-top: 2rem; font-size: 1.1rem;">
+        <strong>대회 운영진:</strong><br>
+        📧 letmegeton@gmail.com<br>
+        📱 문의 양식 제출은 48시간 이내에 검토됩니다
       </p>
     </section>
   </div>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2026 Alumni Cup. All rights reserved.</p>
-    <p style="margin-top: 0.5rem;">Founded by the University of Texas at Austin & University of Michigan Alumni</p>
+    <p class="lang-en">&copy; 2026 Alumni Cup. All rights reserved.</p>
+    <p class="lang-ko">&copy; 2026 알럼나이 컵. All rights reserved.</p>
+    <p class="lang-en" style="margin-top: 0.5rem;">Founded by the University of Texas at Austin & University of Michigan Alumni</p>
+    <p class="lang-ko" style="margin-top: 0.5rem;">텍사스 대학교 오스틴 및 미시간 대학교 동문회가 창립</p>
   </footer>
 
   <script>
+    function toggleLanguage() {
+      document.body.classList.toggle('korean');
+      localStorage.setItem('language', document.body.classList.contains('korean') ? 'ko' : 'en');
+    }
+    
+    // Remember language preference
+    if (localStorage.getItem('language') === 'ko') {
+      document.body.classList.add('korean');
+    }
+    
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
       
       const formData = new FormData(this);
       const data = Object.fromEntries(formData);
       
-      // Create mailto link with form data
       const subject = encodeURIComponent('Alumni Cup Inquiry: ' + data.interest);
       const body = encodeURIComponent(
         'Name: ' + data.name + '\n' +
@@ -583,11 +710,9 @@
       
       window.location.href = 'mailto:letmegeton@gmail.com?subject=' + subject + '&body=' + body;
       
-      // Show success message
       document.getElementById('successMessage').style.display = 'block';
       this.reset();
       
-      // Hide message after 5 seconds
       setTimeout(function() {
         document.getElementById('successMessage').style.display = 'none';
       }, 5000);
