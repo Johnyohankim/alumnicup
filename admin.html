@@ -65,6 +65,7 @@
     
     input[type="text"],
     input[type="number"],
+    input[type="url"],
     textarea,
     select {
       width: 100%;
@@ -75,27 +76,38 @@
     }
     
     textarea {
-      min-height: 100px;
+      min-height: 150px;
       resize: vertical;
+      font-family: monospace;
     }
     
-    .photo-upload {
-      border: 2px dashed #ddd;
-      padding: 2rem;
-      text-align: center;
-      border-radius: 5px;
-      background: #fafafa;
-      cursor: pointer;
-      transition: all 0.3s;
+    .photo-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
     
-    .photo-upload:hover {
-      border-color: #bf5700;
-      background: #fff5f0;
+    .photo-link-item {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
     }
     
-    .photo-upload input[type="file"] {
-      display: none;
+    .photo-link-item input {
+      flex: 1;
+    }
+    
+    .photo-link-item button {
+      background: #dc3545;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .add-link-btn {
+      background: #28a745;
+      padding: 0.5rem 1rem;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
     }
     
     .photo-preview {
@@ -118,20 +130,6 @@
       object-fit: cover;
     }
     
-    .photo-item button {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      background: red;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 25px;
-      height: 25px;
-      cursor: pointer;
-      font-size: 0.8rem;
-    }
-    
     button {
       background: #bf5700;
       color: white;
@@ -152,6 +150,7 @@
       display: flex;
       gap: 1rem;
       margin-top: 1rem;
+      flex-wrap: wrap;
     }
     
     .success-message {
@@ -171,6 +170,14 @@
       border-left: 4px solid #2196F3;
     }
     
+    .warning-box {
+      background: #fff3cd;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      border-left: 4px solid #ffc107;
+    }
+    
     .code-output {
       background: #f5f5f5;
       padding: 1rem;
@@ -178,15 +185,26 @@
       font-family: monospace;
       font-size: 0.9rem;
       margin-top: 1rem;
-      max-height: 300px;
+      max-height: 400px;
       overflow-y: auto;
       border: 1px solid #ddd;
+      white-space: pre-wrap;
+      word-wrap: break-word;
     }
     
     .copy-button {
       background: #00274c;
       padding: 0.5rem 1rem;
       font-size: 0.9rem;
+    }
+    
+    .example {
+      background: #f8f9fa;
+      padding: 0.5rem;
+      border-radius: 3px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
     }
   </style>
 </head>
@@ -197,26 +215,37 @@
 
     <!-- Photo Gallery Section -->
     <div class="section">
-      <h2>📸 Photo Gallery Management</h2>
+      <h2>📸 Google Drive Photo Gallery</h2>
       <div class="info-box">
-        <strong>Note:</strong> Photos will be stored as base64 data. For best performance, upload photos under 500KB each.
+        <strong>How to use Google Drive photos:</strong><br>
+        1. Upload photos to Google Drive<br>
+        2. Right-click → Share → "Anyone with the link" (Viewer access)<br>
+        3. Copy the share link<br>
+        4. Paste it below (the tool will auto-convert it!)
       </div>
       
       <div class="form-group">
-        <label>Upload Photos (multiple)</label>
-        <div class="photo-upload" onclick="document.getElementById('photoInput').click()">
-          <input type="file" id="photoInput" accept="image/*" multiple onchange="handlePhotoUpload(event)">
-          <p>📷 Click to upload photos</p>
-          <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">Supports JPG, PNG - Multiple files allowed</p>
+        <label>Google Drive Photo Links</label>
+        <div class="warning-box" style="font-size: 0.9rem;">
+          Paste your Google Drive share links below. Example:<br>
+          <span class="example">https://drive.google.com/file/d/1ABC123xyz/view?usp=sharing</span>
         </div>
+        <div id="photoLinksContainer" class="photo-links">
+          <div class="photo-link-item">
+            <input type="url" placeholder="Paste Google Drive share link here" class="photo-link-input">
+            <button onclick="removePhotoLink(this)">Remove</button>
+          </div>
+        </div>
+        <button class="add-link-btn" onclick="addPhotoLink()">+ Add Another Photo</button>
+      </div>
+      
+      <div class="button-group">
+        <button onclick="previewPhotos()">Preview Photos</button>
+        <button onclick="generatePhotoCode()">Generate Photo Gallery Code</button>
+        <button class="copy-button" onclick="copyCode('photoCodeOutput')">Copy Code</button>
       </div>
       
       <div class="photo-preview" id="photoPreview"></div>
-      
-      <div class="button-group">
-        <button onclick="generatePhotoCode()">Generate Photo Gallery Code</button>
-        <button class="copy-button" onclick="copyPhotoCode()">Copy Code</button>
-      </div>
       
       <div class="code-output" id="photoCodeOutput" style="display: none;"></div>
       <div class="success-message" id="photoSuccess">Photo code generated! Copy and paste into your HTML.</div>
@@ -253,13 +282,16 @@
       
       <div class="form-group">
         <label>Additional Notes (optional)</label>
-        <textarea id="resultNotes" placeholder="Any special highlights or notes about the 2025 event..."></textarea>
+        <textarea id="resultNotes" placeholder="Any special highlights or notes about the 2025 event..." style="min-height: 80px;"></textarea>
       </div>
       
-      <button onclick="generateResultsCode()">Generate Results Code</button>
+      <div class="button-group">
+        <button onclick="generateResultsCode()">Generate Results Code</button>
+        <button class="copy-button" onclick="copyCode('resultsCodeOutput')">Copy Code</button>
+      </div>
       
       <div class="code-output" id="resultsCodeOutput" style="display: none;"></div>
-      <div class="success-message" id="resultsSuccess">Results code generated! Copy and paste into your HTML.</div>
+      <div class="success-message" id="resultsSuccess">Results code generated!</div>
     </div>
 
     <!-- Event Announcement Section -->
@@ -276,78 +308,121 @@
         <input type="text" id="announcementKo" value="🎉 알럼나이 컵 2026 - 4개 대학으로 확대! 등록은 2026년 3월 시작">
       </div>
       
-      <button onclick="generateAnnouncementCode()">Generate Announcement Code</button>
+      <div class="button-group">
+        <button onclick="generateAnnouncementCode()">Generate Announcement Code</button>
+        <button class="copy-button" onclick="copyCode('announcementCodeOutput')">Copy Code</button>
+      </div>
       
       <div class="code-output" id="announcementCodeOutput" style="display: none;"></div>
-      <div class="success-message" id="announcementSuccess">Announcement code generated! Copy and paste into your HTML.</div>
+      <div class="success-message" id="announcementSuccess">Announcement code generated!</div>
     </div>
 
     <!-- Instructions -->
     <div class="section">
-      <h2>📝 How to Use</h2>
+      <h2>📝 How to Update Your Website</h2>
       <ol style="line-height: 2; margin-left: 1.5rem;">
-        <li>Upload photos or update information in the sections above</li>
-        <li>Click the "Generate Code" button for the section you updated</li>
-        <li>Click "Copy Code" to copy the generated HTML</li>
-        <li>Go to your GitHub repository</li>
-        <li>Edit index.html and find the section you want to replace</li>
-        <li>Replace the old code with the new generated code</li>
-        <li>Commit changes and your site will update in 2-3 minutes!</li>
+        <li><strong>For Photos:</strong> Paste Google Drive links, click "Generate Photo Gallery Code", copy the code</li>
+        <li>Go to your GitHub repository: <code>https://github.com/johnyohankim/alumnicup</code></li>
+        <li>Click on <code>index.html</code></li>
+        <li>Click the pencil icon (Edit this file)</li>
+        <li>Find the section you want to update (use Ctrl+F to search)</li>
+        <li>Replace the old code with your new generated code</li>
+        <li>Scroll down and click "Commit changes"</li>
+        <li>Wait 2-3 minutes and refresh winalumnicup.com to see changes!</li>
       </ol>
+      
+      <div class="info-box" style="margin-top: 1rem;">
+        <strong>Tip:</strong> Look for comments in the generated code like <code>&lt;!-- Photo Gallery Section --&gt;</code> to know exactly where to paste!
+      </div>
     </div>
   </div>
 
   <script>
-    let uploadedPhotos = [];
-
-    function handlePhotoUpload(event) {
-      const files = event.target.files;
-      
-      Array.from(files).forEach(file => {
-        if (file.size > 5000000) {
-          alert('File too large: ' + file.name + '. Please use images under 5MB.');
-          return;
-        }
-        
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          uploadedPhotos.push({
-            name: file.name,
-            data: e.target.result
-          });
-          displayPhotos();
-        };
-        reader.readAsDataURL(file);
-      });
+    function addPhotoLink() {
+      const container = document.getElementById('photoLinksContainer');
+      const newItem = document.createElement('div');
+      newItem.className = 'photo-link-item';
+      newItem.innerHTML = `
+        <input type="url" placeholder="Paste Google Drive share link here" class="photo-link-input">
+        <button onclick="removePhotoLink(this)">Remove</button>
+      `;
+      container.appendChild(newItem);
     }
 
-    function displayPhotos() {
+    function removePhotoLink(button) {
+      const container = document.getElementById('photoLinksContainer');
+      if (container.children.length > 1) {
+        button.parentElement.remove();
+      } else {
+        alert('You must have at least one photo link field!');
+      }
+    }
+
+    function convertGoogleDriveLink(url) {
+      if (!url || url.trim() === '') return null;
+      
+      // Extract file ID from various Google Drive URL formats
+      let fileId = null;
+      
+      // Format: https://drive.google.com/file/d/FILE_ID/view
+      const match1 = url.match(/\/file\/d\/([^\/]+)/);
+      if (match1) {
+        fileId = match1[1];
+      }
+      
+      // Format: https://drive.google.com/open?id=FILE_ID
+      const match2 = url.match(/[?&]id=([^&]+)/);
+      if (match2) {
+        fileId = match2[1];
+      }
+      
+      if (fileId) {
+        return `https://drive.google.com/uc?export=view&id=${fileId}`;
+      }
+      
+      // If already in correct format or other URL, return as is
+      return url;
+    }
+
+    function previewPhotos() {
+      const inputs = document.querySelectorAll('.photo-link-input');
       const preview = document.getElementById('photoPreview');
       preview.innerHTML = '';
       
-      uploadedPhotos.forEach((photo, index) => {
-        const div = document.createElement('div');
-        div.className = 'photo-item';
-        div.innerHTML = `
-          <img src="${photo.data}" alt="${photo.name}">
-          <button onclick="removePhoto(${index})">×</button>
-        `;
-        preview.appendChild(div);
+      let hasPhotos = false;
+      inputs.forEach(input => {
+        const url = convertGoogleDriveLink(input.value);
+        if (url) {
+          hasPhotos = true;
+          const div = document.createElement('div');
+          div.className = 'photo-item';
+          div.innerHTML = `<img src="${url}" alt="Event Photo" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22><rect fill=%22%23ddd%22 width=%22150%22 height=%22150%22/><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23999%22>Invalid Link</text></svg>'">`;
+          preview.appendChild(div);
+        }
       });
-    }
-
-    function removePhoto(index) {
-      uploadedPhotos.splice(index, 1);
-      displayPhotos();
+      
+      if (!hasPhotos) {
+        alert('Please add at least one Google Drive photo link!');
+      }
     }
 
     function generatePhotoCode() {
-      if (uploadedPhotos.length === 0) {
-        alert('Please upload at least one photo first!');
+      const inputs = document.querySelectorAll('.photo-link-input');
+      const photoUrls = [];
+      
+      inputs.forEach(input => {
+        const url = convertGoogleDriveLink(input.value);
+        if (url) {
+          photoUrls.push(url);
+        }
+      });
+      
+      if (photoUrls.length === 0) {
+        alert('Please add at least one Google Drive photo link!');
         return;
       }
       
-      let code = `<!-- Photo Gallery Section - Replace this entire section -->
+      let code = `<!-- Photo Gallery Section - Insert this AFTER the results section in index.html -->
 <div style="margin-top: 3rem;">
   <h3 style="text-align: center; color: #00274c; font-size: 1.8rem; margin-bottom: 2rem;">
     <span class="lang-en">📸 2025 Event Photos</span>
@@ -356,8 +431,8 @@
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 2rem;">
 `;
 
-      uploadedPhotos.forEach(photo => {
-        code += `    <img src="${photo.data}" alt="Alumni Cup 2025" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      photoUrls.forEach(url => {
+        code += `    <img src="${url}" alt="Alumni Cup 2025" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" loading="lazy">
 `;
       });
 
@@ -367,18 +442,7 @@
 
       document.getElementById('photoCodeOutput').textContent = code;
       document.getElementById('photoCodeOutput').style.display = 'block';
-      document.getElementById('photoSuccess').style.display = 'block';
-      
-      setTimeout(() => {
-        document.getElementById('photoSuccess').style.display = 'none';
-      }, 3000);
-    }
-
-    function copyPhotoCode() {
-      const code = document.getElementById('photoCodeOutput').textContent;
-      navigator.clipboard.writeText(code).then(() => {
-        alert('Code copied to clipboard!');
-      });
+      showSuccess('photoSuccess');
     }
 
     function generateResultsCode() {
@@ -389,11 +453,10 @@
       const participants = document.getElementById('totalParticipants').value;
       const notes = document.getElementById('resultNotes').value;
       
-      // Determine winners
       const golfWinnerUT = parseInt(utGolf) < parseInt(umGolf);
       const runWinnerUM = um10k < ut10k;
       
-      let code = `<!-- Results Section - Replace this entire section -->
+      let code = `<!-- Results Section - Replace the entire <section id="results"> in index.html -->
 <section id="results">
   <h2 class="lang-en">2025 Inaugural Results</h2>
   <h2 class="lang-ko">2025 창립 대회 결과</h2>
@@ -439,28 +502,24 @@
   </div>
   
   <p class="lang-en" style="text-align: center; margin-top: 2rem; font-style: italic;">
-    Over ${participants} alumni participated in the inaugural event.${notes ? ' ' + notes : ' Detailed results and photos available above!'}
+    Over ${participants} alumni participated in the inaugural event.${notes ? ' ' + notes : ''}
   </p>
   <p class="lang-ko" style="text-align: center; margin-top: 2rem; font-style: italic;">
-    창립 대회에 ${participants}명 이상의 동문이 참가했습니다.${notes ? ' ' + notes : ' 자세한 결과와 사진은 위에서 확인하세요!'}
+    창립 대회에 ${participants}명 이상의 동문이 참가했습니다.${notes ? ' ' + notes : ''}
   </p>
 </section>
 <!-- End Results Section -->`;
 
       document.getElementById('resultsCodeOutput').textContent = code;
       document.getElementById('resultsCodeOutput').style.display = 'block';
-      document.getElementById('resultsSuccess').style.display = 'block';
-      
-      setTimeout(() => {
-        document.getElementById('resultsSuccess').style.display = 'none';
-      }, 3000);
+      showSuccess('resultsSuccess');
     }
 
     function generateAnnouncementCode() {
       const en = document.getElementById('announcementEn').value;
       const ko = document.getElementById('announcementKo').value;
       
-      let code = `<!-- Announcement Banner - Replace this section -->
+      let code = `<!-- Announcement Banner - Replace the <div class="announcement"> section in index.html -->
 <div class="announcement">
   <span class="lang-en">${en}</span>
   <span class="lang-ko">${ko}</span>
@@ -469,10 +528,27 @@
 
       document.getElementById('announcementCodeOutput').textContent = code;
       document.getElementById('announcementCodeOutput').style.display = 'block';
-      document.getElementById('announcementSuccess').style.display = 'block';
-      
+      showSuccess('announcementSuccess');
+    }
+
+    function copyCode(outputId) {
+      const code = document.getElementById(outputId).textContent;
+      if (!code || code.trim() === '') {
+        alert('Please generate the code first!');
+        return;
+      }
+      navigator.clipboard.writeText(code).then(() => {
+        alert('✅ Code copied to clipboard! Now paste it into your index.html on GitHub.');
+      }).catch(() => {
+        alert('Copy failed. Please manually select and copy the code.');
+      });
+    }
+
+    function showSuccess(id) {
+      const el = document.getElementById(id);
+      el.style.display = 'block';
       setTimeout(() => {
-        document.getElementById('announcementSuccess').style.display = 'none';
+        el.style.display = 'none';
       }, 3000);
     }
   </script>
