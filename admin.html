@@ -1,1 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alumni Cup - Admin Panel</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
+      padding: 2rem;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      color: #bf5700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .subtitle {
+      color: #666;
+      margin-bottom: 2rem;
+    }
+    
+    .section {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid #eee;
+    }
+    
+    .section:last-child {
+      border-bottom: none;
+    }
+    
+    h2 {
+      color: #00274c;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    
+    .photo-upload {
+      border: 2px dashed #ddd;
+      padding: 2rem;
+      text-align: center;
+      border-radius: 5px;
+      background: #fafafa;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .photo-upload:hover {
+      border-color: #bf5700;
+      background: #fff5f0;
+    }
+    
+    .photo-upload input[type="file"] {
+      display: none;
+    }
+    
+    .photo-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .photo-item {
+      position: relative;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .photo-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    
+    .photo-item button {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    
+    button {
+      background: #bf5700;
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    
+    button:hover {
+      background: #a04900;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .success-message {
+      background: #4CAF50;
+      color: white;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+      display: none;
+    }
+    
+    .info-box {
+      background: #e3f2fd;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      border-left: 4px solid #2196F3;
+    }
+    
+    .code-output {
+      background: #f5f5f5;
+      padding: 1rem;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+    }
+    
+    .copy-button {
+      background: #00274c;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏆 Alumni Cup Admin Panel</h1>
+    <p class="subtitle">Manage photos and event information</p>
 
+    <!-- Photo Gallery Section -->
+    <div class="section">
+      <h2>📸 Photo Gallery Management</h2>
+      <div class="info-box">
+        <strong>Note:</strong> Photos will be stored as base64 data. For best performance, upload photos under 500KB each.
+      </div>
+      
+      <div class="form-group">
+        <label>Upload Photos (multiple)</label>
+        <div class="photo-upload" onclick="document.getElementById('photoInput').click()">
+          <input type="file" id="photoInput" accept="image/*" multiple onchange="handlePhotoUpload(event)">
+          <p>📷 Click to upload photos</p>
+          <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">Supports JPG, PNG - Multiple files allowed</p>
+        </div>
+      </div>
+      
+      <div class="photo-preview" id="photoPreview"></div>
+      
+      <div class="button-group">
+        <button onclick="generatePhotoCode()">Generate Photo Gallery Code</button>
+        <button class="copy-button" onclick="copyPhotoCode()">Copy Code</button>
+      </div>
+      
+      <div class="code-output" id="photoCodeOutput" style="display: none;"></div>
+      <div class="success-message" id="photoSuccess">Photo code generated! Copy and paste into your HTML.</div>
+    </div>
+
+    <!-- 2025 Results Section -->
+    <div class="section">
+      <h2>🏆 2025 Results Update</h2>
+      
+      <h3 style="margin-top: 1.5rem; margin-bottom: 1rem;">Golf Results</h3>
+      <div class="form-group">
+        <label>UT Austin Golf Score</label>
+        <input type="number" id="utGolfScore" value="312">
+      </div>
+      <div class="form-group">
+        <label>Michigan Golf Score</label>
+        <input type="number" id="umGolfScore" value="325">
+      </div>
+      
+      <h3 style="margin-top: 1.5rem; margin-bottom: 1rem;">10K Run Results</h3>
+      <div class="form-group">
+        <label>UT Austin Average Time (mm:ss)</label>
+        <input type="text" id="ut10kTime" value="49:15" placeholder="48:23">
+      </div>
+      <div class="form-group">
+        <label>Michigan Average Time (mm:ss)</label>
+        <input type="text" id="um10kTime" value="48:23" placeholder="49:15">
+      </div>
+      
+      <div class="form-group">
+        <label>Total Participants</label>
+        <input type="number" id="totalParticipants" value="100">
+      </div>
+      
+      <div class="form-group">
+        <label>Additional Notes (optional)</label>
+        <textarea id="resultNotes" placeholder="Any special highlights or notes about the 2025 event..."></textarea>
+      </div>
+      
+      <button onclick="generateResultsCode()">Generate Results Code</button>
+      
+      <div class="code-output" id="resultsCodeOutput" style="display: none;"></div>
+      <div class="success-message" id="resultsSuccess">Results code generated! Copy and paste into your HTML.</div>
+    </div>
+
+    <!-- Event Announcement Section -->
+    <div class="section">
+      <h2>📢 Update Announcement Banner</h2>
+      
+      <div class="form-group">
+        <label>Announcement Text (English)</label>
+        <input type="text" id="announcementEn" value="🎉 Alumni Cup 2026 - Expanding to 4 Schools! Registration Opens March 2026">
+      </div>
+      
+      <div class="form-group">
+        <label>Announcement Text (Korean)</label>
+        <input type="text" id="announcementKo" value="🎉 알럼나이 컵 2026 - 4개 대학으로 확대! 등록은 2026년 3월 시작">
+      </div>
+      
+      <button onclick="generateAnnouncementCode()">Generate Announcement Code</button>
+      
+      <div class="code-output" id="announcementCodeOutput" style="display: none;"></div>
+      <div class="success-message" id="announcementSuccess">Announcement code generated! Copy and paste into your HTML.</div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="section">
+      <h2>📝 How to Use</h2>
+      <ol style="line-height: 2; margin-left: 1.5rem;">
+        <li>Upload photos or update information in the sections above</li>
+        <li>Click the "Generate Code" button for the section you updated</li>
+        <li>Click "Copy Code" to copy the generated HTML</li>
+        <li>Go to your GitHub repository</li>
+        <li>Edit index.html and find the section you want to replace</li>
+        <li>Replace the old code with the new generated code</li>
+        <li>Commit changes and your site will update in 2-3 minutes!</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    let uploadedPhotos = [];
+
+    function handlePhotoUpload(event) {
+      const files = event.target.files;
+      
+      Array.from(files).forEach(file => {
+        if (file.size > 5000000) {
+          alert('File too large: ' + file.name + '. Please use images under 5MB.');
+          return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedPhotos.push({
+            name: file.name,
+            data: e.target.result
+          });
+          displayPhotos();
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function displayPhotos() {
+      const preview = document.getElementById('photoPreview');
+      preview.innerHTML = '';
+      
+      uploadedPhotos.forEach((photo, index) => {
+        const div = document.createElement('div');
+        div.className = 'photo-item';
+        div.innerHTML = `
+          <img src="${photo.data}" alt="${photo.name}">
+          <button onclick="removePhoto(${index})">×</button>
+        `;
+        preview.appendChild(div);
+      });
+    }
+
+    function removePhoto(index) {
+      uploadedPhotos.splice(index, 1);
+      displayPhotos();
+    }
+
+    function generatePhotoCode() {
+      if (uploadedPhotos.length === 0) {
+        alert('Please upload at least one photo first!');
+        return;
+      }
+      
+      let code = `<!-- Photo Gallery Section - Replace this entire section -->
+<div style="margin-top: 3rem;">
+  <h3 style="text-align: center; color: #00274c; font-size: 1.8rem; margin-bottom: 2rem;">
+    <span class="lang-en">📸 2025 Event Photos</span>
+    <span class="lang-ko">📸 2025 대회 사진</span>
+  </h3>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 2rem;">
+`;
+
+      uploadedPhotos.forEach(photo => {
+        code += `    <img src="${photo.data}" alt="Alumni Cup 2025" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+`;
+      });
+
+      code += `  </div>
+</div>
+<!-- End Photo Gallery Section -->`;
+
+      document.getElementById('photoCodeOutput').textContent = code;
+      document.getElementById('photoCodeOutput').style.display = 'block';
+      document.getElementById('photoSuccess').style.display = 'block';
+      
+      setTimeout(() => {
+        document.getElementById('photoSuccess').style.display = 'none';
+      }, 3000);
+    }
+
+    function copyPhotoCode() {
+      const code = document.getElementById('photoCodeOutput').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        alert('Code copied to clipboard!');
+      });
+    }
+
+    function generateResultsCode() {
+      const utGolf = document.getElementById('utGolfScore').value;
+      const umGolf = document.getElementById('umGolfScore').value;
+      const ut10k = document.getElementById('ut10kTime').value;
+      const um10k = document.getElementById('um10kTime').value;
+      const participants = document.getElementById('totalParticipants').value;
+      const notes = document.getElementById('resultNotes').value;
+      
+      // Determine winners
+      const golfWinnerUT = parseInt(utGolf) < parseInt(umGolf);
+      const runWinnerUM = um10k < ut10k;
+      
+      let code = `<!-- Results Section - Replace this entire section -->
+<section id="results">
+  <h2 class="lang-en">2025 Inaugural Results</h2>
+  <h2 class="lang-ko">2025 창립 대회 결과</h2>
+  <p class="lang-en" style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">
+    Ann Arbor, Michigan - September 2025
+  </p>
+  <p class="lang-ko" style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">
+    미시간주 앤아버 - 2025년 9월
+  </p>
+  
+  <div class="results-box">
+    <h3 class="lang-en">⛳ Golf Championship</h3>
+    <h3 class="lang-ko">⛳ 골프 챔피언십</h3>
+    <div class="result-row">
+      <span class="school lang-en">${golfWinnerUT ? '🏆 ' : ''}University of Texas</span>
+      <span class="school lang-ko">${golfWinnerUT ? '🏆 ' : ''}텍사스 대학교</span>
+      <span class="score lang-en">Team Score: ${utGolf}</span>
+      <span class="score lang-ko">팀 점수: ${utGolf}</span>
+    </div>
+    <div class="result-row">
+      <span class="school lang-en">${!golfWinnerUT ? '🏆 ' : ''}University of Michigan</span>
+      <span class="school lang-ko">${!golfWinnerUT ? '🏆 ' : ''}미시간 대학교</span>
+      <span class="score lang-en">Team Score: ${umGolf}</span>
+      <span class="score lang-ko">팀 점수: ${umGolf}</span>
+    </div>
+  </div>
+  
+  <div class="results-box">
+    <h3 class="lang-en">🏃 10K Run Championship</h3>
+    <h3 class="lang-ko">🏃 10K 마라톤 챔피언십</h3>
+    <div class="result-row">
+      <span class="school lang-en">${runWinnerUM ? '🏆 ' : ''}University of Michigan</span>
+      <span class="school lang-ko">${runWinnerUM ? '🏆 ' : ''}미시간 대학교</span>
+      <span class="score lang-en">Avg Time: ${um10k}</span>
+      <span class="score lang-ko">평균 기록: ${um10k}</span>
+    </div>
+    <div class="result-row">
+      <span class="school lang-en">${!runWinnerUM ? '🏆 ' : ''}University of Texas</span>
+      <span class="school lang-ko">${!runWinnerUM ? '🏆 ' : ''}텍사스 대학교</span>
+      <span class="score lang-en">Avg Time: ${ut10k}</span>
+      <span class="score lang-ko">평균 기록: ${ut10k}</span>
+    </div>
+  </div>
+  
+  <p class="lang-en" style="text-align: center; margin-top: 2rem; font-style: italic;">
+    Over ${participants} alumni participated in the inaugural event.${notes ? ' ' + notes : ' Detailed results and photos available above!'}
+  </p>
+  <p class="lang-ko" style="text-align: center; margin-top: 2rem; font-style: italic;">
+    창립 대회에 ${participants}명 이상의 동문이 참가했습니다.${notes ? ' ' + notes : ' 자세한 결과와 사진은 위에서 확인하세요!'}
+  </p>
+</section>
+<!-- End Results Section -->`;
+
+      document.getElementById('resultsCodeOutput').textContent = code;
+      document.getElementById('resultsCodeOutput').style.display = 'block';
+      document.getElementById('resultsSuccess').style.display = 'block';
+      
+      setTimeout(() => {
+        document.getElementById('resultsSuccess').style.display = 'none';
+      }, 3000);
+    }
+
+    function generateAnnouncementCode() {
+      const en = document.getElementById('announcementEn').value;
+      const ko = document.getElementById('announcementKo').value;
+      
+      let code = `<!-- Announcement Banner - Replace this section -->
+<div class="announcement">
+  <span class="lang-en">${en}</span>
+  <span class="lang-ko">${ko}</span>
+</div>
+<!-- End Announcement Banner -->`;
+
+      document.getElementById('announcementCodeOutput').textContent = code;
+      document.getElementById('announcementCodeOutput').style.display = 'block';
+      document.getElementById('announcementSuccess').style.display = 'block';
+      
+      setTimeout(() => {
+        document.getElementById('announcementSuccess').style.display = 'none';
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
