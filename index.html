@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alumni Cup - Admin Panel</title>
+  <title>Alumni Cup - Collegiate Golf & 10K Competition</title>
   <style>
     * {
       margin: 0;
@@ -13,61 +13,291 @@
     
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f5f5f5;
-      padding: 2rem;
+      line-height: 1.6;
+      color: #333;
     }
     
-    .container {
-      max-width: 1000px;
+    /* Navigation */
+    nav {
+      background: #bf5700;
+      color: white;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    nav .container {
+      max-width: 1200px;
       margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+    
+    nav a:hover {
+      opacity: 0.8;
+    }
+    
+    .lang-toggle {
       background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    
-    h1 {
       color: #bf5700;
-      margin-bottom: 0.5rem;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
     }
     
-    .subtitle {
-      color: #666;
+    .lang-toggle:hover {
+      background: #f0f0f0;
+    }
+    
+    /* Announcement Banner */
+    .announcement {
+      background: #00274c;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      font-weight: 500;
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(0, 39, 76, 0.8), rgba(191, 87, 0, 0.8)),
+                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23333" width="1200" height="600"/><circle cx="300" cy="300" r="150" fill="%23555"/><circle cx="900" cy="300" r="150" fill="%23555"/></svg>');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 8rem 2rem;
+    }
+    
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .hero p {
+      font-size: 1.5rem;
       margin-bottom: 2rem;
     }
     
-    .section {
-      margin-bottom: 3rem;
-      padding-bottom: 2rem;
-      border-bottom: 2px solid #eee;
+    .cta-button {
+      display: inline-block;
+      background: #bf5700;
+      color: white;
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      transition: background 0.3s;
+      margin: 0.5rem;
     }
     
-    .section:last-child {
-      border-bottom: none;
+    .cta-button:hover {
+      background: #a04900;
+    }
+    
+    .cta-button.secondary {
+      background: white;
+      color: #bf5700;
+    }
+    
+    .cta-button.secondary:hover {
+      background: #f0f0f0;
+    }
+    
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    
+    section {
+      margin-bottom: 4rem;
     }
     
     h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #bf5700;
+      text-align: center;
+    }
+    
+    h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
       color: #00274c;
-      margin-bottom: 1.5rem;
+    }
+    
+    /* Event Info Grid */
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .event-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    
+    .event-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .event-card .icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    /* Schools Section */
+    .schools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .school-card {
+      background: #f9f9f9;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      border: 3px solid #ddd;
+    }
+    
+    .school-card.confirmed {
+      border-color: #bf5700;
+    }
+    
+    .school-card.interested {
+      border-color: #ccc;
+      border-style: dashed;
+    }
+    
+    .school-card h4 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #00274c;
+    }
+    
+    .badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-top: 0.5rem;
+    }
+    
+    .badge.confirmed {
+      background: #bf5700;
+      color: white;
+    }
+    
+    .badge.founding {
+      background: #00274c;
+      color: white;
+    }
+    
+    /* Results Section */
+    .results-box {
+      background: #f5f5f5;
+      padding: 2rem;
+      border-radius: 10px;
+      margin-top: 2rem;
+    }
+    
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+      background: white;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      align-items: center;
+    }
+    
+    .result-row .school {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    .result-row .score {
       font-size: 1.5rem;
+      color: #bf5700;
+    }
+    
+    /* Join Section */
+    .join-section {
+      background: linear-gradient(135deg, #bf5700 0%, #00274c 100%);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+      border-radius: 15px;
+      margin: 4rem 0;
+    }
+    
+    .join-section h2 {
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Contact Form */
+    .contact-form {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
     
     .form-group {
       margin-bottom: 1.5rem;
     }
     
-    label {
+    .form-group label {
       display: block;
       margin-bottom: 0.5rem;
       font-weight: bold;
       color: #333;
     }
     
-    input[type="text"],
-    input[type="number"],
-    input[type="url"],
-    textarea,
-    select {
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
       width: 100%;
       padding: 0.8rem;
       border: 1px solid #ddd;
@@ -75,482 +305,151 @@
       font-size: 1rem;
     }
     
-    textarea {
-      min-height: 150px;
+    .form-group textarea {
+      min-height: 120px;
       resize: vertical;
-      font-family: monospace;
     }
     
-    .photo-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    
-    .photo-link-item {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-    
-    .photo-link-item input {
-      flex: 1;
-    }
-    
-    .photo-link-item button {
-      background: #dc3545;
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-    }
-    
-    .add-link-btn {
-      background: #28a745;
-      padding: 0.5rem 1rem;
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-    }
-    
-    .photo-preview {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    
-    .photo-item {
-      position: relative;
-      border-radius: 5px;
-      overflow: hidden;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    
-    .photo-item img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-    }
-    
-    button {
+    button[type="submit"] {
       background: #bf5700;
       color: white;
       padding: 1rem 2rem;
       border: none;
       border-radius: 5px;
-      font-size: 1rem;
+      font-size: 1.1rem;
       cursor: pointer;
+      width: 100%;
       font-weight: bold;
-      transition: background 0.3s;
     }
     
-    button:hover {
+    button[type="submit"]:hover {
       background: #a04900;
     }
     
-    .button-group {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-      flex-wrap: wrap;
-    }
-    
     .success-message {
+      display: none;
       background: #4CAF50;
       color: white;
       padding: 1rem;
       border-radius: 5px;
       margin-top: 1rem;
-      display: none;
+      text-align: center;
     }
     
-    .info-box {
-      background: #e3f2fd;
-      padding: 1rem;
-      border-radius: 5px;
-      margin-bottom: 1rem;
-      border-left: 4px solid #2196F3;
-    }
-    
-    .warning-box {
-      background: #fff3cd;
-      padding: 1rem;
-      border-radius: 5px;
-      margin-bottom: 1rem;
-      border-left: 4px solid #ffc107;
-    }
-    
-    .code-output {
-      background: #f5f5f5;
-      padding: 1rem;
-      border-radius: 5px;
-      font-family: monospace;
-      font-size: 0.9rem;
-      margin-top: 1rem;
-      max-height: 400px;
-      overflow-y: auto;
-      border: 1px solid #ddd;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-    
-    .copy-button {
+    /* Footer */
+    footer {
       background: #00274c;
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
+      color: white;
+      text-align: center;
+      padding: 2rem;
     }
     
-    .example {
-      background: #f8f9fa;
-      padding: 0.5rem;
-      border-radius: 3px;
-      font-family: monospace;
-      font-size: 0.85rem;
-      margin-top: 0.5rem;
+    /* Hide inactive language */
+    .lang-ko { display: none; }
+    body.korean .lang-en { display: none; }
+    body.korean .lang-ko { display: block; }
+    
+    /* Mobile */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🏆 Alumni Cup Admin Panel</h1>
-    <p class="subtitle">Manage photos and event information</p>
-
-    <!-- Photo Gallery Section -->
-    <div class="section">
-      <h2>📸 Google Drive Photo Gallery</h2>
-      <div class="info-box">
-        <strong>How to use Google Drive photos:</strong><br>
-        1. Upload photos to Google Drive<br>
-        2. Right-click → Share → "Anyone with the link" (Viewer access)<br>
-        3. Copy the share link<br>
-        4. Paste it below (the tool will auto-convert it!)
-      </div>
-      
-      <div class="form-group">
-        <label>Google Drive Photo Links</label>
-        <div class="warning-box" style="font-size: 0.9rem;">
-          Paste your Google Drive share links below. Example:<br>
-          <span class="example">https://drive.google.com/file/d/1ABC123xyz/view?usp=sharing</span>
-        </div>
-        <div id="photoLinksContainer" class="photo-links">
-          <div class="photo-link-item">
-            <input type="url" placeholder="Paste Google Drive share link here" class="photo-link-input">
-            <button onclick="removePhotoLink(this)">Remove</button>
-          </div>
-        </div>
-        <button class="add-link-btn" onclick="addPhotoLink()">+ Add Another Photo</button>
-      </div>
-      
-      <div class="button-group">
-        <button onclick="previewPhotos()">Preview Photos</button>
-        <button onclick="generatePhotoCode()">Generate Photo Gallery Code</button>
-        <button class="copy-button" onclick="copyCode('photoCodeOutput')">Copy Code</button>
-      </div>
-      
-      <div class="photo-preview" id="photoPreview"></div>
-      
-      <div class="code-output" id="photoCodeOutput" style="display: none;"></div>
-      <div class="success-message" id="photoSuccess">Photo code generated! Copy and paste into your HTML.</div>
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="logo">🏆 ALUMNI CUP</div>
+      <ul>
+        <li><a href="#home" class="lang-en">Home</a><a href="#home" class="lang-ko">홈</a></li>
+        <li><a href="#about" class="lang-en">About</a><a href="#about" class="lang-ko">소개</a></li>
+        <li><a href="#events" class="lang-en">Events</a><a href="#events" class="lang-ko">대회</a></li>
+        <li><a href="#schools" class="lang-en">Schools</a><a href="#schools" class="lang-ko">참가대학</a></li>
+        <li><a href="#results" class="lang-en">Results</a><a href="#results" class="lang-ko">결과</a></li>
+        <li><a href="#join" class="lang-en">Join Us</a><a href="#join" class="lang-ko">참가신청</a></li>
+        <li><a href="#contact" class="lang-en">Contact</a><a href="#contact" class="lang-ko">문의</a></li>
+      </ul>
+      <button class="lang-toggle" onclick="toggleLanguage()">
+        <span class="lang-en">한국어</span>
+        <span class="lang-ko">English</span>
+      </button>
     </div>
+  </nav>
 
-    <!-- 2025 Results Section -->
-    <div class="section">
-      <h2>🏆 2025 Results Update</h2>
-      
-      <h3 style="margin-top: 1.5rem; margin-bottom: 1rem;">Golf Results</h3>
-      <div class="form-group">
-        <label>UT Austin Golf Score</label>
-        <input type="number" id="utGolfScore" value="312">
-      </div>
-      <div class="form-group">
-        <label>Michigan Golf Score</label>
-        <input type="number" id="umGolfScore" value="325">
-      </div>
-      
-      <h3 style="margin-top: 1.5rem; margin-bottom: 1rem;">10K Run Results</h3>
-      <div class="form-group">
-        <label>UT Austin Average Time (mm:ss)</label>
-        <input type="text" id="ut10kTime" value="49:15" placeholder="48:23">
-      </div>
-      <div class="form-group">
-        <label>Michigan Average Time (mm:ss)</label>
-        <input type="text" id="um10kTime" value="48:23" placeholder="49:15">
-      </div>
-      
-      <div class="form-group">
-        <label>Total Participants</label>
-        <input type="number" id="totalParticipants" value="100">
-      </div>
-      
-      <div class="form-group">
-        <label>Additional Notes (optional)</label>
-        <textarea id="resultNotes" placeholder="Any special highlights or notes about the 2025 event..." style="min-height: 80px;"></textarea>
-      </div>
-      
-      <div class="button-group">
-        <button onclick="generateResultsCode()">Generate Results Code</button>
-        <button class="copy-button" onclick="copyCode('resultsCodeOutput')">Copy Code</button>
-      </div>
-      
-      <div class="code-output" id="resultsCodeOutput" style="display: none;"></div>
-      <div class="success-message" id="resultsSuccess">Results code generated!</div>
+  <!-- Announcement Banner -->
+  <div class="announcement">
+    <span class="lang-en">🎉 Alumni Cup 2026 - Expanding to 4 Schools! Registration Opens March 2026</span>
+    <span class="lang-ko">🎉 알룸룸나이 컵 2026 - 4개 대학으로 확룸나이 컵에 참가할 2개 대학을 더 찾고 있습니다! 이것은 다음과 같은 완벽한 기회입니다:
+    </p>
+    <div class="lang-en" style="max-width: 600px; margin: 0 auto; text-align: left;">
+      <p style="margin: 0.5rem 0;">✓ Engage your alumni network with exciting athletic competition</p>
+      <p style="margin: 0.5rem 0;">✓ Build connections with other prestigious universities</p>
+      <p style="margin: 0.5rem 0;">✓ Create lasting traditions and school spirit</p>
+      <p style="margin: 0.5rem 0;">✓ Showcase your university on a regional/national stage</p>
     </div>
-
-    <!-- Event Announcement Section -->
-    <div class="section">
-      <h2>📢 Update Announcement Banner</h2>
-      
-      <div class="form-group">
-        <label>Announcement Text (English)</label>
-        <input type="text" id="announcementEn" value="🎉 Alumni Cup 2026 - Expanding to 4 Schools! Registration Opens March 2026">
-      </div>
-      
-      <div class="form-group">
-        <label>Announcement Text (Korean)</label>
-        <input type="text" id="announcementKo" value="🎉 알럼나이 컵 2026 - 4개 대학으로 확대! 등록은 2026년 3월 시작">
-      </div>
-      
-      <div class="button-group">
-        <button onclick="generateAnnouncementCode()">Generate Announcement Code</button>
-        <button class="copy-button" onclick="copyCode('announcementCodeOutput')">Copy Code</button>
-      </div>
-      
-      <div class="code-output" id="announcementCodeOutput" style="display: none;"></div>
-      <div class="success-message" id="announcementSuccess">Announcement code generated!</div>
+    <div class="lang-ko" style="max-width: 600px; margin: 0 auto; text-align: left;">
+      <p style="margin: 0.5rem 0;">✓ 흥미진진한 스포츠 경쟁으로 동문 네트워크 활성화</p>
+      <p style="margin: 0.5rem 0;">✓ 다른 명문 대학들과 교류 구축</p>
+      <p style="margin: 0.5rem 0;">✓ 지속적인 전통과 모교 정신 조성</p>
+      <p style="margin: 0.5rem 0;">✓ 지역/전국 무대에서 대학 홍보</p>
     </div>
-
-    <!-- Instructions -->
-    <div class="section">
-      <h2>📝 How to Update Your Website</h2>
-      <ol style="line-height: 2; margin-left: 1.5rem;">
-        <li><strong>For Photos:</strong> Paste Google Drive links, click "Generate Photo Gallery Code", copy the code</li>
-        <li>Go to your GitHub repository: <code>https://github.com/johnyohankim/alumnicup</code></li>
-        <li>Click on <code>index.html</code></li>
-        <li>Click the pencil icon (Edit this file)</li>
-        <li>Find the section you want to update (use Ctrl+F to search)</li>
-        <li>Replace the old code with your new generated code</li>
-        <li>Scroll down and click "Commit changes"</li>
-        <li>Wait 2-3 minutes and refresh winalumnicup.com to see changes!</li>
-      </ol>
-      
-      <div class="info-box" style="margin-top: 1rem;">
-        <strong>Tip:</strong> Look for comments in the generated code like <code>&lt;!-- Photo Gallery Section --&gt;</code> to know exactly where to paste!
-      </div>
-    </div>
-  </div>
+    <p class="lang-en" style="font-size: 1.2rem; margin-top: 2rem;">
+      <strong>Interested in bringing the Alumni Cup to your school?</strong>
+    </p>
+    <p class="lang-ko" style="font-size: 1.2rem; margin-top: 2rem;">
+      <strong>알룸나이 컵을 귀교에 유치하는 데 관심이 있으신가요?</strong>
+    </p>
+    <a href="#contact" class="cta-button secondary lang룸나이 컵. All rights reserved.</p>
+    <p class="lang-en" style="margin-top: 0.5rem;">Founded by the University of Texas at Austin & University of Michigan Alumni</p>
+    <p class="lang-ko" style="margin-top: 0.5rem;">텍사스 대학교 오스틴 및 미시간 대학교 동문회가 창립</p>
+  </footer>
 
   <script>
-    function addPhotoLink() {
-      const container = document.getElementById('photoLinksContainer');
-      const newItem = document.createElement('div');
-      newItem.className = 'photo-link-item';
-      newItem.innerHTML = `
-        <input type="url" placeholder="Paste Google Drive share link here" class="photo-link-input">
-        <button onclick="removePhotoLink(this)">Remove</button>
-      `;
-      container.appendChild(newItem);
+    function toggleLanguage() {
+      document.body.classList.toggle('korean');
+      localStorage.setItem('language', document.body.classList.contains('korean') ? 'ko' : 'en');
     }
-
-    function removePhotoLink(button) {
-      const container = document.getElementById('photoLinksContainer');
-      if (container.children.length > 1) {
-        button.parentElement.remove();
-      } else {
-        alert('You must have at least one photo link field!');
-      }
+    
+    // Remember language preference
+    if (localStorage.getItem('language') === 'ko') {
+      document.body.classList.add('korean');
     }
-
-    function convertGoogleDriveLink(url) {
-      if (!url || url.trim() === '') return null;
+    
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
       
-      // Extract file ID from various Google Drive URL formats
-      let fileId = null;
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData);
       
-      // Format: https://drive.google.com/file/d/FILE_ID/view
-      const match1 = url.match(/\/file\/d\/([^\/]+)/);
-      if (match1) {
-        fileId = match1[1];
-      }
+      const subject = encodeURIComponent('Alumni Cup Inquiry: ' + data.interest);
+      const body = encodeURIComponent(
+        'Name: ' + data.name + '\n' +
+        'Email: ' + data.email + '\n' +
+        'University: ' + data.university + '\n' +
+        'Interest: ' + data.interest + '\n\n' +
+        'Message:\n' + data.message
+      );
       
-      // Format: https://drive.google.com/open?id=FILE_ID
-      const match2 = url.match(/[?&]id=([^&]+)/);
-      if (match2) {
-        fileId = match2[1];
-      }
+      window.location.href = 'mailto:letmegeton@gmail.com?subject=' + subject + '&body=' + body;
       
-      if (fileId) {
-        return `https://drive.google.com/uc?export=view&id=${fileId}`;
-      }
+      document.getElementById('successMessage').style.display = 'block';
+      this.reset();
       
-      // If already in correct format or other URL, return as is
-      return url;
-    }
-
-    function previewPhotos() {
-      const inputs = document.querySelectorAll('.photo-link-input');
-      const preview = document.getElementById('photoPreview');
-      preview.innerHTML = '';
-      
-      let hasPhotos = false;
-      inputs.forEach(input => {
-        const url = convertGoogleDriveLink(input.value);
-        if (url) {
-          hasPhotos = true;
-          const div = document.createElement('div');
-          div.className = 'photo-item';
-          div.innerHTML = `<img src="${url}" alt="Event Photo" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22><rect fill=%22%23ddd%22 width=%22150%22 height=%22150%22/><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23999%22>Invalid Link</text></svg>'">`;
-          preview.appendChild(div);
-        }
-      });
-      
-      if (!hasPhotos) {
-        alert('Please add at least one Google Drive photo link!');
-      }
-    }
-
-    function generatePhotoCode() {
-      const inputs = document.querySelectorAll('.photo-link-input');
-      const photoUrls = [];
-      
-      inputs.forEach(input => {
-        const url = convertGoogleDriveLink(input.value);
-        if (url) {
-          photoUrls.push(url);
-        }
-      });
-      
-      if (photoUrls.length === 0) {
-        alert('Please add at least one Google Drive photo link!');
-        return;
-      }
-      
-      let code = `<!-- Photo Gallery Section - Insert this AFTER the results section in index.html -->
-<div style="margin-top: 3rem;">
-  <h3 style="text-align: center; color: #00274c; font-size: 1.8rem; margin-bottom: 2rem;">
-    <span class="lang-en">📸 2025 Event Photos</span>
-    <span class="lang-ko">📸 2025 대회 사진</span>
-  </h3>
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 2rem;">
-`;
-
-      photoUrls.forEach(url => {
-        code += `    <img src="${url}" alt="Alumni Cup 2025" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" loading="lazy">
-`;
-      });
-
-      code += `  </div>
-</div>
-<!-- End Photo Gallery Section -->`;
-
-      document.getElementById('photoCodeOutput').textContent = code;
-      document.getElementById('photoCodeOutput').style.display = 'block';
-      showSuccess('photoSuccess');
-    }
-
-    function generateResultsCode() {
-      const utGolf = document.getElementById('utGolfScore').value;
-      const umGolf = document.getElementById('umGolfScore').value;
-      const ut10k = document.getElementById('ut10kTime').value;
-      const um10k = document.getElementById('um10kTime').value;
-      const participants = document.getElementById('totalParticipants').value;
-      const notes = document.getElementById('resultNotes').value;
-      
-      const golfWinnerUT = parseInt(utGolf) < parseInt(umGolf);
-      const runWinnerUM = um10k < ut10k;
-      
-      let code = `<!-- Results Section - Replace the entire <section id="results"> in index.html -->
-<section id="results">
-  <h2 class="lang-en">2025 Inaugural Results</h2>
-  <h2 class="lang-ko">2025 창립 대회 결과</h2>
-  <p class="lang-en" style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">
-    Ann Arbor, Michigan - September 2025
-  </p>
-  <p class="lang-ko" style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">
-    미시간주 앤아버 - 2025년 9월
-  </p>
-  
-  <div class="results-box">
-    <h3 class="lang-en">⛳ Golf Championship</h3>
-    <h3 class="lang-ko">⛳ 골프 챔피언십</h3>
-    <div class="result-row">
-      <span class="school lang-en">${golfWinnerUT ? '🏆 ' : ''}University of Texas</span>
-      <span class="school lang-ko">${golfWinnerUT ? '🏆 ' : ''}텍사스 대학교</span>
-      <span class="score lang-en">Team Score: ${utGolf}</span>
-      <span class="score lang-ko">팀 점수: ${utGolf}</span>
-    </div>
-    <div class="result-row">
-      <span class="school lang-en">${!golfWinnerUT ? '🏆 ' : ''}University of Michigan</span>
-      <span class="school lang-ko">${!golfWinnerUT ? '🏆 ' : ''}미시간 대학교</span>
-      <span class="score lang-en">Team Score: ${umGolf}</span>
-      <span class="score lang-ko">팀 점수: ${umGolf}</span>
-    </div>
-  </div>
-  
-  <div class="results-box">
-    <h3 class="lang-en">🏃 10K Run Championship</h3>
-    <h3 class="lang-ko">🏃 10K 마라톤 챔피언십</h3>
-    <div class="result-row">
-      <span class="school lang-en">${runWinnerUM ? '🏆 ' : ''}University of Michigan</span>
-      <span class="school lang-ko">${runWinnerUM ? '🏆 ' : ''}미시간 대학교</span>
-      <span class="score lang-en">Avg Time: ${um10k}</span>
-      <span class="score lang-ko">평균 기록: ${um10k}</span>
-    </div>
-    <div class="result-row">
-      <span class="school lang-en">${!runWinnerUM ? '🏆 ' : ''}University of Texas</span>
-      <span class="school lang-ko">${!runWinnerUM ? '🏆 ' : ''}텍사스 대학교</span>
-      <span class="score lang-en">Avg Time: ${ut10k}</span>
-      <span class="score lang-ko">평균 기록: ${ut10k}</span>
-    </div>
-  </div>
-  
-  <p class="lang-en" style="text-align: center; margin-top: 2rem; font-style: italic;">
-    Over ${participants} alumni participated in the inaugural event.${notes ? ' ' + notes : ''}
-  </p>
-  <p class="lang-ko" style="text-align: center; margin-top: 2rem; font-style: italic;">
-    창립 대회에 ${participants}명 이상의 동문이 참가했습니다.${notes ? ' ' + notes : ''}
-  </p>
-</section>
-<!-- End Results Section -->`;
-
-      document.getElementById('resultsCodeOutput').textContent = code;
-      document.getElementById('resultsCodeOutput').style.display = 'block';
-      showSuccess('resultsSuccess');
-    }
-
-    function generateAnnouncementCode() {
-      const en = document.getElementById('announcementEn').value;
-      const ko = document.getElementById('announcementKo').value;
-      
-      let code = `<!-- Announcement Banner - Replace the <div class="announcement"> section in index.html -->
-<div class="announcement">
-  <span class="lang-en">${en}</span>
-  <span class="lang-ko">${ko}</span>
-</div>
-<!-- End Announcement Banner -->`;
-
-      document.getElementById('announcementCodeOutput').textContent = code;
-      document.getElementById('announcementCodeOutput').style.display = 'block';
-      showSuccess('announcementSuccess');
-    }
-
-    function copyCode(outputId) {
-      const code = document.getElementById(outputId).textContent;
-      if (!code || code.trim() === '') {
-        alert('Please generate the code first!');
-        return;
-      }
-      navigator.clipboard.writeText(code).then(() => {
-        alert('✅ Code copied to clipboard! Now paste it into your index.html on GitHub.');
-      }).catch(() => {
-        alert('Copy failed. Please manually select and copy the code.');
-      });
-    }
-
-    function showSuccess(id) {
-      const el = document.getElementById(id);
-      el.style.display = 'block';
-      setTimeout(() => {
-        el.style.display = 'none';
-      }, 3000);
-    }
+      setTimeout(function() {
+        document.getElementById('successMessage').style.display = 'none';
+      }, 5000);
+    });
   </script>
 </body>
 </html>
