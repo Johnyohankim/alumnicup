@@ -117,30 +117,6 @@
       font-size: 0.9rem;
     }
     
-    .participant-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-    
-    .participant-item {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr auto;
-      gap: 0.5rem;
-      align-items: center;
-    }
-    
-    .participant-item input {
-      padding: 0.5rem;
-    }
-    
-    .participant-item button {
-      padding: 0.5rem 1rem;
-      font-size: 0.85rem;
-      background: #dc3545;
-    }
-    
     .photo-preview {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -243,6 +219,14 @@
       padding: 1.5rem;
       border-radius: 8px;
       margin-top: 1rem;
+    }
+    
+    table {
+      border-collapse: collapse;
+    }
+    
+    table th {
+      font-weight: bold;
     }
   </style>
 </head>
@@ -514,7 +498,7 @@ Bob Johnson, 45:30" style="min-height: 100px; font-family: monospace; margin-bot
     <div class="section">
       <h2>📝 How to Update Your Website</h2>
       <ol style="line-height: 2; margin-left: 1.5rem;">
-        <li><strong>Fill in all the information</strong> in the sections above (photos, participants, rules, etc.)</li>
+        <li><strong>Fill in all the information</strong> in the sections above (photos, participants via CSV paste, rules, etc.)</li>
         <li>Click "Generate Code" for each section you want to update</li>
         <li>Click "Copy Code" to copy the generated HTML</li>
         <li>Go to your GitHub repository: <code>https://github.com/johnyohankim/alumnicup</code></li>
@@ -526,12 +510,13 @@ Bob Johnson, 45:30" style="min-height: 100px; font-family: monospace; margin-bot
       </ol>
       
       <div class="info-box" style="margin-top: 1rem;">
-        <strong>Tip:</strong> The generated code includes collapsible dropdowns for participants and rules. Users can click to expand and see details!
+        <strong>Tip:</strong> You can paste CSV data directly from Excel or Google Sheets! Just copy the Name and Score columns and paste into the textareas.
       </div>
     </div>
   </div>
 
   <script>
+    // Photo Link Functions
     function addPhotoLink() {
       const container = document.getElementById('photoLinksContainer');
       const newItem = document.createElement('div');
@@ -552,28 +537,7 @@ Bob Johnson, 45:30" style="min-height: 100px; font-family: monospace; margin-bot
       }
     }
 
-    function addParticipant(containerId, school) {
-      const container = document.getElementById(containerId);
-      const newItem = document.createElement('div');
-      newItem.className = 'participant-item';
-      newItem.innerHTML = `
-        <input type="text" placeholder="Name" class="p-name">
-        <input type="${containerId.includes('Golf') ? 'number' : 'text'}" placeholder="${containerId.includes('Golf') ? 'Score' : 'Time (mm:ss)'}" class="p-score">
-        <select class="p-school">
-          <option value="${school}">${school === 'UT' ? 'UT Austin' : 'Michigan'}</option>
-        </select>
-        <button onclick="removeParticipant(this)">Remove</button>
-      `;
-      container.appendChild(newItem);
-    }
-
-    function removeParticipant(button) {
-      const container = button.parentElement.parentElement;
-      if (container.children.length > 1) {
-        button.parentElement.remove();
-      }
-    }
-
+    // Table Functions
     function addTableRow(tableId, inputType) {
       const table = document.getElementById(tableId);
       const tbody = table.querySelector('tbody');
@@ -607,10 +571,8 @@ Bob Johnson, 45:30" style="min-height: 100px; font-family: monospace; margin-bot
         return;
       }
       
-      // Clear existing rows except header
       tbody.innerHTML = '';
       
-      // Parse CSV lines
       const lines = csvData.split('\n');
       const inputType = tableId.includes('Golf') ? 'number' : 'text';
       
@@ -618,7 +580,6 @@ Bob Johnson, 45:30" style="min-height: 100px; font-family: monospace; margin-bot
         const trimmedLine = line.trim();
         if (!trimmedLine) return;
         
-        // Split by comma
         const parts = trimmedLine.split(',').map(p => p.trim());
         if (parts.length >= 2) {
           const newRow = tbody.insertRow();
@@ -630,7 +591,6 @@ Bob Johnson, 45:30" style="min-height: 100px; font-family: monospace; margin-bot
         }
       });
       
-      // Clear textarea
       textarea.value = '';
       alert('CSV data parsed successfully! Review the table and make any edits needed.');
     }
@@ -652,7 +612,8 @@ Bob Johnson, 45:30" style="min-height: 100px; font-family: monospace; margin-bot
       
       return data;
     }
-    
+
+    // Google Drive Link Conversion
     function convertGoogleDriveLink(url) {
       if (!url || url.trim() === '') return null;
       
@@ -708,110 +669,4 @@ Bob Johnson, 45:30" style="min-height: 100px; font-family: monospace; margin-bot
       
       let code = `<!-- Photo Gallery Section - Insert this AFTER the dropdown details section -->
 <div style="margin-top: 3rem;">
-  <h3 style="text-align: center; color: #00274c; font-size: 1.8rem; margin-bottom: 2rem;">
-    <span class="lang-en">📸 2025 Event Photos</span>
-    <span class="lang-ko">📸 2025 대회 사진</span>
-  </h3>
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 2rem;">
-`;
-
-      photoUrls.forEach(url => {
-        code += `    <img src="${url}" alt="Alumni Cup 2025" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" loading="lazy">
-`;
-      });
-
-      code += `  </div>
-</div>
-<!-- End Photo Gallery Section -->`;
-
-      document.getElementById('photoCodeOutput').textContent = code;
-      document.getElementById('photoCodeOutput').style.display = 'block';
-      showSuccess('photoSuccess');
-    }
-
-    function generateResultsCode() {
-      const utGolf = document.getElementById('utGolfScore').value;
-      const umGolf = document.getElementById('umGolfScore').value;
-      const ut10k = document.getElementById('ut10kTime').value;
-      const um10k = document.getElementById('um10kTime').value;
-      const participants = document.getElementById('totalParticipants').value;
-      const notes = document.getElementById('resultNotes').value;
-      
-      const utGolfParticipants = getTableData('utGolfTable');
-      const umGolfParticipants = getTableData('umGolfTable');
-      const ut10kParticipants = getTableData('ut10kTable');
-      const um10kParticipants = getTableData('um10kTable');
-      
-      const golfRulesEn = document.getElementById('golfRulesEn').value;
-      const golfRulesKo = document.getElementById('golfRulesKo').value;
-      const runRulesEn = document.getElementById('runRulesEn').value;
-      const runRulesKo = document.getElementById('runRulesKo').value;
-      
-      const golfWinnerUT = parseInt(utGolf) < parseInt(umGolf);
-      const runWinnerUM = um10k < ut10k;
-      
-      let code = `<!-- Results Section - Replace the entire <section id="results"> -->
-<section id="results">
-  <h2 class="lang-en">2025 Inaugural Results</h2>
-  <h2 class="lang-ko">2025 창립 대회 결과</h2>
-  <p class="lang-en" style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">
-    Ann Arbor, Michigan - September 2025
-  </p>
-  <p class="lang-ko" style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">
-    미시간주 앤아버 - 2025년 9월
-  </p>
-  
-  <div class="results-box">
-    <h3 class="lang-en">⛳ Golf Championship</h3>
-    <h3 class="lang-ko">⛳ 골프 챔피언십</h3>
-    <div class="result-row">
-      <span class="school lang-en">${golfWinnerUT ? '🏆 ' : ''}University of Texas</span>
-      <span class="school lang-ko">${golfWinnerUT ? '🏆 ' : ''}텍사스 대학교</span>
-      <span class="score lang-en">Team Score: ${utGolf}</span>
-      <span class="score lang-ko">팀 점수: ${utGolf}</span>
-    </div>
-    <div class="result-row">
-      <span class="school lang-en">${!golfWinnerUT ? '🏆 ' : ''}University of Michigan</span>
-      <span class="school lang-ko">${!golfWinnerUT ? '🏆 ' : ''}미시간 대학교</span>
-      <span class="score lang-en">Team Score: ${umGolf}</span>
-      <span class="score lang-ko">팀 점수: ${umGolf}</span>
-    </div>
-  </div>
-  
-  <div class="results-box">
-    <h3 class="lang-en">🏃 10K Run Championship</h3>
-    <h3 class="lang-ko">🏃 10K 마라톤 챔피언십</h3>
-    <div class="result-row">
-      <span class="school lang-en">${runWinnerUM ? '🏆 ' : ''}University of Michigan</span>
-      <span class="school lang-ko">${runWinnerUM ? '🏆 ' : ''}미시간 대학교</span>
-      <span class="score lang-en">Avg Time: ${um10k}</span>
-      <span class="score lang-ko">평균 기록: ${um10k}</span>
-    </div>
-    <div class="result-row">
-      <span class="school lang-en">${!runWinnerUM ? '🏆 ' : ''}University of Texas</span>
-      <span class="school lang-ko">${!runWinnerUM ? '🏆 ' : ''}텍사스 대학교</span>
-      <span class="score lang-en">Avg Time: ${ut10k}</span>
-      <span class="score lang-ko">평균 기록: ${ut10k}</span>
-    </div>
-  </div>
-  
-  <!-- Detailed Results Dropdown -->
-  <details style="margin-top: 2rem; background: #f9f9f9; padding: 1.5rem; border-radius: 10px;">
-    <summary style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #bf5700;">
-      <span class="lang-en">📊 View Detailed Results & Participants</span>
-      <span class="lang-ko">📊 상세 결과 및 참가자 보기</span>
-    </summary>
-    
-    <div style="margin-top: 1.5rem;">
-      <h4 class="lang-en" style="color: #00274c; margin-bottom: 1rem;">⛳ Golf Participants</h4>
-      <h4 class="lang-ko" style="color: #00274c; margin-bottom: 1rem;">⛳ 골프 참가자</h4>
-      
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
-        <div style="background: white; padding: 1rem; border-radius: 8px;">
-          <h5 style="color: #bf5700; margin-bottom: 0.5rem;">University of Texas</h5>
-          <table style="width: 100%; border-collapse: collapse;">
-            <thead>
-              <tr style="border-bottom: 2px solid #ddd;">
-                <th style="text-align: left; padding: 0.5rem;" class="lang-en">Name</th>
-                <th style="text-align: left; padding: 0.5rem;" class="lang-ko">이름</th>
-                <th style="text-align: right; padding: 0
+  <h3 style="text-align: center; color: #00274c; font-size: 1.8rem; margin-bottom:
