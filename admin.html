@@ -52,6 +52,13 @@
       font-size: 1.5rem;
     }
     
+    h3 {
+      color: #333;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+    
     .form-group {
       margin-bottom: 1.5rem;
     }
@@ -108,6 +115,30 @@
       padding: 0.5rem 1rem;
       margin-top: 0.5rem;
       font-size: 0.9rem;
+    }
+    
+    .participant-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .participant-item {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr auto;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    
+    .participant-item input {
+      padding: 0.5rem;
+    }
+    
+    .participant-item button {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      background: #dc3545;
     }
     
     .photo-preview {
@@ -206,12 +237,19 @@
       font-size: 0.85rem;
       margin-top: 0.5rem;
     }
+    
+    .subsection {
+      background: #f9f9f9;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>🏆 Alumni Cup Admin Panel</h1>
-    <p class="subtitle">Manage photos and event information</p>
+    <p class="subtitle">Manage photos, results, participants, and rules</p>
 
     <!-- Photo Gallery Section -->
     <div class="section">
@@ -253,26 +291,117 @@
 
     <!-- 2025 Results Section -->
     <div class="section">
-      <h2>🏆 2025 Results Update</h2>
+      <h2>🏆 2025 Results & Detailed Information</h2>
       
-      <h3 style="margin-top: 1.5rem; margin-bottom: 1rem;">Golf Results</h3>
-      <div class="form-group">
-        <label>UT Austin Golf Score</label>
-        <input type="number" id="utGolfScore" value="312">
-      </div>
-      <div class="form-group">
-        <label>Michigan Golf Score</label>
-        <input type="number" id="umGolfScore" value="325">
+      <div class="subsection">
+        <h3>Golf Championship Results</h3>
+        <div class="form-group">
+          <label>UT Austin Golf Score</label>
+          <input type="number" id="utGolfScore" value="312">
+        </div>
+        <div class="form-group">
+          <label>Michigan Golf Score</label>
+          <input type="number" id="umGolfScore" value="325">
+        </div>
+        
+        <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">Golf Participants (UT Austin)</h4>
+        <div id="utGolfParticipants" class="participant-list">
+          <div class="participant-item">
+            <input type="text" placeholder="Name" class="p-name">
+            <input type="number" placeholder="Score" class="p-score">
+            <select class="p-school">
+              <option value="UT">UT Austin</option>
+            </select>
+            <button onclick="removeParticipant(this)">Remove</button>
+          </div>
+        </div>
+        <button class="add-link-btn" onclick="addParticipant('utGolfParticipants', 'UT')">+ Add UT Golf Player</button>
+        
+        <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">Golf Participants (Michigan)</h4>
+        <div id="umGolfParticipants" class="participant-list">
+          <div class="participant-item">
+            <input type="text" placeholder="Name" class="p-name">
+            <input type="number" placeholder="Score" class="p-score">
+            <select class="p-school">
+              <option value="UM">Michigan</option>
+            </select>
+            <button onclick="removeParticipant(this)">Remove</button>
+          </div>
+        </div>
+        <button class="add-link-btn" onclick="addParticipant('umGolfParticipants', 'UM')">+ Add Michigan Golf Player</button>
       </div>
       
-      <h3 style="margin-top: 1.5rem; margin-bottom: 1rem;">10K Run Results</h3>
-      <div class="form-group">
-        <label>UT Austin Average Time (mm:ss)</label>
-        <input type="text" id="ut10kTime" value="49:15" placeholder="48:23">
+      <div class="subsection">
+        <h3>10K Run Championship Results</h3>
+        <div class="form-group">
+          <label>UT Austin Average Time (mm:ss)</label>
+          <input type="text" id="ut10kTime" value="49:15" placeholder="49:15">
+        </div>
+        <div class="form-group">
+          <label>Michigan Average Time (mm:ss)</label>
+          <input type="text" id="um10kTime" value="48:23" placeholder="48:23">
+        </div>
+        
+        <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">10K Participants (UT Austin)</h4>
+        <div id="ut10kParticipants" class="participant-list">
+          <div class="participant-item">
+            <input type="text" placeholder="Name" class="p-name">
+            <input type="text" placeholder="Time (mm:ss)" class="p-score">
+            <select class="p-school">
+              <option value="UT">UT Austin</option>
+            </select>
+            <button onclick="removeParticipant(this)">Remove</button>
+          </div>
+        </div>
+        <button class="add-link-btn" onclick="addParticipant('ut10kParticipants', 'UT')">+ Add UT Runner</button>
+        
+        <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">10K Participants (Michigan)</h4>
+        <div id="um10kParticipants" class="participant-list">
+          <div class="participant-item">
+            <input type="text" placeholder="Name" class="p-name">
+            <input type="text" placeholder="Time (mm:ss)" class="p-score">
+            <select class="p-school">
+              <option value="UM">Michigan</option>
+            </select>
+            <button onclick="removeParticipant(this)">Remove</button>
+          </div>
+        </div>
+        <button class="add-link-btn" onclick="addParticipant('um10kParticipants', 'UM')">+ Add Michigan Runner</button>
       </div>
-      <div class="form-group">
-        <label>Michigan Average Time (mm:ss)</label>
-        <input type="text" id="um10kTime" value="48:23" placeholder="49:15">
+      
+      <div class="subsection">
+        <h3>Rules & Additional Information</h3>
+        <div class="form-group">
+          <label>Golf Rules (English)</label>
+          <textarea id="golfRulesEn" placeholder="Enter golf rules, scoring format, handicap system, etc.">- USGA Rules apply
+- Modified Stableford scoring
+- Maximum handicap: 36
+- Best 5 scores count for team total</textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>Golf Rules (Korean)</label>
+          <textarea id="golfRulesKo" placeholder="골프 규칙을 한국어로 입력하세요">- USGA 규칙 적용
+- 수정된 스테이블포드 스코어링
+- 최대 핸디캡: 36
+- 팀 총점은 상위 5명의 점수로 계산</textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>10K Run Rules (English)</label>
+          <textarea id="runRulesEn" placeholder="Enter 10K run rules, timing system, course details, etc.">- Chip-timed race
+- USATF certified course
+- Top 3 finishers per team count for team score
+- Water stations every 2K</textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>10K Run Rules (Korean)</label>
+          <textarea id="runRulesKo" placeholder="10K 마라톤 규칙을 한국어로 입력하세요">- 칩 타이밍 레이스
+- USATF 인증 코스
+- 팀 점수는 상위 3명으로 계산
+- 2K마다 급수대 제공</textarea>
+        </div>
       </div>
       
       <div class="form-group">
@@ -286,7 +415,7 @@
       </div>
       
       <div class="button-group">
-        <button onclick="generateResultsCode()">Generate Results Code</button>
+        <button onclick="generateResultsCode()">Generate Complete Results Code</button>
         <button class="copy-button" onclick="copyCode('resultsCodeOutput')">Copy Code</button>
       </div>
       
@@ -321,18 +450,19 @@
     <div class="section">
       <h2>📝 How to Update Your Website</h2>
       <ol style="line-height: 2; margin-left: 1.5rem;">
-        <li><strong>For Photos:</strong> Paste Google Drive links, click "Generate Photo Gallery Code", copy the code</li>
+        <li><strong>Fill in all the information</strong> in the sections above (photos, participants, rules, etc.)</li>
+        <li>Click "Generate Code" for each section you want to update</li>
+        <li>Click "Copy Code" to copy the generated HTML</li>
         <li>Go to your GitHub repository: <code>https://github.com/johnyohankim/alumnicup</code></li>
-        <li>Click on <code>index.html</code></li>
-        <li>Click the pencil icon (Edit this file)</li>
-        <li>Find the section you want to update (use Ctrl+F to search)</li>
-        <li>Replace the old code with your new generated code</li>
+        <li>Click on <code>index.html</code> and then the pencil icon (Edit)</li>
+        <li>Find the section marked in the comments (e.g., <code>&lt;!-- Results Section --&gt;</code>)</li>
+        <li>Replace that entire section with your new generated code</li>
         <li>Scroll down and click "Commit changes"</li>
-        <li>Wait 2-3 minutes and refresh winalumnicup.com to see changes!</li>
+        <li>Wait 2-3 minutes and your site will be updated!</li>
       </ol>
       
       <div class="info-box" style="margin-top: 1rem;">
-        <strong>Tip:</strong> Look for comments in the generated code like <code>&lt;!-- Photo Gallery Section --&gt;</code> to know exactly where to paste!
+        <strong>Tip:</strong> The generated code includes collapsible dropdowns for participants and rules. Users can click to expand and see details!
       </div>
     </div>
   </div>
@@ -358,29 +488,42 @@
       }
     }
 
+    function addParticipant(containerId, school) {
+      const container = document.getElementById(containerId);
+      const newItem = document.createElement('div');
+      newItem.className = 'participant-item';
+      newItem.innerHTML = `
+        <input type="text" placeholder="Name" class="p-name">
+        <input type="${containerId.includes('Golf') ? 'number' : 'text'}" placeholder="${containerId.includes('Golf') ? 'Score' : 'Time (mm:ss)'}" class="p-score">
+        <select class="p-school">
+          <option value="${school}">${school === 'UT' ? 'UT Austin' : 'Michigan'}</option>
+        </select>
+        <button onclick="removeParticipant(this)">Remove</button>
+      `;
+      container.appendChild(newItem);
+    }
+
+    function removeParticipant(button) {
+      const container = button.parentElement.parentElement;
+      if (container.children.length > 1) {
+        button.parentElement.remove();
+      }
+    }
+
     function convertGoogleDriveLink(url) {
       if (!url || url.trim() === '') return null;
       
-      // Extract file ID from various Google Drive URL formats
       let fileId = null;
-      
-      // Format: https://drive.google.com/file/d/FILE_ID/view
       const match1 = url.match(/\/file\/d\/([^\/]+)/);
-      if (match1) {
-        fileId = match1[1];
-      }
+      if (match1) fileId = match1[1];
       
-      // Format: https://drive.google.com/open?id=FILE_ID
       const match2 = url.match(/[?&]id=([^&]+)/);
-      if (match2) {
-        fileId = match2[1];
-      }
+      if (match2) fileId = match2[1];
       
       if (fileId) {
         return `https://drive.google.com/uc?export=view&id=${fileId}`;
       }
       
-      // If already in correct format or other URL, return as is
       return url;
     }
 
@@ -412,9 +555,7 @@
       
       inputs.forEach(input => {
         const url = convertGoogleDriveLink(input.value);
-        if (url) {
-          photoUrls.push(url);
-        }
+        if (url) photoUrls.push(url);
       });
       
       if (photoUrls.length === 0) {
@@ -422,7 +563,7 @@
         return;
       }
       
-      let code = `<!-- Photo Gallery Section - Insert this AFTER the results section in index.html -->
+      let code = `<!-- Photo Gallery Section - Insert this AFTER the dropdown details section -->
 <div style="margin-top: 3rem;">
   <h3 style="text-align: center; color: #00274c; font-size: 1.8rem; margin-bottom: 2rem;">
     <span class="lang-en">📸 2025 Event Photos</span>
@@ -445,6 +586,22 @@
       showSuccess('photoSuccess');
     }
 
+    function getParticipants(containerId) {
+      const container = document.getElementById(containerId);
+      const items = container.querySelectorAll('.participant-item');
+      const participants = [];
+      
+      items.forEach(item => {
+        const name = item.querySelector('.p-name').value;
+        const score = item.querySelector('.p-score').value;
+        if (name && score) {
+          participants.push({ name, score });
+        }
+      });
+      
+      return participants;
+    }
+
     function generateResultsCode() {
       const utGolf = document.getElementById('utGolfScore').value;
       const umGolf = document.getElementById('umGolfScore').value;
@@ -453,10 +610,20 @@
       const participants = document.getElementById('totalParticipants').value;
       const notes = document.getElementById('resultNotes').value;
       
+      const utGolfParticipants = getParticipants('utGolfParticipants');
+      const umGolfParticipants = getParticipants('umGolfParticipants');
+      const ut10kParticipants = getParticipants('ut10kParticipants');
+      const um10kParticipants = getParticipants('um10kParticipants');
+      
+      const golfRulesEn = document.getElementById('golfRulesEn').value;
+      const golfRulesKo = document.getElementById('golfRulesKo').value;
+      const runRulesEn = document.getElementById('runRulesEn').value;
+      const runRulesKo = document.getElementById('runRulesKo').value;
+      
       const golfWinnerUT = parseInt(utGolf) < parseInt(umGolf);
       const runWinnerUM = um10k < ut10k;
       
-      let code = `<!-- Results Section - Replace the entire <section id="results"> in index.html -->
+      let code = `<!-- Results Section - Replace the entire <section id="results"> -->
 <section id="results">
   <h2 class="lang-en">2025 Inaugural Results</h2>
   <h2 class="lang-ko">2025 창립 대회 결과</h2>
@@ -501,56 +668,23 @@
     </div>
   </div>
   
-  <p class="lang-en" style="text-align: center; margin-top: 2rem; font-style: italic;">
-    Over ${participants} alumni participated in the inaugural event.${notes ? ' ' + notes : ''}
-  </p>
-  <p class="lang-ko" style="text-align: center; margin-top: 2rem; font-style: italic;">
-    창립 대회에 ${participants}명 이상의 동문이 참가했습니다.${notes ? ' ' + notes : ''}
-  </p>
-</section>
-<!-- End Results Section -->`;
-
-      document.getElementById('resultsCodeOutput').textContent = code;
-      document.getElementById('resultsCodeOutput').style.display = 'block';
-      showSuccess('resultsSuccess');
-    }
-
-    function generateAnnouncementCode() {
-      const en = document.getElementById('announcementEn').value;
-      const ko = document.getElementById('announcementKo').value;
+  <!-- Detailed Results Dropdown -->
+  <details style="margin-top: 2rem; background: #f9f9f9; padding: 1.5rem; border-radius: 10px;">
+    <summary style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #bf5700;">
+      <span class="lang-en">📊 View Detailed Results & Participants</span>
+      <span class="lang-ko">📊 상세 결과 및 참가자 보기</span>
+    </summary>
+    
+    <div style="margin-top: 1.5rem;">
+      <h4 class="lang-en" style="color: #00274c; margin-bottom: 1rem;">⛳ Golf Participants</h4>
+      <h4 class="lang-ko" style="color: #00274c; margin-bottom: 1rem;">⛳ 골프 참가자</h4>
       
-      let code = `<!-- Announcement Banner - Replace the <div class="announcement"> section in index.html -->
-<div class="announcement">
-  <span class="lang-en">${en}</span>
-  <span class="lang-ko">${ko}</span>
-</div>
-<!-- End Announcement Banner -->`;
-
-      document.getElementById('announcementCodeOutput').textContent = code;
-      document.getElementById('announcementCodeOutput').style.display = 'block';
-      showSuccess('announcementSuccess');
-    }
-
-    function copyCode(outputId) {
-      const code = document.getElementById(outputId).textContent;
-      if (!code || code.trim() === '') {
-        alert('Please generate the code first!');
-        return;
-      }
-      navigator.clipboard.writeText(code).then(() => {
-        alert('✅ Code copied to clipboard! Now paste it into your index.html on GitHub.');
-      }).catch(() => {
-        alert('Copy failed. Please manually select and copy the code.');
-      });
-    }
-
-    function showSuccess(id) {
-      const el = document.getElementById(id);
-      el.style.display = 'block';
-      setTimeout(() => {
-        el.style.display = 'none';
-      }, 3000);
-    }
-  </script>
-</body>
-</html>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+        <div style="background: white; padding: 1rem; border-radius: 8px;">
+          <h5 style="color: #bf5700; margin-bottom: 0.5rem;">University of Texas</h5>
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="border-bottom: 2px solid #ddd;">
+                <th style="text-align: left; padding: 0.5rem;" class="lang-en">Name</th>
+                <th style="text-align: left; padding: 0.5rem;" class="lang-ko">이름</th>
+                <th style="text-align: right; padding: 0
