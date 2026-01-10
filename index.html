@@ -274,6 +274,32 @@
       color: #bf5700;
     }
     
+    /* Dropdown Details */
+    details {
+      cursor: pointer;
+    }
+    
+    details summary {
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      margin-bottom: 0;
+      transition: background 0.3s;
+    }
+    
+    details summary:hover {
+      background: #f5f5f5;
+    }
+    
+    details[open] summary {
+      margin-bottom: 1rem;
+      border-radius: 8px 8px 0 0;
+    }
+    
+    details table {
+      font-size: 0.95rem;
+    }
+    
     /* Join Section */
     .join-section {
       background: linear-gradient(135deg, #bf5700 0%, #00274c 100%);
@@ -431,19 +457,24 @@
   <nav>
     <div class="container">
       <div class="logo">🏆 ALUMNI CUP</div>
-      <ul>
-        <li><a href="#home" class="lang-en">Home</a><a href="#home" class="lang-ko">홈</a></li>
-        <li><a href="#about" class="lang-en">About</a><a href="#about" class="lang-ko">소개</a></li>
-        <li><a href="#events" class="lang-en">Events</a><a href="#events" class="lang-ko">대회</a></li>
-        <li><a href="#schools" class="lang-en">Schools</a><a href="#schools" class="lang-ko">참가대학</a></li>
-        <li><a href="#results" class="lang-en">Results</a><a href="#results" class="lang-ko">결과</a></li>
-        <li><a href="#join" class="lang-en">Join Us</a><a href="#join" class="lang-ko">참가신청</a></li>
-        <li><a href="#contact" class="lang-en">Contact</a><a href="#contact" class="lang-ko">문의</a></li>
-      </ul>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
       <button class="lang-toggle" onclick="toggleLanguage()">
         <span class="lang-en">한국어</span>
         <span class="lang-ko">English</span>
       </button>
+      <ul id="navMenu">
+        <li><a href="#home" class="lang-en" onclick="closeMenu()">Home</a><a href="#home" class="lang-ko" onclick="closeMenu()">홈</a></li>
+        <li><a href="#about" class="lang-en" onclick="closeMenu()">About</a><a href="#about" class="lang-ko" onclick="closeMenu()">소개</a></li>
+        <li><a href="#events" class="lang-en" onclick="closeMenu()">Events</a><a href="#events" class="lang-ko" onclick="closeMenu()">대회</a></li>
+        <li><a href="#schools" class="lang-en" onclick="closeMenu()">Schools</a><a href="#schools" class="lang-ko" onclick="closeMenu()">참가대학</a></li>
+        <li><a href="#results" class="lang-en" onclick="closeMenu()">Results</a><a href="#results" class="lang-ko" onclick="closeMenu()">결과</a></li>
+        <li><a href="#join" class="lang-en" onclick="closeMenu()">Join Us</a><a href="#join" class="lang-ko" onclick="closeMenu()">참가신청</a></li>
+        <li><a href="#contact" class="lang-en" onclick="closeMenu()">Contact</a><a href="#contact" class="lang-ko" onclick="closeMenu()">문의</a></li>
+      </ul>
     </div>
   </nav>
 
@@ -611,6 +642,59 @@
         </div>
       </div>
       
+      <!-- Detailed Results Dropdown - This is where admin-generated code will go -->
+      <details style="margin-top: 2rem; background: #f9f9f9; padding: 1.5rem; border-radius: 10px;">
+        <summary style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #bf5700;">
+          <span class="lang-en">📊 View Detailed Results & Participants</span>
+          <span class="lang-ko">📊 상세 결과 및 참가자 보기</span>
+        </summary>
+        
+        <div style="margin-top: 1.5rem; text-align: center; padding: 2rem; color: #666;">
+          <p class="lang-en">Detailed participant information will be added soon.</p>
+          <p class="lang-ko">상세 참가자 정보는 곧 추가될 예정입니다.</p>
+        </div>
+      </details>
+      
+      <!-- Rules Dropdown - This is where admin-generated code will go -->
+      <details style="margin-top: 1rem; background: #f9f9f9; padding: 1.5rem; border-radius: 10px;">
+        <summary style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #bf5700;">
+          <span class="lang-en">📋 Competition Rules</span>
+          <span class="lang-ko">📋 대회 규칙</span>
+        </summary>
+        
+        <div style="margin-top: 1.5rem;">
+          <h4 class="lang-en" style="color: #00274c; margin-bottom: 0.5rem;">⛳ Golf Rules</h4>
+          <h4 class="lang-ko" style="color: #00274c; margin-bottom: 0.5rem;">⛳ 골프 규칙</h4>
+          <div class="lang-en" style="background: white; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+            - USGA Rules apply<br>
+            - Modified Stableford scoring<br>
+            - Maximum handicap: 36<br>
+            - Best 5 scores count for team total
+          </div>
+          <div class="lang-ko" style="background: white; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+            - USGA 규칙 적용<br>
+            - 수정된 스테이블포드 스코어링<br>
+            - 최대 핸디캡: 36<br>
+            - 팀 총점은 상위 5명의 점수로 계산
+          </div>
+          
+          <h4 class="lang-en" style="color: #00274c; margin-bottom: 0.5rem; margin-top: 1.5rem;">🏃 10K Run Rules</h4>
+          <h4 class="lang-ko" style="color: #00274c; margin-bottom: 0.5rem; margin-top: 1.5rem;">🏃 10K 마라톤 규칙</h4>
+          <div class="lang-en" style="background: white; padding: 1rem; border-radius: 8px;">
+            - Chip-timed race<br>
+            - USATF certified course<br>
+            - Top 3 finishers per team count for team score<br>
+            - Water stations every 2K
+          </div>
+          <div class="lang-ko" style="background: white; padding: 1rem; border-radius: 8px;">
+            - 칩 타이밍 레이스<br>
+            - USATF 인증 코스<br>
+            - 팀 점수는 상위 3명으로 계산<br>
+            - 2K마다 급수대 제공
+          </div>
+        </div>
+      </details>
+      
       <p class="lang-en" style="text-align: center; margin-top: 2rem; font-style: italic;">
         Over 100 alumni participated in the inaugural event. Detailed results and photos coming soon!
       </p>
@@ -743,6 +827,14 @@
   </footer>
 
   <script>
+    function toggleMenu() {
+      document.getElementById('navMenu').classList.toggle('active');
+    }
+    
+    function closeMenu() {
+      document.getElementById('navMenu').classList.remove('active');
+    }
+    
     function toggleLanguage() {
       document.body.classList.toggle('korean');
       localStorage.setItem('language', document.body.classList.contains('korean') ? 'ko' : 'en');
