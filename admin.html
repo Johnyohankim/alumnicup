@@ -3,369 +3,330 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alumni Cup - Admin Panel</title>
+  <title>Alumni Cup Admin Panel</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; padding: 2rem; }
-    .container { max-width: 1000px; margin: 0 auto; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-    h1 { color: #bf5700; margin-bottom: 0.5rem; }
-    .subtitle { color: #666; margin-bottom: 2rem; }
-    .section { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 2px solid #eee; }
-    .section:last-child { border-bottom: none; }
-    h2 { color: #00274c; margin-bottom: 1.5rem; font-size: 1.5rem; }
-    h3 { color: #333; margin-top: 1.5rem; margin-bottom: 1rem; font-size: 1.2rem; }
-    .form-group { margin-bottom: 1.5rem; }
-    label { display: block; margin-bottom: 0.5rem; font-weight: bold; color: #333; }
-    input[type="text"], input[type="number"], input[type="url"], textarea, select {
-      width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;
-    }
-    textarea { min-height: 150px; resize: vertical; font-family: monospace; }
-    .photo-links { display: flex; flex-direction: column; gap: 0.5rem; }
-    .photo-link-item { display: flex; gap: 0.5rem; align-items: center; }
-    .photo-link-item input { flex: 1; }
-    .photo-link-item button { background: #dc3545; padding: 0.5rem 1rem; font-size: 0.9rem; }
-    .add-link-btn { background: #28a745; padding: 0.5rem 1rem; margin-top: 0.5rem; font-size: 0.9rem; }
-    .photo-preview { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem; }
-    .photo-item { position: relative; border-radius: 5px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    .photo-item img { width: 100%; height: 150px; object-fit: cover; }
-    button { background: #bf5700; color: white; padding: 1rem 2rem; border: none; border-radius: 5px; font-size: 1rem; cursor: pointer; font-weight: bold; transition: background 0.3s; }
+    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+    .container { max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; }
+    h1 { color: #bf5700; margin-bottom: 10px; }
+    h2 { color: #00274c; margin: 30px 0 15px 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+    h3 { color: #333; margin: 20px 0 10px 0; }
+    label { display: block; font-weight: bold; margin: 10px 0 5px 0; }
+    input, textarea, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px; }
+    textarea { min-height: 100px; font-family: monospace; }
+    button { background: #bf5700; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 5px 5px 5px 0; }
     button:hover { background: #a04900; }
-    .button-group { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
-    .success-message { background: #4CAF50; color: white; padding: 1rem; border-radius: 5px; margin-top: 1rem; display: none; }
-    .info-box { background: #e3f2fd; padding: 1rem; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #2196F3; }
-    .warning-box { background: #fff3cd; padding: 1rem; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ffc107; }
-    .code-output { background: #f5f5f5; padding: 1rem; border-radius: 5px; font-family: monospace; font-size: 0.9rem; margin-top: 1rem; max-height: 400px; overflow-y: auto; border: 1px solid #ddd; white-space: pre-wrap; word-wrap: break-word; }
-    .copy-button { background: #00274c; padding: 0.5rem 1rem; font-size: 0.9rem; }
-    .example { background: #f8f9fa; padding: 0.5rem; border-radius: 3px; font-family: monospace; font-size: 0.85rem; margin-top: 0.5rem; }
-    .subsection { background: #f9f9f9; padding: 1.5rem; border-radius: 8px; margin-top: 1rem; }
-    table { border-collapse: collapse; }
-    table th { font-weight: bold; }
+    .btn-small { padding: 5px 10px; font-size: 0.9em; }
+    .btn-green { background: #28a745; }
+    .btn-green:hover { background: #218838; }
+    .btn-blue { background: #007bff; }
+    .btn-blue:hover { background: #0056b3; }
+    .btn-red { background: #dc3545; }
+    .btn-red:hover { background: #c82333; }
+    .info-box { background: #e3f2fd; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #2196F3; font-size: 0.9em; }
+    .code-box { background: #f5f5f5; padding: 15px; border-radius: 5px; font-family: monospace; font-size: 0.85em; max-height: 400px; overflow-y: auto; white-space: pre-wrap; word-wrap: break-word; margin: 10px 0; display: none; border: 1px solid #ddd; }
+    .success { background: #4CAF50; color: white; padding: 10px; border-radius: 5px; margin: 10px 0; display: none; }
+    table { width: 100%; border-collapse: collapse; margin: 10px 0; background: white; }
+    th { background: #bf5700; color: white; padding: 8px; text-align: left; }
+    td { padding: 8px; border-bottom: 1px solid #eee; }
+    td input { padding: 5px; }
+    .photo-links { margin: 10px 0; }
+    .photo-item { display: flex; gap: 10px; margin: 5px 0; }
+    .photo-item input { flex: 1; }
+    .preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin: 10px 0; }
+    .preview-img { width: 100%; height: 150px; object-fit: cover; border-radius: 5px; }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>🏆 Alumni Cup Admin Panel</h1>
-    <p class="subtitle">Manage photos, results, participants, and rules</p>
+    <p>Manage your website content here</p>
 
-    <!-- Results Section -->
-    <div class="section">
-      <h2>🏆 2025 Results & Participants</h2>
-      
-      <div class="subsection">
-        <h3>Golf Results</h3>
-        <div class="form-group">
-          <label>UT Austin Score</label>
-          <input type="number" id="utGolfScore" value="312">
-        </div>
-        <div class="form-group">
-          <label>Michigan Score</label>
-          <input type="number" id="umGolfScore" value="325">
-        </div>
-        
-        <h4 style="margin-top: 1.5rem;">UT Austin Golf Participants</h4>
-        <textarea id="utGolfCSV" placeholder="Paste CSV (Name, Score):
-John Smith, 78
-Jane Doe, 82" style="min-height: 80px;"></textarea>
-        <button class="add-link-btn" onclick="parseCSV('utGolfCSV', 'utGolfTable')">Parse CSV</button>
-        
-        <table id="utGolfTable" style="width: 100%; margin-top: 1rem; background: white;">
-          <thead>
-            <tr style="background: #bf5700; color: white;">
-              <th style="padding: 0.5rem; text-align: left;">Name</th>
-              <th style="padding: 0.5rem; text-align: left;">Score</th>
-              <th style="padding: 0.5rem; width: 80px;">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; padding: 0.3rem;"></td>
-              <td style="padding: 0.5rem;"><input type="number" placeholder="Score" style="width: 100%; padding: 0.3rem;"></td>
-              <td style="padding: 0.5rem;"><button onclick="removeRow(this)" style="padding: 0.3rem; font-size: 0.85rem;">×</button></td>
-            </tr>
-          </tbody>
-        </table>
-        
-        <h4 style="margin-top: 1.5rem;">Michigan Golf Participants</h4>
-        <textarea id="umGolfCSV" placeholder="Paste CSV (Name, Score)" style="min-height: 80px;"></textarea>
-        <button class="add-link-btn" onclick="parseCSV('umGolfCSV', 'umGolfTable')">Parse CSV</button>
-        
-        <table id="umGolfTable" style="width: 100%; margin-top: 1rem; background: white;">
-          <thead>
-            <tr style="background: #00274c; color: white;">
-              <th style="padding: 0.5rem; text-align: left;">Name</th>
-              <th style="padding: 0.5rem; text-align: left;">Score</th>
-              <th style="padding: 0.5rem; width: 80px;">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; padding: 0.3rem;"></td>
-              <td style="padding: 0.5rem;"><input type="number" placeholder="Score" style="width: 100%; padding: 0.3rem;"></td>
-              <td style="padding: 0.5rem;"><button onclick="removeRow(this)" style="padding: 0.3rem; font-size: 0.85rem;">×</button></td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- PHOTOS -->
+    <h2>📸 Photo Gallery</h2>
+    <div class="info-box">Upload photos to Google Drive, share with "Anyone with the link", paste links below</div>
+    <div id="photoLinks" class="photo-links">
+      <div class="photo-item">
+        <input type="url" placeholder="https://drive.google.com/file/d/...">
+        <button class="btn-small btn-red" onclick="removePhoto(this)">Remove</button>
       </div>
-      
-      <div class="subsection">
-        <h3>10K Run Results</h3>
-        <div class="form-group">
-          <label>UT Austin Avg Time</label>
-          <input type="text" id="ut10kTime" value="49:15">
-        </div>
-        <div class="form-group">
-          <label>Michigan Avg Time</label>
-          <input type="text" id="um10kTime" value="48:23">
-        </div>
-        
-        <h4 style="margin-top: 1.5rem;">UT Austin 10K Participants</h4>
-        <textarea id="ut10kCSV" placeholder="Paste CSV (Name, Time)" style="min-height: 80px;"></textarea>
-        <button class="add-link-btn" onclick="parseCSV('ut10kCSV', 'ut10kTable')">Parse CSV</button>
-        
-        <table id="ut10kTable" style="width: 100%; margin-top: 1rem; background: white;">
-          <thead>
-            <tr style="background: #bf5700; color: white;">
-              <th style="padding: 0.5rem; text-align: left;">Name</th>
-              <th style="padding: 0.5rem; text-align: left;">Time</th>
-              <th style="padding: 0.5rem; width: 80px;">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; padding: 0.3rem;"></td>
-              <td style="padding: 0.5rem;"><input type="text" placeholder="48:23" style="width: 100%; padding: 0.3rem;"></td>
-              <td style="padding: 0.5rem;"><button onclick="removeRow(this)" style="padding: 0.3rem; font-size: 0.85rem;">×</button></td>
-            </tr>
-          </tbody>
-        </table>
-        
-        <h4 style="margin-top: 1.5rem;">Michigan 10K Participants</h4>
-        <textarea id="um10kCSV" placeholder="Paste CSV (Name, Time)" style="min-height: 80px;"></textarea>
-        <button class="add-link-btn" onclick="parseCSV('um10kCSV', 'um10kTable')">Parse CSV</button>
-        
-        <table id="um10kTable" style="width: 100%; margin-top: 1rem; background: white;">
-          <thead>
-            <tr style="background: #00274c; color: white;">
-              <th style="padding: 0.5rem; text-align: left;">Name</th>
-              <th style="padding: 0.5rem; text-align: left;">Time</th>
-              <th style="padding: 0.5rem; width: 80px;">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; padding: 0.3rem;"></td>
-              <td style="padding: 0.5rem;"><input type="text" placeholder="48:23" style="width: 100%; padding: 0.3rem;"></td>
-              <td style="padding: 0.5rem;"><button onclick="removeRow(this)" style="padding: 0.3rem; font-size: 0.85rem;">×</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      
-      <div class="subsection">
-        <h3>Rules</h3>
-        <div class="form-group">
-          <label>Golf Rules (English)</label>
-          <textarea id="golfRulesEn">- USGA Rules apply
-- Modified Stableford scoring
-- Maximum handicap: 36
-- Best 5 scores count for team total</textarea>
-        </div>
-        <div class="form-group">
-          <label>Golf Rules (Korean)</label>
-          <textarea id="golfRulesKo">- USGA 규칙 적용
-- 수정된 스테이블포드 스코어링
-- 최대 핸디캡: 36
-- 팀 총점은 상위 5명의 점수로 계산</textarea>
-        </div>
-        <div class="form-group">
-          <label>10K Rules (English)</label>
-          <textarea id="runRulesEn">- Chip-timed race
-- USATF certified course
-- Top 3 finishers per team count
-- Water stations every 2K</textarea>
-        </div>
-        <div class="form-group">
-          <label>10K Rules (Korean)</label>
-          <textarea id="runRulesKo">- 칩 타이밍 레이스
-- USATF 인증 코스
-- 팀 점수는 상위 3명으로 계산
-- 2K마다 급수대 제공</textarea>
-        </div>
-      </div>
-      
-      <div class="form-group">
-        <label>Total Participants</label>
-        <input type="number" id="totalParticipants" value="100">
-      </div>
-      
-      <div class="button-group">
-        <button onclick="generateResultsCode()">Generate Results Code</button>
-        <button class="copy-button" onclick="copyCode('resultsOutput')">Copy Code</button>
-      </div>
-      
-      <div class="code-output" id="resultsOutput" style="display: none;"></div>
-      <div class="success-message" id="resultsSuccess">Code generated!</div>
     </div>
+    <button class="btn-green" onclick="addPhoto()">+ Add Photo</button>
+    <button onclick="previewPhotos()">Preview</button>
+    <button class="btn-blue" onclick="genPhoto()">Generate Code</button>
+    <button onclick="copy('photoCode')">Copy</button>
+    <div id="photoPreview" class="preview-grid"></div>
+    <div id="photoCode" class="code-box"></div>
+    <div id="photoMsg" class="success">Code generated!</div>
+
+    <!-- RESULTS -->
+    <h2>🏆 Results & Participants</h2>
+    
+    <h3>Golf</h3>
+    <label>UT Austin Score</label>
+    <input type="number" id="utGolf" value="312">
+    <label>Michigan Score</label>
+    <input type="number" id="umGolf" value="325">
+    <label>Participants (CSV: Name, School, Score)</label>
+    <div class="info-box">Example: John Smith, UT, 78</div>
+    <textarea id="golfCSV" placeholder="John Smith, UT, 78
+Jane Doe, Michigan, 82"></textarea>
+    <button class="btn-green" onclick="parseTable('golfCSV', 'golfTable')">Parse CSV</button>
+    <table id="golfTable">
+      <thead><tr><th>Name</th><th>School</th><th>Score</th><th>Action</th></tr></thead>
+      <tbody><tr><td><input type="text" placeholder="Name"></td><td><input type="text" placeholder="UT/Michigan"></td><td><input type="number" placeholder="78"></td><td><button class="btn-small btn-red" onclick="delRow(this)">×</button></td></tr></tbody>
+    </table>
+
+    <h3>10K Run</h3>
+    <label>UT Austin Avg Time</label>
+    <input type="text" id="utRun" value="49:15">
+    <label>Michigan Avg Time</label>
+    <input type="text" id="umRun" value="48:23">
+    <label>Participants (CSV: Name, School, Time)</label>
+    <div class="info-box">Example: John Smith, UT, 48:23</div>
+    <textarea id="runCSV" placeholder="John Smith, UT, 48:23
+Jane Doe, Michigan, 52:15"></textarea>
+    <button class="btn-green" onclick="parseTable('runCSV', 'runTable')">Parse CSV</button>
+    <table id="runTable">
+      <thead><tr><th>Name</th><th>School</th><th>Time</th><th>Action</th></tr></thead>
+      <tbody><tr><td><input type="text" placeholder="Name"></td><td><input type="text" placeholder="UT/Michigan"></td><td><input type="text" placeholder="48:23"></td><td><button class="btn-small btn-red" onclick="delRow(this)">×</button></td></tr></tbody>
+    </table>
+
+    <h3>Rules</h3>
+    <label>Golf Rules (English)</label>
+    <textarea id="golfEn">- USGA Rules apply
+- Modified Stableford scoring
+- Maximum handicap: 36</textarea>
+    <label>Golf Rules (Korean)</label>
+    <textarea id="golfKo">- USGA 규칙 적용
+- 수정된 스테이블포드 스코어링
+- 최대 핸디캡: 36</textarea>
+    <label>10K Rules (English)</label>
+    <textarea id="runEn">- Chip-timed race
+- USATF certified course
+- Top 3 finishers per team count</textarea>
+    <label>10K Rules (Korean)</label>
+    <textarea id="runKo">- 칩 타이밍 레이스
+- USATF 인증 코스
+- 팀 점수는 상위 3명으로 계산</textarea>
+
+    <label>Total Participants</label>
+    <input type="number" id="total" value="100">
+    <label>Notes (optional)</label>
+    <textarea id="notes" style="min-height: 60px;"></textarea>
+
+    <button class="btn-blue" onclick="genResults()">Generate Results Code</button>
+    <button onclick="copy('resultsCode')">Copy</button>
+    <div id="resultsCode" class="code-box"></div>
+    <div id="resultsMsg" class="success">Results code generated!</div>
+
+    <!-- ANNOUNCEMENT -->
+    <h2>📢 Announcement</h2>
+    <label>English</label>
+    <input type="text" id="annEn" value="🎉 Alumni Cup 2026 - Registration Opens March 2026">
+    <label>Korean</label>
+    <input type="text" id="annKo" value="🎉 알럼나이 컵 2026 - 등록은 2026년 3월 시작">
+    <button class="btn-blue" onclick="genAnn()">Generate Code</button>
+    <button onclick="copy('annCode')">Copy</button>
+    <div id="annCode" class="code-box"></div>
+    <div id="annMsg" class="success">Announcement code generated!</div>
   </div>
 
   <script>
-    function addRow(tableId, type) {
-      const table = document.getElementById(tableId);
-      const row = table.querySelector('tbody').insertRow();
-      row.innerHTML = `
-        <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; padding: 0.3rem;"></td>
-        <td style="padding: 0.5rem;"><input type="${type}" placeholder="${type === 'number' ? 'Score' : '48:23'}" style="width: 100%; padding: 0.3rem;"></td>
-        <td style="padding: 0.5rem;"><button onclick="removeRow(this)" style="padding: 0.3rem; font-size: 0.85rem;">×</button></td>
-      `;
+    // PHOTO FUNCTIONS
+    function addPhoto() {
+      const div = document.createElement('div');
+      div.className = 'photo-item';
+      div.innerHTML = '<input type="url" placeholder="https://drive.google.com/file/d/..."><button class="btn-small btn-red" onclick="removePhoto(this)">Remove</button>';
+      document.getElementById('photoLinks').appendChild(div);
     }
-    
-    function removeRow(btn) {
-      const row = btn.closest('tr');
-      if (row.parentElement.rows.length > 1) row.remove();
+
+    function removePhoto(btn) {
+      if (document.getElementById('photoLinks').children.length > 1) {
+        btn.parentElement.remove();
+      }
     }
-    
-    function parseCSV(textareaId, tableId) {
-      const csv = document.getElementById(textareaId).value.trim();
+
+    function convertDriveLink(url) {
+      if (!url) return null;
+      const match = url.match(/\/file\/d\/([^\/]+)/);
+      return match ? `https://drive.google.com/uc?export=view&id=${match[1]}` : url;
+    }
+
+    function previewPhotos() {
+      const inputs = document.querySelectorAll('#photoLinks input');
+      const preview = document.getElementById('photoPreview');
+      preview.innerHTML = '';
+      inputs.forEach(inp => {
+        const url = convertDriveLink(inp.value);
+        if (url) preview.innerHTML += `<img src="${url}" class="preview-img">`;
+      });
+    }
+
+    function genPhoto() {
+      const inputs = document.querySelectorAll('#photoLinks input');
+      const urls = [];
+      inputs.forEach(inp => {
+        const url = convertDriveLink(inp.value);
+        if (url) urls.push(url);
+      });
+      if (urls.length === 0) { alert('Add photos first!'); return; }
+      
+      let code = `<!-- Photo Gallery -->
+<div style="margin-top: 3rem;">
+  <h3 style="text-align: center; color: #00274c; font-size: 1.8rem; margin-bottom: 2rem;">
+    <span class="lang-en">📸 2025 Event Photos</span>
+    <span class="lang-ko">📸 2025 대회 사진</span>
+  </h3>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+`;
+      urls.forEach(u => code += `    <img src="${u}" alt="Alumni Cup 2025" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+`);
+      code += `  </div>
+</div>`;
+      document.getElementById('photoCode').textContent = code;
+      document.getElementById('photoCode').style.display = 'block';
+      showMsg('photoMsg');
+    }
+
+    // TABLE FUNCTIONS
+    function delRow(btn) {
+      const tbody = btn.closest('tbody');
+      if (tbody.rows.length > 1) btn.closest('tr').remove();
+    }
+
+    function parseTable(csvId, tableId) {
+      const csv = document.getElementById(csvId).value.trim();
       if (!csv) { alert('Paste CSV first!'); return; }
       
-      const table = document.getElementById(tableId);
-      const tbody = table.querySelector('tbody');
+      const tbody = document.getElementById(tableId).querySelector('tbody');
       tbody.innerHTML = '';
       
-      const type = tableId.includes('Golf') ? 'number' : 'text';
       csv.split('\n').forEach(line => {
         const parts = line.split(',').map(p => p.trim());
-        if (parts.length >= 2) {
+        if (parts.length >= 3) {
           const row = tbody.insertRow();
-          row.innerHTML = `
-            <td style="padding: 0.5rem;"><input type="text" value="${parts[0]}" style="width: 100%; padding: 0.3rem;"></td>
-            <td style="padding: 0.5rem;"><input type="${type}" value="${parts[1]}" style="width: 100%; padding: 0.3rem;"></td>
-            <td style="padding: 0.5rem;"><button onclick="removeRow(this)" style="padding: 0.3rem; font-size: 0.85rem;">×</button></td>
-          `;
+          const inputType = tableId === 'golfTable' ? 'number' : 'text';
+          row.innerHTML = `<td><input type="text" value="${parts[0]}"></td><td><input type="text" value="${parts[1]}"></td><td><input type="${inputType}" value="${parts[2]}"></td><td><button class="btn-small btn-red" onclick="delRow(this)">×</button></td>`;
         }
       });
-      document.getElementById(textareaId).value = '';
+      document.getElementById(csvId).value = '';
       alert('CSV parsed!');
     }
-    
+
     function getTableData(tableId) {
       const rows = document.getElementById(tableId).querySelector('tbody').rows;
       const data = [];
-      for (let row of rows) {
-        const inputs = row.querySelectorAll('input');
-        const name = inputs[0].value.trim();
-        const score = inputs[1].value.trim();
-        if (name && score) data.push({name, score});
+      for (let r of rows) {
+        const inputs = r.querySelectorAll('input');
+        if (inputs[0].value && inputs[1].value && inputs[2].value) {
+          data.push({name: inputs[0].value, school: inputs[1].value, score: inputs[2].value});
+        }
       }
       return data;
     }
-    
-    function generateResultsCode() {
-      const utGolf = document.getElementById('utGolfScore').value;
-      const umGolf = document.getElementById('umGolfScore').value;
-      const ut10k = document.getElementById('ut10kTime').value;
-      const um10k = document.getElementById('um10kTime').value;
-      const total = document.getElementById('totalParticipants').value;
+
+    // GENERATE RESULTS
+    function genResults() {
+      const utG = document.getElementById('utGolf').value;
+      const umG = document.getElementById('umGolf').value;
+      const utR = document.getElementById('utRun').value;
+      const umR = document.getElementById('umRun').value;
+      const tot = document.getElementById('total').value;
+      const note = document.getElementById('notes').value;
       
-      const utGolfData = getTableData('utGolfTable');
-      const umGolfData = getTableData('umGolfTable');
-      const ut10kData = getTableData('ut10kTable');
-      const um10kData = getTableData('um10kTable');
+      const golf = getTableData('golfTable');
+      const run = getTableData('runTable');
       
-      const golfRulesEn = document.getElementById('golfRulesEn').value;
-      const golfRulesKo = document.getElementById('golfRulesKo').value;
-      const runRulesEn = document.getElementById('runRulesEn').value;
-      const runRulesKo = document.getElementById('runRulesKo').value;
+      const golfEn = document.getElementById('golfEn').value;
+      const golfKo = document.getElementById('golfKo').value;
+      const runEn = document.getElementById('runEn').value;
+      const runKo = document.getElementById('runKo').value;
       
-      const golfWinnerUT = parseInt(utGolf) < parseInt(umGolf);
-      const runWinnerUM = um10k < ut10k;
+      const gWin = parseInt(utG) < parseInt(umG);
+      const rWin = umR < utR;
+      
+      const utGolf = golf.filter(p => p.school.toLowerCase().includes('ut'));
+      const umGolf = golf.filter(p => p.school.toLowerCase().includes('mich'));
+      const utRun = run.filter(p => p.school.toLowerCase().includes('ut'));
+      const umRun = run.filter(p => p.school.toLowerCase().includes('mich'));
       
       let code = `<!-- Results Section -->
 <section id="results">
-  <h2 class="lang-en">2025 Results</h2>
-  <h2 class="lang-ko">2025 결과</h2>
+  <h2 class="lang-en">2025 Inaugural Results</h2>
+  <h2 class="lang-ko">2025 창립 대회 결과</h2>
+  <p class="lang-en" style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">Ann Arbor, Michigan - September 2025</p>
+  <p class="lang-ko" style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">미시간주 앤아버 - 2025년 9월</p>
   
   <div class="results-box">
-    <h3 class="lang-en">⛳ Golf</h3>
-    <h3 class="lang-ko">⛳ 골프</h3>
+    <h3 class="lang-en">⛳ Golf Championship</h3>
+    <h3 class="lang-ko">⛳ 골프 챔피언십</h3>
     <div class="result-row">
-      <span class="school lang-en">${golfWinnerUT ? '🏆 ' : ''}UT Austin</span>
-      <span class="school lang-ko">${golfWinnerUT ? '🏆 ' : ''}텍사스대</span>
-      <span class="score">${utGolf}</span>
+      <span class="school lang-en">${gWin ? '🏆 ' : ''}University of Texas</span>
+      <span class="school lang-ko">${gWin ? '🏆 ' : ''}텍사스 대학교</span>
+      <span class="score lang-en">Team Score: ${utG}</span>
+      <span class="score lang-ko">팀 점수: ${utG}</span>
     </div>
     <div class="result-row">
-      <span class="school lang-en">${!golfWinnerUT ? '🏆 ' : ''}Michigan</span>
-      <span class="school lang-ko">${!golfWinnerUT ? '🏆 ' : ''}미시간대</span>
-      <span class="score">${umGolf}</span>
+      <span class="school lang-en">${!gWin ? '🏆 ' : ''}University of Michigan</span>
+      <span class="school lang-ko">${!gWin ? '🏆 ' : ''}미시간 대학교</span>
+      <span class="score lang-en">Team Score: ${umG}</span>
+      <span class="score lang-ko">팀 점수: ${umG}</span>
     </div>
   </div>
   
   <div class="results-box">
-    <h3 class="lang-en">🏃 10K Run</h3>
-    <h3 class="lang-ko">🏃 10K 마라톤</h3>
+    <h3 class="lang-en">🏃 10K Run Championship</h3>
+    <h3 class="lang-ko">🏃 10K 마라톤 챔피언십</h3>
     <div class="result-row">
-      <span class="school lang-en">${runWinnerUM ? '🏆 ' : ''}Michigan</span>
-      <span class="school lang-ko">${runWinnerUM ? '🏆 ' : ''}미시간대</span>
-      <span class="score">${um10k}</span>
+      <span class="school lang-en">${rWin ? '🏆 ' : ''}University of Michigan</span>
+      <span class="school lang-ko">${rWin ? '🏆 ' : ''}미시간 대학교</span>
+      <span class="score lang-en">Avg Time: ${umR}</span>
+      <span class="score lang-ko">평균 기록: ${umR}</span>
     </div>
     <div class="result-row">
-      <span class="school lang-en">${!runWinnerUM ? '🏆 ' : ''}UT Austin</span>
-      <span class="school lang-ko">${!runWinnerUM ? '🏆 ' : ''}텍사스대</span>
-      <span class="score">${ut10k}</span>
+      <span class="school lang-en">${!rWin ? '🏆 ' : ''}University of Texas</span>
+      <span class="school lang-ko">${!rWin ? '🏆 ' : ''}텍사스 대학교</span>
+      <span class="score lang-en">Avg Time: ${utR}</span>
+      <span class="score lang-ko">평균 기록: ${utR}</span>
     </div>
   </div>
   
   <details style="margin-top: 2rem; background: #f9f9f9; padding: 1.5rem; border-radius: 10px;">
     <summary style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #bf5700;">
-      <span class="lang-en">📊 Detailed Results</span>
-      <span class="lang-ko">📊 상세 결과</span>
+      <span class="lang-en">📊 View Detailed Results</span>
+      <span class="lang-ko">📊 상세 결과 보기</span>
     </summary>
     <div style="margin-top: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
       <div style="background: white; padding: 1rem; border-radius: 8px;">
         <h5 style="color: #bf5700;">UT Austin Golf</h5>
-        <table style="width: 100%;">
-          <thead><tr><th style="text-align: left;">Name</th><th style="text-align: right;">Score</th></tr></thead>
-          <tbody>`;
+        <table style="width: 100%;"><thead><tr><th class="lang-en">Name</th><th class="lang-ko">이름</th><th class="lang-en">Score</th><th class="lang-ko">점수</th></tr></thead><tbody>`;
       
-      utGolfData.forEach(p => {
-        code += `<tr><td>${p.name}</td><td style="text-align: right;">${p.score}</td></tr>`;
-      });
+      utGolf.forEach(p => code += `<tr><td>${p.name}</td><td>${p.score}</td></tr>`);
       
       code += `</tbody></table>
       </div>
       <div style="background: white; padding: 1rem; border-radius: 8px;">
         <h5 style="color: #00274c;">Michigan Golf</h5>
-        <table style="width: 100%;">
-          <thead><tr><th style="text-align: left;">Name</th><th style="text-align: right;">Score</th></tr></thead>
-          <tbody>`;
+        <table style="width: 100%;"><thead><tr><th class="lang-en">Name</th><th class="lang-ko">이름</th><th class="lang-en">Score</th><th class="lang-ko">점수</th></tr></thead><tbody>`;
       
-      umGolfData.forEach(p => {
-        code += `<tr><td>${p.name}</td><td style="text-align: right;">${p.score}</td></tr>`;
-      });
+      umGolf.forEach(p => code += `<tr><td>${p.name}</td><td>${p.score}</td></tr>`);
       
       code += `</tbody></table>
       </div>
       <div style="background: white; padding: 1rem; border-radius: 8px;">
         <h5 style="color: #bf5700;">UT Austin 10K</h5>
-        <table style="width: 100%;">
-          <thead><tr><th style="text-align: left;">Name</th><th style="text-align: right;">Time</th></tr></thead>
-          <tbody>`;
+        <table style="width: 100%;"><thead><tr><th class="lang-en">Name</th><th class="lang-ko">이름</th><th class="lang-en">Time</th><th class="lang-ko">기록</th></tr></thead><tbody>`;
       
-      ut10kData.forEach(p => {
-        code += `<tr><td>${p.name}</td><td style="text-align: right;">${p.score}</td></tr>`;
-      });
+      utRun.forEach(p => code += `<tr><td>${p.name}</td><td>${p.score}</td></tr>`);
       
       code += `</tbody></table>
       </div>
       <div style="background: white; padding: 1rem; border-radius: 8px;">
         <h5 style="color: #00274c;">Michigan 10K</h5>
-        <table style="width: 100%;">
-          <thead><tr><th style="text-align: left;">Name</th><th style="text-align: right;">Time</th></tr></thead>
-          <tbody>`;
+        <table style="width: 100%;"><thead><tr><th class="lang-en">Name</th><th class="lang-ko">이름</th><th class="lang-en">Time</th><th class="lang-ko">기록</th></tr></thead><tbody>`;
       
-      um10kData.forEach(p => {
-        code += `<tr><td>${p.name}</td><td style="text-align: right;">${p.score}</td></tr>`;
-      });
+      umRun.forEach(p => code += `<tr><td>${p.name}</td><td>${p.score}</td></tr>`);
       
       code += `</tbody></table>
       </div>
@@ -380,34 +341,51 @@ Jane Doe, 82" style="min-height: 80px;"></textarea>
     <div style="margin-top: 1rem;">
       <h4 class="lang-en">⛳ Golf Rules</h4>
       <h4 class="lang-ko">⛳ 골프 규칙</h4>
-      <div class="lang-en" style="background: white; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">${golfRulesEn}</div>
-      <div class="lang-ko" style="background: white; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">${golfRulesKo}</div>
+      <div class="lang-en" style="background: white; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">${golfEn}</div>
+      <div class="lang-ko" style="background: white; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">${golfKo}</div>
       <h4 class="lang-en" style="margin-top: 1rem;">🏃 10K Rules</h4>
       <h4 class="lang-ko" style="margin-top: 1rem;">🏃 10K 규칙</h4>
-      <div class="lang-en" style="background: white; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">${runRulesEn}</div>
-      <div class="lang-ko" style="background: white; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">${runRulesKo}</div>
+      <div class="lang-en" style="background: white; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">${runEn}</div>
+      <div class="lang-ko" style="background: white; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">${runKo}</div>
     </div>
   </details>
   
-  <p class="lang-en" style="text-align: center; margin-top: 2rem; font-style: italic;">
-    Over ${total} alumni participated.
-  </p>
-  <p class="lang-ko" style="text-align: center; margin-top: 2rem; font-style: italic;">
-    ${total}명 이상의 동문이 참가했습니다.
-  </p>
+  <p class="lang-en" style="text-align: center; margin-top: 2rem; font-style: italic;">Over ${tot} alumni participated.${note ? ' ' + note : ''}</p>
+  <p class="lang-ko" style="text-align: center; margin-top: 2rem; font-style: italic;">${tot}명 이상의 동문이 참가했습니다.${note ? ' ' + note : ''}</p>
 </section>`;
       
-      document.getElementById('resultsOutput').textContent = code;
-      document.getElementById('resultsOutput').style.display = 'block';
-      document.getElementById('resultsSuccess').style.display = 'block';
-      setTimeout(() => { document.getElementById('resultsSuccess').style.display = 'none'; }, 3000);
+      document.getElementById('resultsCode').textContent = code;
+      document.getElementById('resultsCode').style.display = 'block';
+      showMsg('resultsMsg');
     }
-    
-    function copyCode(id) {
-      const code = document.getElementById(id).textContent;
-      navigator.clipboard.writeText(code).then(() => {
-        alert('✅ Copied!');
-      });
+
+    // GENERATE ANNOUNCEMENT
+    function genAnn() {
+      const en = document.getElementById('annEn').value;
+      const ko = document.getElementById('annKo').value;
+      
+      const code = `<!-- Announcement -->
+<div class="announcement">
+  <span class="lang-en">${en}</span>
+  <span class="lang-ko">${ko}</span>
+</div>`;
+      
+      document.getElementById('annCode').textContent = code;
+      document.getElementById('annCode').style.display = 'block';
+      showMsg('annMsg');
+    }
+
+    // UTILITIES
+    function copy(id) {
+      const text = document.getElementById(id).textContent;
+      if (!text) { alert('Generate code first!'); return; }
+      navigator.clipboard.writeText(text).then(() => alert('✅ Copied!'));
+    }
+
+    function showMsg(id) {
+      const el = document.getElementById(id);
+      el.style.display = 'block';
+      setTimeout(() => el.style.display = 'none', 3000);
     }
   </script>
 </body>
