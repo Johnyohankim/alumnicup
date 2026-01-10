@@ -305,30 +305,62 @@
         </div>
         
         <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">Golf Participants (UT Austin)</h4>
-        <div id="utGolfParticipants" class="participant-list">
-          <div class="participant-item">
-            <input type="text" placeholder="Name" class="p-name">
-            <input type="number" placeholder="Score" class="p-score">
-            <select class="p-school">
-              <option value="UT">UT Austin</option>
-            </select>
-            <button onclick="removeParticipant(this)">Remove</button>
-          </div>
+        <div class="info-box" style="font-size: 0.9rem;">
+          <strong>How to use:</strong> Paste CSV data from Excel/Google Sheets (Name, Score format). Or type directly in the table below.
         </div>
-        <button class="add-link-btn" onclick="addParticipant('utGolfParticipants', 'UT')">+ Add UT Golf Player</button>
+        <textarea id="utGolfCSV" placeholder="Paste CSV here (Name, Score) or leave blank and use table below
+Example:
+John Smith, 78
+Jane Doe, 82
+Bob Johnson, 75" style="min-height: 100px; font-family: monospace; margin-bottom: 0.5rem;"></textarea>
+        <button class="add-link-btn" onclick="parseCSV('utGolfCSV', 'utGolfTable')">📋 Parse CSV to Table</button>
         
-        <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">Golf Participants (Michigan)</h4>
-        <div id="umGolfParticipants" class="participant-list">
-          <div class="participant-item">
-            <input type="text" placeholder="Name" class="p-name">
-            <input type="number" placeholder="Score" class="p-score">
-            <select class="p-school">
-              <option value="UM">Michigan</option>
-            </select>
-            <button onclick="removeParticipant(this)">Remove</button>
-          </div>
+        <div style="overflow-x: auto; margin-top: 1rem;">
+          <table id="utGolfTable" style="width: 100%; border-collapse: collapse; background: white;">
+            <thead>
+              <tr style="background: #bf5700; color: white;">
+                <th style="padding: 0.5rem; text-align: left;">Name</th>
+                <th style="padding: 0.5rem; text-align: left;">Score</th>
+                <th style="padding: 0.5rem; width: 80px;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
+                <td style="padding: 0.5rem;"><input type="number" placeholder="Score" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
+                <td style="padding: 0.5rem;"><button onclick="removeTableRow(this)" style="padding: 0.3rem 0.5rem; font-size: 0.85rem;">Remove</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <button class="add-link-btn" onclick="addParticipant('umGolfParticipants', 'UM')">+ Add Michigan Golf Player</button>
+        <button class="add-link-btn" onclick="addTableRow('utGolfTable', 'number')">+ Add Row</button>
+        
+        <h4 style="margin-top: 2rem; margin-bottom: 0.5rem;">Golf Participants (Michigan)</h4>
+        <div class="info-box" style="font-size: 0.9rem;">
+          <strong>How to use:</strong> Paste CSV data from Excel/Google Sheets (Name, Score format). Or type directly in the table below.
+        </div>
+        <textarea id="umGolfCSV" placeholder="Paste CSV here (Name, Score)" style="min-height: 100px; font-family: monospace; margin-bottom: 0.5rem;"></textarea>
+        <button class="add-link-btn" onclick="parseCSV('umGolfCSV', 'umGolfTable')">📋 Parse CSV to Table</button>
+        
+        <div style="overflow-x: auto; margin-top: 1rem;">
+          <table id="umGolfTable" style="width: 100%; border-collapse: collapse; background: white;">
+            <thead>
+              <tr style="background: #00274c; color: white;">
+                <th style="padding: 0.5rem; text-align: left;">Name</th>
+                <th style="padding: 0.5rem; text-align: left;">Score</th>
+                <th style="padding: 0.5rem; width: 80px;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
+                <td style="padding: 0.5rem;"><input type="number" placeholder="Score" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
+                <td style="padding: 0.5rem;"><button onclick="removeTableRow(this)" style="padding: 0.3rem 0.5rem; font-size: 0.85rem;">Remove</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="add-link-btn" onclick="addTableRow('umGolfTable', 'number')">+ Add Row</button>
       </div>
       
       <div class="subsection">
@@ -343,30 +375,62 @@
         </div>
         
         <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">10K Participants (UT Austin)</h4>
-        <div id="ut10kParticipants" class="participant-list">
-          <div class="participant-item">
-            <input type="text" placeholder="Name" class="p-name">
-            <input type="text" placeholder="Time (mm:ss)" class="p-score">
-            <select class="p-school">
-              <option value="UT">UT Austin</option>
-            </select>
-            <button onclick="removeParticipant(this)">Remove</button>
-          </div>
+        <div class="info-box" style="font-size: 0.9rem;">
+          <strong>How to use:</strong> Paste CSV data (Name, Time). Time format: mm:ss (e.g., 48:23)
         </div>
-        <button class="add-link-btn" onclick="addParticipant('ut10kParticipants', 'UT')">+ Add UT Runner</button>
+        <textarea id="ut10kCSV" placeholder="Paste CSV here (Name, Time)
+Example:
+John Smith, 48:23
+Jane Doe, 52:15
+Bob Johnson, 45:30" style="min-height: 100px; font-family: monospace; margin-bottom: 0.5rem;"></textarea>
+        <button class="add-link-btn" onclick="parseCSV('ut10kCSV', 'ut10kTable')">📋 Parse CSV to Table</button>
         
-        <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">10K Participants (Michigan)</h4>
-        <div id="um10kParticipants" class="participant-list">
-          <div class="participant-item">
-            <input type="text" placeholder="Name" class="p-name">
-            <input type="text" placeholder="Time (mm:ss)" class="p-score">
-            <select class="p-school">
-              <option value="UM">Michigan</option>
-            </select>
-            <button onclick="removeParticipant(this)">Remove</button>
-          </div>
+        <div style="overflow-x: auto; margin-top: 1rem;">
+          <table id="ut10kTable" style="width: 100%; border-collapse: collapse; background: white;">
+            <thead>
+              <tr style="background: #bf5700; color: white;">
+                <th style="padding: 0.5rem; text-align: left;">Name</th>
+                <th style="padding: 0.5rem; text-align: left;">Time (mm:ss)</th>
+                <th style="padding: 0.5rem; width: 80px;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
+                <td style="padding: 0.5rem;"><input type="text" placeholder="48:23" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
+                <td style="padding: 0.5rem;"><button onclick="removeTableRow(this)" style="padding: 0.3rem 0.5rem; font-size: 0.85rem;">Remove</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <button class="add-link-btn" onclick="addParticipant('um10kParticipants', 'UM')">+ Add Michigan Runner</button>
+        <button class="add-link-btn" onclick="addTableRow('ut10kTable', 'text')">+ Add Row</button>
+        
+        <h4 style="margin-top: 2rem; margin-bottom: 0.5rem;">10K Participants (Michigan)</h4>
+        <div class="info-box" style="font-size: 0.9rem;">
+          <strong>How to use:</strong> Paste CSV data (Name, Time). Time format: mm:ss
+        </div>
+        <textarea id="um10kCSV" placeholder="Paste CSV here (Name, Time)" style="min-height: 100px; font-family: monospace; margin-bottom: 0.5rem;"></textarea>
+        <button class="add-link-btn" onclick="parseCSV('um10kCSV', 'um10kTable')">📋 Parse CSV to Table</button>
+        
+        <div style="overflow-x: auto; margin-top: 1rem;">
+          <table id="um10kTable" style="width: 100%; border-collapse: collapse; background: white;">
+            <thead>
+              <tr style="background: #00274c; color: white;">
+                <th style="padding: 0.5rem; text-align: left;">Name</th>
+                <th style="padding: 0.5rem; text-align: left;">Time (mm:ss)</th>
+                <th style="padding: 0.5rem; width: 80px;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
+                <td style="padding: 0.5rem;"><input type="text" placeholder="48:23" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
+                <td style="padding: 0.5rem;"><button onclick="removeTableRow(this)" style="padding: 0.3rem 0.5rem; font-size: 0.85rem;">Remove</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="add-link-btn" onclick="addTableRow('um10kTable', 'text')">+ Add Row</button>
       </div>
       
       <div class="subsection">
@@ -510,6 +574,85 @@
       }
     }
 
+    function addTableRow(tableId, inputType) {
+      const table = document.getElementById(tableId);
+      const tbody = table.querySelector('tbody');
+      const newRow = tbody.insertRow();
+      
+      newRow.innerHTML = `
+        <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
+        <td style="padding: 0.5rem;"><input type="${inputType}" placeholder="${inputType === 'number' ? 'Score' : '48:23'}" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
+        <td style="padding: 0.5rem;"><button onclick="removeTableRow(this)" style="padding: 0.3rem 0.5rem; font-size: 0.85rem;">Remove</button></td>
+      `;
+    }
+    
+    function removeTableRow(button) {
+      const row = button.closest('tr');
+      const tbody = row.parentElement;
+      if (tbody.rows.length > 1) {
+        row.remove();
+      } else {
+        alert('Must have at least one row!');
+      }
+    }
+    
+    function parseCSV(textareaId, tableId) {
+      const textarea = document.getElementById(textareaId);
+      const table = document.getElementById(tableId);
+      const tbody = table.querySelector('tbody');
+      const csvData = textarea.value.trim();
+      
+      if (!csvData) {
+        alert('Please paste CSV data first!');
+        return;
+      }
+      
+      // Clear existing rows except header
+      tbody.innerHTML = '';
+      
+      // Parse CSV lines
+      const lines = csvData.split('\n');
+      const inputType = tableId.includes('Golf') ? 'number' : 'text';
+      
+      lines.forEach(line => {
+        const trimmedLine = line.trim();
+        if (!trimmedLine) return;
+        
+        // Split by comma
+        const parts = trimmedLine.split(',').map(p => p.trim());
+        if (parts.length >= 2) {
+          const newRow = tbody.insertRow();
+          newRow.innerHTML = `
+            <td style="padding: 0.5rem;"><input type="text" value="${parts[0]}" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
+            <td style="padding: 0.5rem;"><input type="${inputType}" value="${parts[1]}" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
+            <td style="padding: 0.5rem;"><button onclick="removeTableRow(this)" style="padding: 0.3rem 0.5rem; font-size: 0.85rem;">Remove</button></td>
+          `;
+        }
+      });
+      
+      // Clear textarea
+      textarea.value = '';
+      alert('CSV data parsed successfully! Review the table and make any edits needed.');
+    }
+    
+    function getTableData(tableId) {
+      const table = document.getElementById(tableId);
+      const tbody = table.querySelector('tbody');
+      const rows = tbody.querySelectorAll('tr');
+      const data = [];
+      
+      rows.forEach(row => {
+        const inputs = row.querySelectorAll('input');
+        const name = inputs[0].value.trim();
+        const score = inputs[1].value.trim();
+        if (name && score) {
+          data.push({ name, score });
+        }
+      });
+      
+      return data;
+    }
+    
     function convertGoogleDriveLink(url) {
       if (!url || url.trim() === '') return null;
       
@@ -586,22 +729,6 @@
       showSuccess('photoSuccess');
     }
 
-    function getParticipants(containerId) {
-      const container = document.getElementById(containerId);
-      const items = container.querySelectorAll('.participant-item');
-      const participants = [];
-      
-      items.forEach(item => {
-        const name = item.querySelector('.p-name').value;
-        const score = item.querySelector('.p-score').value;
-        if (name && score) {
-          participants.push({ name, score });
-        }
-      });
-      
-      return participants;
-    }
-
     function generateResultsCode() {
       const utGolf = document.getElementById('utGolfScore').value;
       const umGolf = document.getElementById('umGolfScore').value;
@@ -610,10 +737,10 @@
       const participants = document.getElementById('totalParticipants').value;
       const notes = document.getElementById('resultNotes').value;
       
-      const utGolfParticipants = getParticipants('utGolfParticipants');
-      const umGolfParticipants = getParticipants('umGolfParticipants');
-      const ut10kParticipants = getParticipants('ut10kParticipants');
-      const um10kParticipants = getParticipants('um10kParticipants');
+      const utGolfParticipants = getTableData('utGolfTable');
+      const umGolfParticipants = getTableData('umGolfTable');
+      const ut10kParticipants = getTableData('ut10kTable');
+      const um10kParticipants = getTableData('um10kTable');
       
       const golfRulesEn = document.getElementById('golfRulesEn').value;
       const golfRulesKo = document.getElementById('golfRulesKo').value;
