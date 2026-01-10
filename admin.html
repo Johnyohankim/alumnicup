@@ -5,229 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alumni Cup - Admin Panel</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; padding: 2rem; }
+    .container { max-width: 1000px; margin: 0 auto; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h1 { color: #bf5700; margin-bottom: 0.5rem; }
+    .subtitle { color: #666; margin-bottom: 2rem; }
+    .section { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 2px solid #eee; }
+    .section:last-child { border-bottom: none; }
+    h2 { color: #00274c; margin-bottom: 1.5rem; font-size: 1.5rem; }
+    h3 { color: #333; margin-top: 1.5rem; margin-bottom: 1rem; font-size: 1.2rem; }
+    .form-group { margin-bottom: 1.5rem; }
+    label { display: block; margin-bottom: 0.5rem; font-weight: bold; color: #333; }
+    input[type="text"], input[type="number"], input[type="url"], textarea, select {
+      width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;
     }
-    
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f5f5f5;
-      padding: 2rem;
-    }
-    
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    
-    h1 {
-      color: #bf5700;
-      margin-bottom: 0.5rem;
-    }
-    
-    .subtitle {
-      color: #666;
-      margin-bottom: 2rem;
-    }
-    
-    .section {
-      margin-bottom: 3rem;
-      padding-bottom: 2rem;
-      border-bottom: 2px solid #eee;
-    }
-    
-    .section:last-child {
-      border-bottom: none;
-    }
-    
-    h2 {
-      color: #00274c;
-      margin-bottom: 1.5rem;
-      font-size: 1.5rem;
-    }
-    
-    h3 {
-      color: #333;
-      margin-top: 1.5rem;
-      margin-bottom: 1rem;
-      font-size: 1.2rem;
-    }
-    
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-    
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-      color: #333;
-    }
-    
-    input[type="text"],
-    input[type="number"],
-    input[type="url"],
-    textarea,
-    select {
-      width: 100%;
-      padding: 0.8rem;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
-    
-    textarea {
-      min-height: 150px;
-      resize: vertical;
-      font-family: monospace;
-    }
-    
-    .photo-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    
-    .photo-link-item {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-    
-    .photo-link-item input {
-      flex: 1;
-    }
-    
-    .photo-link-item button {
-      background: #dc3545;
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-    }
-    
-    .add-link-btn {
-      background: #28a745;
-      padding: 0.5rem 1rem;
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-    }
-    
-    .photo-preview {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    
-    .photo-item {
-      position: relative;
-      border-radius: 5px;
-      overflow: hidden;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    
-    .photo-item img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-    }
-    
-    button {
-      background: #bf5700;
-      color: white;
-      padding: 1rem 2rem;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-    
-    button:hover {
-      background: #a04900;
-    }
-    
-    .button-group {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-      flex-wrap: wrap;
-    }
-    
-    .success-message {
-      background: #4CAF50;
-      color: white;
-      padding: 1rem;
-      border-radius: 5px;
-      margin-top: 1rem;
-      display: none;
-    }
-    
-    .info-box {
-      background: #e3f2fd;
-      padding: 1rem;
-      border-radius: 5px;
-      margin-bottom: 1rem;
-      border-left: 4px solid #2196F3;
-    }
-    
-    .warning-box {
-      background: #fff3cd;
-      padding: 1rem;
-      border-radius: 5px;
-      margin-bottom: 1rem;
-      border-left: 4px solid #ffc107;
-    }
-    
-    .code-output {
-      background: #f5f5f5;
-      padding: 1rem;
-      border-radius: 5px;
-      font-family: monospace;
-      font-size: 0.9rem;
-      margin-top: 1rem;
-      max-height: 400px;
-      overflow-y: auto;
-      border: 1px solid #ddd;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-    
-    .copy-button {
-      background: #00274c;
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-    }
-    
-    .example {
-      background: #f8f9fa;
-      padding: 0.5rem;
-      border-radius: 3px;
-      font-family: monospace;
-      font-size: 0.85rem;
-      margin-top: 0.5rem;
-    }
-    
-    .subsection {
-      background: #f9f9f9;
-      padding: 1.5rem;
-      border-radius: 8px;
-      margin-top: 1rem;
-    }
-    
-    table {
-      border-collapse: collapse;
-    }
-    
-    table th {
-      font-weight: bold;
-    }
+    textarea { min-height: 150px; resize: vertical; font-family: monospace; }
+    .photo-links { display: flex; flex-direction: column; gap: 0.5rem; }
+    .photo-link-item { display: flex; gap: 0.5rem; align-items: center; }
+    .photo-link-item input { flex: 1; }
+    .photo-link-item button { background: #dc3545; padding: 0.5rem 1rem; font-size: 0.9rem; }
+    .add-link-btn { background: #28a745; padding: 0.5rem 1rem; margin-top: 0.5rem; font-size: 0.9rem; }
+    .photo-preview { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .photo-item { position: relative; border-radius: 5px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .photo-item img { width: 100%; height: 150px; object-fit: cover; }
+    button { background: #bf5700; color: white; padding: 1rem 2rem; border: none; border-radius: 5px; font-size: 1rem; cursor: pointer; font-weight: bold; transition: background 0.3s; }
+    button:hover { background: #a04900; }
+    .button-group { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+    .success-message { background: #4CAF50; color: white; padding: 1rem; border-radius: 5px; margin-top: 1rem; display: none; }
+    .info-box { background: #e3f2fd; padding: 1rem; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #2196F3; }
+    .warning-box { background: #fff3cd; padding: 1rem; border-radius: 5px; margin-bottom: 1rem; border-left: 4px solid #ffc107; }
+    .code-output { background: #f5f5f5; padding: 1rem; border-radius: 5px; font-family: monospace; font-size: 0.9rem; margin-top: 1rem; max-height: 400px; overflow-y: auto; border: 1px solid #ddd; white-space: pre-wrap; word-wrap: break-word; }
+    .copy-button { background: #00274c; padding: 0.5rem 1rem; font-size: 0.9rem; }
+    .example { background: #f8f9fa; padding: 0.5rem; border-radius: 3px; font-family: monospace; font-size: 0.85rem; margin-top: 0.5rem; }
+    .subsection { background: #f9f9f9; padding: 1.5rem; border-radius: 8px; margin-top: 1rem; }
+    table { border-collapse: collapse; }
+    table th { font-weight: bold; }
   </style>
 </head>
 <body>
@@ -235,217 +47,146 @@
     <h1>🏆 Alumni Cup Admin Panel</h1>
     <p class="subtitle">Manage photos, results, participants, and rules</p>
 
-    <!-- Photo Gallery Section -->
+    <!-- Results Section -->
     <div class="section">
-      <h2>📸 Google Drive Photo Gallery</h2>
-      <div class="info-box">
-        <strong>How to use Google Drive photos:</strong><br>
-        1. Upload photos to Google Drive<br>
-        2. Right-click → Share → "Anyone with the link" (Viewer access)<br>
-        3. Copy the share link<br>
-        4. Paste it below (the tool will auto-convert it!)
-      </div>
-      
-      <div class="form-group">
-        <label>Google Drive Photo Links</label>
-        <div class="warning-box" style="font-size: 0.9rem;">
-          Paste your Google Drive share links below. Example:<br>
-          <span class="example">https://drive.google.com/file/d/1ABC123xyz/view?usp=sharing</span>
-        </div>
-        <div id="photoLinksContainer" class="photo-links">
-          <div class="photo-link-item">
-            <input type="url" placeholder="Paste Google Drive share link here" class="photo-link-input">
-            <button onclick="removePhotoLink(this)">Remove</button>
-          </div>
-        </div>
-        <button class="add-link-btn" onclick="addPhotoLink()">+ Add Another Photo</button>
-      </div>
-      
-      <div class="button-group">
-        <button onclick="previewPhotos()">Preview Photos</button>
-        <button onclick="generatePhotoCode()">Generate Photo Gallery Code</button>
-        <button class="copy-button" onclick="copyCode('photoCodeOutput')">Copy Code</button>
-      </div>
-      
-      <div class="photo-preview" id="photoPreview"></div>
-      
-      <div class="code-output" id="photoCodeOutput" style="display: none;"></div>
-      <div class="success-message" id="photoSuccess">Photo code generated! Copy and paste into your HTML.</div>
-    </div>
-
-    <!-- 2025 Results Section -->
-    <div class="section">
-      <h2>🏆 2025 Results & Detailed Information</h2>
+      <h2>🏆 2025 Results & Participants</h2>
       
       <div class="subsection">
-        <h3>Golf Championship Results</h3>
+        <h3>Golf Results</h3>
         <div class="form-group">
-          <label>UT Austin Golf Score</label>
+          <label>UT Austin Score</label>
           <input type="number" id="utGolfScore" value="312">
         </div>
         <div class="form-group">
-          <label>Michigan Golf Score</label>
+          <label>Michigan Score</label>
           <input type="number" id="umGolfScore" value="325">
         </div>
         
-        <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">Golf Participants (UT Austin)</h4>
-        <div class="info-box" style="font-size: 0.9rem;">
-          <strong>How to use:</strong> Paste CSV data from Excel/Google Sheets (Name, Score format). Or type directly in the table below.
-        </div>
-        <textarea id="utGolfCSV" placeholder="Paste CSV here (Name, Score) or leave blank and use table below
-Example:
+        <h4 style="margin-top: 1.5rem;">UT Austin Golf Participants</h4>
+        <textarea id="utGolfCSV" placeholder="Paste CSV (Name, Score):
 John Smith, 78
-Jane Doe, 82
-Bob Johnson, 75" style="min-height: 100px; font-family: monospace; margin-bottom: 0.5rem;"></textarea>
-        <button class="add-link-btn" onclick="parseCSV('utGolfCSV', 'utGolfTable')">📋 Parse CSV to Table</button>
+Jane Doe, 82" style="min-height: 80px;"></textarea>
+        <button class="add-link-btn" onclick="parseCSV('utGolfCSV', 'utGolfTable')">Parse CSV</button>
         
-        <div style="overflow-x: auto; margin-top: 1rem;">
-          <table id="utGolfTable" style="width: 100%; border-collapse: collapse; background: white;">
-            <thead>
-              <tr style="background: #bf5700; color: white;">
-                <th style="padding: 0.5rem; text-align: left;">Name</th>
-                <th style="padding: 0.5rem; text-align: left;">Score</th>
-                <th style="padding: 0.5rem; width: 80px;">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
-                <td style="padding: 0.5rem;"><input type="number" placeholder="Score" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
-                <td style="padding: 0.5rem;"><button onclick="removeTableRow(this)" style="padding: 0.3rem 0.5rem; font-size: 0.85rem;">Remove</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <button class="add-link-btn" onclick="addTableRow('utGolfTable', 'number')">+ Add Row</button>
+        <table id="utGolfTable" style="width: 100%; margin-top: 1rem; background: white;">
+          <thead>
+            <tr style="background: #bf5700; color: white;">
+              <th style="padding: 0.5rem; text-align: left;">Name</th>
+              <th style="padding: 0.5rem; text-align: left;">Score</th>
+              <th style="padding: 0.5rem; width: 80px;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; padding: 0.3rem;"></td>
+              <td style="padding: 0.5rem;"><input type="number" placeholder="Score" style="width: 100%; padding: 0.3rem;"></td>
+              <td style="padding: 0.5rem;"><button onclick="removeRow(this)" style="padding: 0.3rem; font-size: 0.85rem;">×</button></td>
+            </tr>
+          </tbody>
+        </table>
         
-        <h4 style="margin-top: 2rem; margin-bottom: 0.5rem;">Golf Participants (Michigan)</h4>
-        <div class="info-box" style="font-size: 0.9rem;">
-          <strong>How to use:</strong> Paste CSV data from Excel/Google Sheets (Name, Score format). Or type directly in the table below.
-        </div>
-        <textarea id="umGolfCSV" placeholder="Paste CSV here (Name, Score)" style="min-height: 100px; font-family: monospace; margin-bottom: 0.5rem;"></textarea>
-        <button class="add-link-btn" onclick="parseCSV('umGolfCSV', 'umGolfTable')">📋 Parse CSV to Table</button>
+        <h4 style="margin-top: 1.5rem;">Michigan Golf Participants</h4>
+        <textarea id="umGolfCSV" placeholder="Paste CSV (Name, Score)" style="min-height: 80px;"></textarea>
+        <button class="add-link-btn" onclick="parseCSV('umGolfCSV', 'umGolfTable')">Parse CSV</button>
         
-        <div style="overflow-x: auto; margin-top: 1rem;">
-          <table id="umGolfTable" style="width: 100%; border-collapse: collapse; background: white;">
-            <thead>
-              <tr style="background: #00274c; color: white;">
-                <th style="padding: 0.5rem; text-align: left;">Name</th>
-                <th style="padding: 0.5rem; text-align: left;">Score</th>
-                <th style="padding: 0.5rem; width: 80px;">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
-                <td style="padding: 0.5rem;"><input type="number" placeholder="Score" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
-                <td style="padding: 0.5rem;"><button onclick="removeTableRow(this)" style="padding: 0.3rem 0.5rem; font-size: 0.85rem;">Remove</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <button class="add-link-btn" onclick="addTableRow('umGolfTable', 'number')">+ Add Row</button>
+        <table id="umGolfTable" style="width: 100%; margin-top: 1rem; background: white;">
+          <thead>
+            <tr style="background: #00274c; color: white;">
+              <th style="padding: 0.5rem; text-align: left;">Name</th>
+              <th style="padding: 0.5rem; text-align: left;">Score</th>
+              <th style="padding: 0.5rem; width: 80px;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; padding: 0.3rem;"></td>
+              <td style="padding: 0.5rem;"><input type="number" placeholder="Score" style="width: 100%; padding: 0.3rem;"></td>
+              <td style="padding: 0.5rem;"><button onclick="removeRow(this)" style="padding: 0.3rem; font-size: 0.85rem;">×</button></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       
       <div class="subsection">
-        <h3>10K Run Championship Results</h3>
+        <h3>10K Run Results</h3>
         <div class="form-group">
-          <label>UT Austin Average Time (mm:ss)</label>
-          <input type="text" id="ut10kTime" value="49:15" placeholder="49:15">
+          <label>UT Austin Avg Time</label>
+          <input type="text" id="ut10kTime" value="49:15">
         </div>
         <div class="form-group">
-          <label>Michigan Average Time (mm:ss)</label>
-          <input type="text" id="um10kTime" value="48:23" placeholder="48:23">
+          <label>Michigan Avg Time</label>
+          <input type="text" id="um10kTime" value="48:23">
         </div>
         
-        <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">10K Participants (UT Austin)</h4>
-        <div class="info-box" style="font-size: 0.9rem;">
-          <strong>How to use:</strong> Paste CSV data (Name, Time). Time format: mm:ss (e.g., 48:23)
-        </div>
-        <textarea id="ut10kCSV" placeholder="Paste CSV here (Name, Time)
-Example:
-John Smith, 48:23
-Jane Doe, 52:15
-Bob Johnson, 45:30" style="min-height: 100px; font-family: monospace; margin-bottom: 0.5rem;"></textarea>
-        <button class="add-link-btn" onclick="parseCSV('ut10kCSV', 'ut10kTable')">📋 Parse CSV to Table</button>
+        <h4 style="margin-top: 1.5rem;">UT Austin 10K Participants</h4>
+        <textarea id="ut10kCSV" placeholder="Paste CSV (Name, Time)" style="min-height: 80px;"></textarea>
+        <button class="add-link-btn" onclick="parseCSV('ut10kCSV', 'ut10kTable')">Parse CSV</button>
         
-        <div style="overflow-x: auto; margin-top: 1rem;">
-          <table id="ut10kTable" style="width: 100%; border-collapse: collapse; background: white;">
-            <thead>
-              <tr style="background: #bf5700; color: white;">
-                <th style="padding: 0.5rem; text-align: left;">Name</th>
-                <th style="padding: 0.5rem; text-align: left;">Time (mm:ss)</th>
-                <th style="padding: 0.5rem; width: 80px;">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
-                <td style="padding: 0.5rem;"><input type="text" placeholder="48:23" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
-                <td style="padding: 0.5rem;"><button onclick="removeTableRow(this)" style="padding: 0.3rem 0.5rem; font-size: 0.85rem;">Remove</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <button class="add-link-btn" onclick="addTableRow('ut10kTable', 'text')">+ Add Row</button>
+        <table id="ut10kTable" style="width: 100%; margin-top: 1rem; background: white;">
+          <thead>
+            <tr style="background: #bf5700; color: white;">
+              <th style="padding: 0.5rem; text-align: left;">Name</th>
+              <th style="padding: 0.5rem; text-align: left;">Time</th>
+              <th style="padding: 0.5rem; width: 80px;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; padding: 0.3rem;"></td>
+              <td style="padding: 0.5rem;"><input type="text" placeholder="48:23" style="width: 100%; padding: 0.3rem;"></td>
+              <td style="padding: 0.5rem;"><button onclick="removeRow(this)" style="padding: 0.3rem; font-size: 0.85rem;">×</button></td>
+            </tr>
+          </tbody>
+        </table>
         
-        <h4 style="margin-top: 2rem; margin-bottom: 0.5rem;">10K Participants (Michigan)</h4>
-        <div class="info-box" style="font-size: 0.9rem;">
-          <strong>How to use:</strong> Paste CSV data (Name, Time). Time format: mm:ss
-        </div>
-        <textarea id="um10kCSV" placeholder="Paste CSV here (Name, Time)" style="min-height: 100px; font-family: monospace; margin-bottom: 0.5rem;"></textarea>
-        <button class="add-link-btn" onclick="parseCSV('um10kCSV', 'um10kTable')">📋 Parse CSV to Table</button>
+        <h4 style="margin-top: 1.5rem;">Michigan 10K Participants</h4>
+        <textarea id="um10kCSV" placeholder="Paste CSV (Name, Time)" style="min-height: 80px;"></textarea>
+        <button class="add-link-btn" onclick="parseCSV('um10kCSV', 'um10kTable')">Parse CSV</button>
         
-        <div style="overflow-x: auto; margin-top: 1rem;">
-          <table id="um10kTable" style="width: 100%; border-collapse: collapse; background: white;">
-            <thead>
-              <tr style="background: #00274c; color: white;">
-                <th style="padding: 0.5rem; text-align: left;">Name</th>
-                <th style="padding: 0.5rem; text-align: left;">Time (mm:ss)</th>
-                <th style="padding: 0.5rem; width: 80px;">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
-                <td style="padding: 0.5rem;"><input type="text" placeholder="48:23" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
-                <td style="padding: 0.5rem;"><button onclick="removeTableRow(this)" style="padding: 0.3rem 0.5rem; font-size: 0.85rem;">Remove</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <button class="add-link-btn" onclick="addTableRow('um10kTable', 'text')">+ Add Row</button>
+        <table id="um10kTable" style="width: 100%; margin-top: 1rem; background: white;">
+          <thead>
+            <tr style="background: #00274c; color: white;">
+              <th style="padding: 0.5rem; text-align: left;">Name</th>
+              <th style="padding: 0.5rem; text-align: left;">Time</th>
+              <th style="padding: 0.5rem; width: 80px;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; padding: 0.3rem;"></td>
+              <td style="padding: 0.5rem;"><input type="text" placeholder="48:23" style="width: 100%; padding: 0.3rem;"></td>
+              <td style="padding: 0.5rem;"><button onclick="removeRow(this)" style="padding: 0.3rem; font-size: 0.85rem;">×</button></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       
       <div class="subsection">
-        <h3>Rules & Additional Information</h3>
+        <h3>Rules</h3>
         <div class="form-group">
           <label>Golf Rules (English)</label>
-          <textarea id="golfRulesEn" placeholder="Enter golf rules, scoring format, handicap system, etc.">- USGA Rules apply
+          <textarea id="golfRulesEn">- USGA Rules apply
 - Modified Stableford scoring
 - Maximum handicap: 36
 - Best 5 scores count for team total</textarea>
         </div>
-        
         <div class="form-group">
           <label>Golf Rules (Korean)</label>
-          <textarea id="golfRulesKo" placeholder="골프 규칙을 한국어로 입력하세요">- USGA 규칙 적용
+          <textarea id="golfRulesKo">- USGA 규칙 적용
 - 수정된 스테이블포드 스코어링
 - 최대 핸디캡: 36
 - 팀 총점은 상위 5명의 점수로 계산</textarea>
         </div>
-        
         <div class="form-group">
-          <label>10K Run Rules (English)</label>
-          <textarea id="runRulesEn" placeholder="Enter 10K run rules, timing system, course details, etc.">- Chip-timed race
+          <label>10K Rules (English)</label>
+          <textarea id="runRulesEn">- Chip-timed race
 - USATF certified course
-- Top 3 finishers per team count for team score
+- Top 3 finishers per team count
 - Water stations every 2K</textarea>
         </div>
-        
         <div class="form-group">
-          <label>10K Run Rules (Korean)</label>
-          <textarea id="runRulesKo" placeholder="10K 마라톤 규칙을 한국어로 입력하세요">- 칩 타이밍 레이스
+          <label>10K Rules (Korean)</label>
+          <textarea id="runRulesKo">- 칩 타이밍 레이스
 - USATF 인증 코스
 - 팀 점수는 상위 3명으로 계산
 - 2K마다 급수대 제공</textarea>
@@ -457,216 +198,217 @@ Bob Johnson, 45:30" style="min-height: 100px; font-family: monospace; margin-bot
         <input type="number" id="totalParticipants" value="100">
       </div>
       
-      <div class="form-group">
-        <label>Additional Notes (optional)</label>
-        <textarea id="resultNotes" placeholder="Any special highlights or notes about the 2025 event..." style="min-height: 80px;"></textarea>
-      </div>
-      
       <div class="button-group">
-        <button onclick="generateResultsCode()">Generate Complete Results Code</button>
-        <button class="copy-button" onclick="copyCode('resultsCodeOutput')">Copy Code</button>
+        <button onclick="generateResultsCode()">Generate Results Code</button>
+        <button class="copy-button" onclick="copyCode('resultsOutput')">Copy Code</button>
       </div>
       
-      <div class="code-output" id="resultsCodeOutput" style="display: none;"></div>
-      <div class="success-message" id="resultsSuccess">Results code generated!</div>
-    </div>
-
-    <!-- Event Announcement Section -->
-    <div class="section">
-      <h2>📢 Update Announcement Banner</h2>
-      
-      <div class="form-group">
-        <label>Announcement Text (English)</label>
-        <input type="text" id="announcementEn" value="🎉 Alumni Cup 2026 - Expanding to 4 Schools! Registration Opens March 2026">
-      </div>
-      
-      <div class="form-group">
-        <label>Announcement Text (Korean)</label>
-        <input type="text" id="announcementKo" value="🎉 알럼나이 컵 2026 - 4개 대학으로 확대! 등록은 2026년 3월 시작">
-      </div>
-      
-      <div class="button-group">
-        <button onclick="generateAnnouncementCode()">Generate Announcement Code</button>
-        <button class="copy-button" onclick="copyCode('announcementCodeOutput')">Copy Code</button>
-      </div>
-      
-      <div class="code-output" id="announcementCodeOutput" style="display: none;"></div>
-      <div class="success-message" id="announcementSuccess">Announcement code generated!</div>
-    </div>
-
-    <!-- Instructions -->
-    <div class="section">
-      <h2>📝 How to Update Your Website</h2>
-      <ol style="line-height: 2; margin-left: 1.5rem;">
-        <li><strong>Fill in all the information</strong> in the sections above (photos, participants via CSV paste, rules, etc.)</li>
-        <li>Click "Generate Code" for each section you want to update</li>
-        <li>Click "Copy Code" to copy the generated HTML</li>
-        <li>Go to your GitHub repository: <code>https://github.com/johnyohankim/alumnicup</code></li>
-        <li>Click on <code>index.html</code> and then the pencil icon (Edit)</li>
-        <li>Find the section marked in the comments (e.g., <code>&lt;!-- Results Section --&gt;</code>)</li>
-        <li>Replace that entire section with your new generated code</li>
-        <li>Scroll down and click "Commit changes"</li>
-        <li>Wait 2-3 minutes and your site will be updated!</li>
-      </ol>
-      
-      <div class="info-box" style="margin-top: 1rem;">
-        <strong>Tip:</strong> You can paste CSV data directly from Excel or Google Sheets! Just copy the Name and Score columns and paste into the textareas.
-      </div>
+      <div class="code-output" id="resultsOutput" style="display: none;"></div>
+      <div class="success-message" id="resultsSuccess">Code generated!</div>
     </div>
   </div>
 
   <script>
-    // Photo Link Functions
-    function addPhotoLink() {
-      const container = document.getElementById('photoLinksContainer');
-      const newItem = document.createElement('div');
-      newItem.className = 'photo-link-item';
-      newItem.innerHTML = `
-        <input type="url" placeholder="Paste Google Drive share link here" class="photo-link-input">
-        <button onclick="removePhotoLink(this)">Remove</button>
-      `;
-      container.appendChild(newItem);
-    }
-
-    function removePhotoLink(button) {
-      const container = document.getElementById('photoLinksContainer');
-      if (container.children.length > 1) {
-        button.parentElement.remove();
-      } else {
-        alert('You must have at least one photo link field!');
-      }
-    }
-
-    // Table Functions
-    function addTableRow(tableId, inputType) {
+    function addRow(tableId, type) {
       const table = document.getElementById(tableId);
-      const tbody = table.querySelector('tbody');
-      const newRow = tbody.insertRow();
-      
-      newRow.innerHTML = `
-        <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
-        <td style="padding: 0.5rem;"><input type="${inputType}" placeholder="${inputType === 'number' ? 'Score' : '48:23'}" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
-        <td style="padding: 0.5rem;"><button onclick="removeTableRow(this)" style="padding: 0.3rem 0.5rem; font-size: 0.85rem;">Remove</button></td>
+      const row = table.querySelector('tbody').insertRow();
+      row.innerHTML = `
+        <td style="padding: 0.5rem;"><input type="text" placeholder="Name" style="width: 100%; padding: 0.3rem;"></td>
+        <td style="padding: 0.5rem;"><input type="${type}" placeholder="${type === 'number' ? 'Score' : '48:23'}" style="width: 100%; padding: 0.3rem;"></td>
+        <td style="padding: 0.5rem;"><button onclick="removeRow(this)" style="padding: 0.3rem; font-size: 0.85rem;">×</button></td>
       `;
     }
     
-    function removeTableRow(button) {
-      const row = button.closest('tr');
-      const tbody = row.parentElement;
-      if (tbody.rows.length > 1) {
-        row.remove();
-      } else {
-        alert('Must have at least one row!');
-      }
+    function removeRow(btn) {
+      const row = btn.closest('tr');
+      if (row.parentElement.rows.length > 1) row.remove();
     }
     
     function parseCSV(textareaId, tableId) {
-      const textarea = document.getElementById(textareaId);
+      const csv = document.getElementById(textareaId).value.trim();
+      if (!csv) { alert('Paste CSV first!'); return; }
+      
       const table = document.getElementById(tableId);
       const tbody = table.querySelector('tbody');
-      const csvData = textarea.value.trim();
-      
-      if (!csvData) {
-        alert('Please paste CSV data first!');
-        return;
-      }
-      
       tbody.innerHTML = '';
       
-      const lines = csvData.split('\n');
-      const inputType = tableId.includes('Golf') ? 'number' : 'text';
-      
-      lines.forEach(line => {
-        const trimmedLine = line.trim();
-        if (!trimmedLine) return;
-        
-        const parts = trimmedLine.split(',').map(p => p.trim());
+      const type = tableId.includes('Golf') ? 'number' : 'text';
+      csv.split('\n').forEach(line => {
+        const parts = line.split(',').map(p => p.trim());
         if (parts.length >= 2) {
-          const newRow = tbody.insertRow();
-          newRow.innerHTML = `
-            <td style="padding: 0.5rem;"><input type="text" value="${parts[0]}" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
-            <td style="padding: 0.5rem;"><input type="${inputType}" value="${parts[1]}" style="width: 100%; border: 1px solid #ddd; padding: 0.3rem;"></td>
-            <td style="padding: 0.5rem;"><button onclick="removeTableRow(this)" style="padding: 0.3rem 0.5rem; font-size: 0.85rem;">Remove</button></td>
+          const row = tbody.insertRow();
+          row.innerHTML = `
+            <td style="padding: 0.5rem;"><input type="text" value="${parts[0]}" style="width: 100%; padding: 0.3rem;"></td>
+            <td style="padding: 0.5rem;"><input type="${type}" value="${parts[1]}" style="width: 100%; padding: 0.3rem;"></td>
+            <td style="padding: 0.5rem;"><button onclick="removeRow(this)" style="padding: 0.3rem; font-size: 0.85rem;">×</button></td>
           `;
         }
       });
-      
-      textarea.value = '';
-      alert('CSV data parsed successfully! Review the table and make any edits needed.');
+      document.getElementById(textareaId).value = '';
+      alert('CSV parsed!');
     }
     
     function getTableData(tableId) {
-      const table = document.getElementById(tableId);
-      const tbody = table.querySelector('tbody');
-      const rows = tbody.querySelectorAll('tr');
+      const rows = document.getElementById(tableId).querySelector('tbody').rows;
       const data = [];
-      
-      rows.forEach(row => {
+      for (let row of rows) {
         const inputs = row.querySelectorAll('input');
         const name = inputs[0].value.trim();
         const score = inputs[1].value.trim();
-        if (name && score) {
-          data.push({ name, score });
-        }
-      });
-      
+        if (name && score) data.push({name, score});
+      }
       return data;
     }
-
-    // Google Drive Link Conversion
-    function convertGoogleDriveLink(url) {
-      if (!url || url.trim() === '') return null;
+    
+    function generateResultsCode() {
+      const utGolf = document.getElementById('utGolfScore').value;
+      const umGolf = document.getElementById('umGolfScore').value;
+      const ut10k = document.getElementById('ut10kTime').value;
+      const um10k = document.getElementById('um10kTime').value;
+      const total = document.getElementById('totalParticipants').value;
       
-      let fileId = null;
-      const match1 = url.match(/\/file\/d\/([^\/]+)/);
-      if (match1) fileId = match1[1];
+      const utGolfData = getTableData('utGolfTable');
+      const umGolfData = getTableData('umGolfTable');
+      const ut10kData = getTableData('ut10kTable');
+      const um10kData = getTableData('um10kTable');
       
-      const match2 = url.match(/[?&]id=([^&]+)/);
-      if (match2) fileId = match2[1];
+      const golfRulesEn = document.getElementById('golfRulesEn').value;
+      const golfRulesKo = document.getElementById('golfRulesKo').value;
+      const runRulesEn = document.getElementById('runRulesEn').value;
+      const runRulesKo = document.getElementById('runRulesKo').value;
       
-      if (fileId) {
-        return `https://drive.google.com/uc?export=view&id=${fileId}`;
-      }
+      const golfWinnerUT = parseInt(utGolf) < parseInt(umGolf);
+      const runWinnerUM = um10k < ut10k;
       
-      return url;
-    }
-
-    function previewPhotos() {
-      const inputs = document.querySelectorAll('.photo-link-input');
-      const preview = document.getElementById('photoPreview');
-      preview.innerHTML = '';
+      let code = `<!-- Results Section -->
+<section id="results">
+  <h2 class="lang-en">2025 Results</h2>
+  <h2 class="lang-ko">2025 결과</h2>
+  
+  <div class="results-box">
+    <h3 class="lang-en">⛳ Golf</h3>
+    <h3 class="lang-ko">⛳ 골프</h3>
+    <div class="result-row">
+      <span class="school lang-en">${golfWinnerUT ? '🏆 ' : ''}UT Austin</span>
+      <span class="school lang-ko">${golfWinnerUT ? '🏆 ' : ''}텍사스대</span>
+      <span class="score">${utGolf}</span>
+    </div>
+    <div class="result-row">
+      <span class="school lang-en">${!golfWinnerUT ? '🏆 ' : ''}Michigan</span>
+      <span class="school lang-ko">${!golfWinnerUT ? '🏆 ' : ''}미시간대</span>
+      <span class="score">${umGolf}</span>
+    </div>
+  </div>
+  
+  <div class="results-box">
+    <h3 class="lang-en">🏃 10K Run</h3>
+    <h3 class="lang-ko">🏃 10K 마라톤</h3>
+    <div class="result-row">
+      <span class="school lang-en">${runWinnerUM ? '🏆 ' : ''}Michigan</span>
+      <span class="school lang-ko">${runWinnerUM ? '🏆 ' : ''}미시간대</span>
+      <span class="score">${um10k}</span>
+    </div>
+    <div class="result-row">
+      <span class="school lang-en">${!runWinnerUM ? '🏆 ' : ''}UT Austin</span>
+      <span class="school lang-ko">${!runWinnerUM ? '🏆 ' : ''}텍사스대</span>
+      <span class="score">${ut10k}</span>
+    </div>
+  </div>
+  
+  <details style="margin-top: 2rem; background: #f9f9f9; padding: 1.5rem; border-radius: 10px;">
+    <summary style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #bf5700;">
+      <span class="lang-en">📊 Detailed Results</span>
+      <span class="lang-ko">📊 상세 결과</span>
+    </summary>
+    <div style="margin-top: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+      <div style="background: white; padding: 1rem; border-radius: 8px;">
+        <h5 style="color: #bf5700;">UT Austin Golf</h5>
+        <table style="width: 100%;">
+          <thead><tr><th style="text-align: left;">Name</th><th style="text-align: right;">Score</th></tr></thead>
+          <tbody>`;
       
-      let hasPhotos = false;
-      inputs.forEach(input => {
-        const url = convertGoogleDriveLink(input.value);
-        if (url) {
-          hasPhotos = true;
-          const div = document.createElement('div');
-          div.className = 'photo-item';
-          div.innerHTML = `<img src="${url}" alt="Event Photo" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22><rect fill=%22%23ddd%22 width=%22150%22 height=%22150%22/><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23999%22>Invalid Link</text></svg>'">`;
-          preview.appendChild(div);
-        }
+      utGolfData.forEach(p => {
+        code += `<tr><td>${p.name}</td><td style="text-align: right;">${p.score}</td></tr>`;
       });
       
-      if (!hasPhotos) {
-        alert('Please add at least one Google Drive photo link!');
-      }
-    }
-
-    function generatePhotoCode() {
-      const inputs = document.querySelectorAll('.photo-link-input');
-      const photoUrls = [];
+      code += `</tbody></table>
+      </div>
+      <div style="background: white; padding: 1rem; border-radius: 8px;">
+        <h5 style="color: #00274c;">Michigan Golf</h5>
+        <table style="width: 100%;">
+          <thead><tr><th style="text-align: left;">Name</th><th style="text-align: right;">Score</th></tr></thead>
+          <tbody>`;
       
-      inputs.forEach(input => {
-        const url = convertGoogleDriveLink(input.value);
-        if (url) photoUrls.push(url);
+      umGolfData.forEach(p => {
+        code += `<tr><td>${p.name}</td><td style="text-align: right;">${p.score}</td></tr>`;
       });
       
-      if (photoUrls.length === 0) {
-        alert('Please add at least one Google Drive photo link!');
-        return;
-      }
+      code += `</tbody></table>
+      </div>
+      <div style="background: white; padding: 1rem; border-radius: 8px;">
+        <h5 style="color: #bf5700;">UT Austin 10K</h5>
+        <table style="width: 100%;">
+          <thead><tr><th style="text-align: left;">Name</th><th style="text-align: right;">Time</th></tr></thead>
+          <tbody>`;
       
-      let code = `<!-- Photo Gallery Section - Insert this AFTER the dropdown details section -->
-<div style="margin-top: 3rem;">
-  <h3 style="text-align: center; color: #00274c; font-size: 1.8rem; margin-bottom:
+      ut10kData.forEach(p => {
+        code += `<tr><td>${p.name}</td><td style="text-align: right;">${p.score}</td></tr>`;
+      });
+      
+      code += `</tbody></table>
+      </div>
+      <div style="background: white; padding: 1rem; border-radius: 8px;">
+        <h5 style="color: #00274c;">Michigan 10K</h5>
+        <table style="width: 100%;">
+          <thead><tr><th style="text-align: left;">Name</th><th style="text-align: right;">Time</th></tr></thead>
+          <tbody>`;
+      
+      um10kData.forEach(p => {
+        code += `<tr><td>${p.name}</td><td style="text-align: right;">${p.score}</td></tr>`;
+      });
+      
+      code += `</tbody></table>
+      </div>
+    </div>
+  </details>
+  
+  <details style="margin-top: 1rem; background: #f9f9f9; padding: 1.5rem; border-radius: 10px;">
+    <summary style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #bf5700;">
+      <span class="lang-en">📋 Rules</span>
+      <span class="lang-ko">📋 규칙</span>
+    </summary>
+    <div style="margin-top: 1rem;">
+      <h4 class="lang-en">⛳ Golf Rules</h4>
+      <h4 class="lang-ko">⛳ 골프 규칙</h4>
+      <div class="lang-en" style="background: white; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">${golfRulesEn}</div>
+      <div class="lang-ko" style="background: white; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">${golfRulesKo}</div>
+      <h4 class="lang-en" style="margin-top: 1rem;">🏃 10K Rules</h4>
+      <h4 class="lang-ko" style="margin-top: 1rem;">🏃 10K 규칙</h4>
+      <div class="lang-en" style="background: white; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">${runRulesEn}</div>
+      <div class="lang-ko" style="background: white; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">${runRulesKo}</div>
+    </div>
+  </details>
+  
+  <p class="lang-en" style="text-align: center; margin-top: 2rem; font-style: italic;">
+    Over ${total} alumni participated.
+  </p>
+  <p class="lang-ko" style="text-align: center; margin-top: 2rem; font-style: italic;">
+    ${total}명 이상의 동문이 참가했습니다.
+  </p>
+</section>`;
+      
+      document.getElementById('resultsOutput').textContent = code;
+      document.getElementById('resultsOutput').style.display = 'block';
+      document.getElementById('resultsSuccess').style.display = 'block';
+      setTimeout(() => { document.getElementById('resultsSuccess').style.display = 'none'; }, 3000);
+    }
+    
+    function copyCode(id) {
+      const code = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        alert('✅ Copied!');
+      });
+    }
+  </script>
+</body>
+</html>
