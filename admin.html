@@ -3,230 +3,193 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alumni Cup Admin Panel</title>
+  <title>Alumni Cup Admin</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
     .container { max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; }
     h1 { color: #bf5700; margin-bottom: 10px; }
-    h2 { color: #00274c; margin: 30px 0 15px 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+    h2 { color: #00274c; margin: 40px 0 20px 0; padding: 15px; background: #f9f9f9; border-left: 5px solid #bf5700; }
     h3 { color: #333; margin: 20px 0 10px 0; }
     label { display: block; font-weight: bold; margin: 10px 0 5px 0; }
-    input, textarea, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px; }
+    input, textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px; }
     textarea { min-height: 100px; font-family: monospace; }
-    button { background: #bf5700; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 5px 5px 5px 0; }
+    button { background: #bf5700; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; margin: 10px 5px 10px 0; font-weight: bold; }
     button:hover { background: #a04900; }
-    .btn-small { padding: 5px 10px; font-size: 0.9em; }
+    .btn-sm { padding: 5px 10px; font-size: 0.9em; }
     .btn-green { background: #28a745; }
-    .btn-green:hover { background: #218838; }
     .btn-blue { background: #007bff; }
-    .btn-blue:hover { background: #0056b3; }
     .btn-red { background: #dc3545; }
-    .btn-red:hover { background: #c82333; }
-    .info-box { background: #e3f2fd; padding: 10px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #2196F3; font-size: 0.9em; }
-    .code-box { background: #f5f5f5; padding: 15px; border-radius: 5px; font-family: monospace; font-size: 0.85em; max-height: 400px; overflow-y: auto; white-space: pre-wrap; word-wrap: break-word; margin: 10px 0; display: none; border: 1px solid #ddd; }
+    .info { background: #e3f2fd; padding: 12px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #2196F3; font-size: 0.9em; }
+    .inst { background: #fff3cd; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #ffc107; }
+    .inst h4 { color: #856404; margin-bottom: 10px; }
+    .inst ol { margin-left: 20px; line-height: 1.8; }
+    .inst code { background: #f8f9fa; padding: 2px 6px; border-radius: 3px; color: #d63384; }
+    .code { background: #f5f5f5; padding: 15px; border-radius: 5px; font-family: monospace; font-size: 0.85em; max-height: 400px; overflow-y: auto; white-space: pre-wrap; margin: 10px 0; display: none; border: 1px solid #ddd; }
     .success { background: #4CAF50; color: white; padding: 10px; border-radius: 5px; margin: 10px 0; display: none; }
-    table { width: 100%; border-collapse: collapse; margin: 10px 0; background: white; }
-    th { background: #bf5700; color: white; padding: 8px; text-align: left; }
+    table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+    th { background: #bf5700; color: white; padding: 8px; }
     td { padding: 8px; border-bottom: 1px solid #eee; }
     td input { padding: 5px; }
-    .photo-links { margin: 10px 0; }
-    .photo-item { display: flex; gap: 10px; margin: 5px 0; }
-    .photo-item input { flex: 1; }
-    .preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin: 10px 0; }
-    .preview-img { width: 100%; height: 150px; object-fit: cover; border-radius: 5px; }
+    .divider { border-top: 3px solid #bf5700; margin: 40px 0; }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🏆 Alumni Cup Admin Panel</h1>
-    <p>Manage your website content here</p>
+    <h1>🏆 Alumni Cup Admin</h1>
+    <p style="color: #666; margin-bottom: 20px;">Generate code for each section independently</p>
 
     <!-- PHOTOS -->
-    <h2>📸 Photo Gallery</h2>
-    <div class="info-box">Upload photos to Google Drive, share with "Anyone with the link", paste links below</div>
-    <div id="photoLinks" class="photo-links">
-      <div class="photo-item">
-        <input type="url" placeholder="https://drive.google.com/file/d/...">
-        <button class="btn-small btn-red" onclick="removePhoto(this)">Remove</button>
-      </div>
-    </div>
+    <h2>1️⃣ Photos</h2>
+    <div class="info">Upload images to your GitHub repo and enter filenames (e.g., trophy.jpg)</div>
+    <div id="photos"></div>
     <button class="btn-green" onclick="addPhoto()">+ Add Photo</button>
-    <button onclick="previewPhotos()">Preview</button>
-    <button class="btn-blue" onclick="genPhoto()">Generate Code</button>
+    <button class="btn-blue" onclick="genPhoto()">Generate Photo Code</button>
     <button onclick="copy('photoCode')">Copy</button>
-    <div id="photoPreview" class="preview-grid"></div>
-    <div id="photoCode" class="code-box"></div>
-    <div id="photoMsg" class="success">Code generated!</div>
+    <div class="inst">
+      <h4>📍 Where to paste:</h4>
+      <ol>
+        <li>Find <code>&lt;/section&gt;</code> (end of Results section)</li>
+        <li>Paste RIGHT AFTER it, BEFORE <code>&lt;/div&gt;</code></li>
+      </ol>
+    </div>
+    <div id="photoCode" class="code"></div>
+    <div id="photoMsg" class="success">✅ Generated!</div>
+
+    <div class="divider"></div>
 
     <!-- RESULTS -->
-    <h2>🏆 Results & Participants</h2>
-    
+    <h2>2️⃣ Results Summary</h2>
     <h3>Golf</h3>
-    <label>UT Austin Score</label>
+    <label>UT Score</label>
     <input type="number" id="utGolf" value="312">
     <label>Michigan Score</label>
     <input type="number" id="umGolf" value="325">
-    <label>Participants (CSV: Name, School, Score)</label>
-    <div class="info-box">Example: John Smith, UT, 78</div>
-    <textarea id="golfCSV" placeholder="John Smith, UT, 78
-Jane Doe, Michigan, 82"></textarea>
-    <button class="btn-green" onclick="parseTable('golfCSV', 'golfTable')">Parse CSV</button>
-    <table id="golfTable">
-      <thead><tr><th>Name</th><th>School</th><th>Score</th><th>Action</th></tr></thead>
-      <tbody><tr><td><input type="text" placeholder="Name"></td><td><input type="text" placeholder="UT/Michigan"></td><td><input type="number" placeholder="78"></td><td><button class="btn-small btn-red" onclick="delRow(this)">×</button></td></tr></tbody>
-    </table>
-
     <h3>10K Run</h3>
-    <label>UT Austin Avg Time</label>
+    <label>UT Time</label>
     <input type="text" id="utRun" value="49:15">
-    <label>Michigan Avg Time</label>
+    <label>Michigan Time</label>
     <input type="text" id="umRun" value="48:23">
-    <label>Participants (CSV: Name, School, Time)</label>
-    <div class="info-box">Example: John Smith, UT, 48:23</div>
-    <textarea id="runCSV" placeholder="John Smith, UT, 48:23
-Jane Doe, Michigan, 52:15"></textarea>
-    <button class="btn-green" onclick="parseTable('runCSV', 'runTable')">Parse CSV</button>
-    <table id="runTable">
-      <thead><tr><th>Name</th><th>School</th><th>Time</th><th>Action</th></tr></thead>
-      <tbody><tr><td><input type="text" placeholder="Name"></td><td><input type="text" placeholder="UT/Michigan"></td><td><input type="text" placeholder="48:23"></td><td><button class="btn-small btn-red" onclick="delRow(this)">×</button></td></tr></tbody>
-    </table>
-
-    <h3>Rules</h3>
-    <label>Golf Rules (English)</label>
-    <textarea id="golfEn">- USGA Rules apply
-- Modified Stableford scoring
-- Maximum handicap: 36</textarea>
-    <label>Golf Rules (Korean)</label>
-    <textarea id="golfKo">- USGA 규칙 적용
-- 수정된 스테이블포드 스코어링
-- 최대 핸디캡: 36</textarea>
-    <label>10K Rules (English)</label>
-    <textarea id="runEn">- Chip-timed race
-- USATF certified course
-- Top 3 finishers per team count</textarea>
-    <label>10K Rules (Korean)</label>
-    <textarea id="runKo">- 칩 타이밍 레이스
-- USATF 인증 코스
-- 팀 점수는 상위 3명으로 계산</textarea>
-
     <label>Total Participants</label>
     <input type="number" id="total" value="100">
-    <label>Notes (optional)</label>
+    <label>Notes</label>
     <textarea id="notes" style="min-height: 60px;"></textarea>
-
     <button class="btn-blue" onclick="genResults()">Generate Results Code</button>
     <button onclick="copy('resultsCode')">Copy</button>
-    <div id="resultsCode" class="code-box"></div>
-    <div id="resultsMsg" class="success">Results code generated!</div>
+    <div class="inst">
+      <h4>📍 Where to paste:</h4>
+      <ol>
+        <li>Find <code>&lt;section id="results"&gt;</code></li>
+        <li>REPLACE entire section to closing <code>&lt;/section&gt;</code></li>
+      </ol>
+    </div>
+    <div id="resultsCode" class="code"></div>
+    <div id="resultsMsg" class="success">✅ Generated!</div>
+
+    <div class="divider"></div>
+
+    <!-- PARTICIPANTS -->
+    <h2>3️⃣ Participants</h2>
+    <h3>Golf</h3>
+    <div class="info">CSV: Name, School, Score</div>
+    <textarea id="golfCSV" placeholder="John Smith, UT, 78"></textarea>
+    <button class="btn-green" onclick="parseCSV('golfCSV','golfTable')">Parse CSV</button>
+    <table id="golfTable">
+      <thead><tr><th>Name</th><th>School</th><th>Score</th><th></th></tr></thead>
+      <tbody><tr><td><input type="text"></td><td><input type="text"></td><td><input type="number"></td><td><button class="btn-sm btn-red" onclick="delRow(this)">×</button></td></tr></tbody>
+    </table>
+    <h3>10K Run</h3>
+    <div class="info">CSV: Name, School, Time</div>
+    <textarea id="runCSV" placeholder="Jane Doe, Michigan, 48:23"></textarea>
+    <button class="btn-green" onclick="parseCSV('runCSV','runTable')">Parse CSV</button>
+    <table id="runTable">
+      <thead><tr><th>Name</th><th>School</th><th>Time</th><th></th></tr></thead>
+      <tbody><tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><button class="btn-sm btn-red" onclick="delRow(this)">×</button></td></tr></tbody>
+    </table>
+    <button class="btn-blue" onclick="genPart()">Generate Participants Code</button>
+    <button onclick="copy('partCode')">Copy</button>
+    <div class="inst">
+      <h4>📍 Where to paste:</h4>
+      <ol>
+        <li>Inside the results section you just pasted</li>
+        <li>Find comment: <code>&lt;!-- Participant details --&gt;</code></li>
+        <li>Replace that line with this code</li>
+      </ol>
+    </div>
+    <div id="partCode" class="code"></div>
+    <div id="partMsg" class="success">✅ Generated!</div>
+
+    <div class="divider"></div>
+
+    <!-- RULES -->
+    <h2>4️⃣ Rules</h2>
+    <label>Golf (English)</label>
+    <textarea id="golfEn">- USGA Rules apply
+- Modified Stableford scoring</textarea>
+    <label>Golf (Korean)</label>
+    <textarea id="golfKo">- USGA 규칙 적용
+- 수정된 스테이블포드 스코어링</textarea>
+    <label>10K (English)</label>
+    <textarea id="runEn">- Chip-timed race
+- USATF certified course</textarea>
+    <label>10K (Korean)</label>
+    <textarea id="runKo">- 칩 타이밍 레이스
+- USATF 인증 코스</textarea>
+    <button class="btn-blue" onclick="genRules()">Generate Rules Code</button>
+    <button onclick="copy('rulesCode')">Copy</button>
+    <div class="inst">
+      <h4>📍 Where to paste:</h4>
+      <ol>
+        <li>Inside results section</li>
+        <li>Find comment: <code>&lt;!-- Rules --&gt;</code></li>
+        <li>Replace that line with this code</li>
+      </ol>
+    </div>
+    <div id="rulesCode" class="code"></div>
+    <div id="rulesMsg" class="success">✅ Generated!</div>
+
+    <div class="divider"></div>
 
     <!-- ANNOUNCEMENT -->
-    <h2>📢 Announcement</h2>
+    <h2>5️⃣ Announcement</h2>
     <label>English</label>
-    <input type="text" id="annEn" value="🎉 Alumni Cup 2026 - Registration Opens March 2026">
+    <input type="text" id="annEn" value="🎉 Alumni Cup 2026">
     <label>Korean</label>
-    <input type="text" id="annKo" value="🎉 알럼나이 컵 2026 - 등록은 2026년 3월 시작">
+    <input type="text" id="annKo" value="🎉 알럼나이 컵 2026">
     <button class="btn-blue" onclick="genAnn()">Generate Code</button>
     <button onclick="copy('annCode')">Copy</button>
-    <div id="annCode" class="code-box"></div>
-    <div id="annMsg" class="success">Announcement code generated!</div>
+    <div class="inst">
+      <h4>📍 Where to paste:</h4>
+      <ol>
+        <li>Find <code>&lt;div class="announcement"&gt;</code></li>
+        <li>REPLACE entire div</li>
+      </ol>
+    </div>
+    <div id="annCode" class="code"></div>
+    <div id="annMsg" class="success">✅ Generated!</div>
   </div>
 
   <script>
-    // PHOTO FUNCTIONS
+    // Init photos
+    document.getElementById('photos').innerHTML = '<div style="margin:5px 0"><input type="text" placeholder="photo.jpg" style="width:80%; margin-right:10px"><button class="btn-sm btn-red" onclick="this.parentElement.remove()">Remove</button></div>';
+
     function addPhoto() {
-      const div = document.createElement('div');
-      div.className = 'photo-item';
-      div.innerHTML = '<input type="url" placeholder="https://drive.google.com/file/d/..."><button class="btn-small btn-red" onclick="removePhoto(this)">Remove</button>';
-      document.getElementById('photoLinks').appendChild(div);
-    }
-
-    function removePhoto(btn) {
-      if (document.getElementById('photoLinks').children.length > 1) {
-        btn.parentElement.remove();
-      }
-    }
-
-    function convertDriveLink(url) {
-      if (!url) return null;
-      const match = url.match(/\/file\/d\/([^\/]+)/);
-      return match ? `https://drive.google.com/uc?export=view&id=${match[1]}` : url;
-    }
-
-    function previewPhotos() {
-      const inputs = document.querySelectorAll('#photoLinks input');
-      const preview = document.getElementById('photoPreview');
-      preview.innerHTML = '';
-      inputs.forEach(inp => {
-        const url = convertDriveLink(inp.value);
-        if (url) preview.innerHTML += `<img src="${url}" class="preview-img">`;
-      });
+      document.getElementById('photos').innerHTML += '<div style="margin:5px 0"><input type="text" placeholder="photo.jpg" style="width:80%; margin-right:10px"><button class="btn-sm btn-red" onclick="this.parentElement.remove()">Remove</button></div>';
     }
 
     function genPhoto() {
-      const inputs = document.querySelectorAll('#photoLinks input');
-      const urls = [];
-      inputs.forEach(inp => {
-        const url = convertDriveLink(inp.value);
-        if (url) urls.push(url);
-      });
-      if (urls.length === 0) { alert('Add photos first!'); return; }
+      const inputs = document.querySelectorAll('#photos input');
+      const imgs = [];
+      inputs.forEach(i => { if(i.value.trim()) imgs.push(i.value.trim()); });
+      if(imgs.length === 0) { alert('Add photos!'); return; }
       
-      let code = `<!-- Photo Gallery -->
-<div style="margin-top: 3rem;">
-  <h3 style="text-align: center; color: #00274c; font-size: 1.8rem; margin-bottom: 2rem;">
-    <span class="lang-en">📸 2025 Event Photos</span>
-    <span class="lang-ko">📸 2025 대회 사진</span>
-  </h3>
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-`;
-      urls.forEach(u => code += `    <img src="${u}" alt="Alumni Cup 2025" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-`);
-      code += `  </div>
-</div>`;
-      document.getElementById('photoCode').textContent = code;
-      document.getElementById('photoCode').style.display = 'block';
-      showMsg('photoMsg');
-    }
-
-    // TABLE FUNCTIONS
-    function delRow(btn) {
-      const tbody = btn.closest('tbody');
-      if (tbody.rows.length > 1) btn.closest('tr').remove();
-    }
-
-    function parseTable(csvId, tableId) {
-      const csv = document.getElementById(csvId).value.trim();
-      if (!csv) { alert('Paste CSV first!'); return; }
+      let c = '<!-- Photos - Paste after </section> -->\n<div style="margin-top:3rem">\n  <h3 style="text-align:center;color:#00274c;font-size:1.8rem;margin-bottom:2rem">\n    <span class="lang-en">📸 2025 Photos</span>\n    <span class="lang-ko">📸 2025 사진</span>\n  </h3>\n  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem">\n';
+      imgs.forEach(img => c += `    <img src="${img}" alt="Event" style="width:100%;height:250px;object-fit:cover;border-radius:10px;box-shadow:0 4px 6px rgba(0,0,0,0.1)">\n`);
+      c += '  </div>\n</div>';
       
-      const tbody = document.getElementById(tableId).querySelector('tbody');
-      tbody.innerHTML = '';
-      
-      csv.split('\n').forEach(line => {
-        const parts = line.split(',').map(p => p.trim());
-        if (parts.length >= 3) {
-          const row = tbody.insertRow();
-          const inputType = tableId === 'golfTable' ? 'number' : 'text';
-          row.innerHTML = `<td><input type="text" value="${parts[0]}"></td><td><input type="text" value="${parts[1]}"></td><td><input type="${inputType}" value="${parts[2]}"></td><td><button class="btn-small btn-red" onclick="delRow(this)">×</button></td>`;
-        }
-      });
-      document.getElementById(csvId).value = '';
-      alert('CSV parsed!');
+      show('photoCode', c, 'photoMsg');
     }
 
-    function getTableData(tableId) {
-      const rows = document.getElementById(tableId).querySelector('tbody').rows;
-      const data = [];
-      for (let r of rows) {
-        const inputs = r.querySelectorAll('input');
-        if (inputs[0].value && inputs[1].value && inputs[2].value) {
-          data.push({name: inputs[0].value, school: inputs[1].value, score: inputs[2].value});
-        }
-      }
-      return data;
-    }
-
-    // GENERATE RESULTS
     function genResults() {
       const utG = document.getElementById('utGolf').value;
       const umG = document.getElementById('umGolf').value;
@@ -234,159 +197,116 @@ Jane Doe, Michigan, 52:15"></textarea>
       const umR = document.getElementById('umRun').value;
       const tot = document.getElementById('total').value;
       const note = document.getElementById('notes').value;
-      
-      const golf = getTableData('golfTable');
-      const run = getTableData('runTable');
-      
-      const golfEn = document.getElementById('golfEn').value;
-      const golfKo = document.getElementById('golfKo').value;
-      const runEn = document.getElementById('runEn').value;
-      const runKo = document.getElementById('runKo').value;
-      
       const gWin = parseInt(utG) < parseInt(umG);
       const rWin = umR < utR;
       
-      const utGolf = golf.filter(p => p.school.toLowerCase().includes('ut'));
-      const umGolf = golf.filter(p => p.school.toLowerCase().includes('mich'));
-      const utRun = run.filter(p => p.school.toLowerCase().includes('ut'));
-      const umRun = run.filter(p => p.school.toLowerCase().includes('mich'));
+      let c = `<!-- Results Section -->\n<section id="results">\n  <h2 class="lang-en">2025 Results</h2>\n  <h2 class="lang-ko">2025 결과</h2>\n  <p class="lang-en" style="text-align:center;font-size:1.1rem;margin-bottom:2rem">Ann Arbor, Michigan - September 2025</p>\n  <p class="lang-ko" style="text-align:center;font-size:1.1rem;margin-bottom:2rem">미시간주 앤아버 - 2025년 9월</p>\n  \n  <div class="results-box">\n    <h3 class="lang-en">⛳ Golf</h3>\n    <h3 class="lang-ko">⛳ 골프</h3>\n    <div class="result-row">\n      <span class="school lang-en">${gWin?'🏆 ':''}UT Austin</span>\n      <span class="school lang-ko">${gWin?'🏆 ':''}텍사스대</span>\n      <span class="score">${utG}</span>\n    </div>\n    <div class="result-row">\n      <span class="school lang-en">${!gWin?'🏆 ':''}Michigan</span>\n      <span class="school lang-ko">${!gWin?'🏆 ':''}미시간대</span>\n      <span class="score">${umG}</span>\n    </div>\n  </div>\n  \n  <div class="results-box">\n    <h3 class="lang-en">🏃 10K Run</h3>\n    <h3 class="lang-ko">🏃 10K 마라톤</h3>\n    <div class="result-row">\n      <span class="school lang-en">${rWin?'🏆 ':''}Michigan</span>\n      <span class="school lang-ko">${rWin?'🏆 ':''}미시간대</span>\n      <span class="score">${umR}</span>\n    </div>\n    <div class="result-row">\n      <span class="school lang-en">${!rWin?'🏆 ':''}UT Austin</span>\n      <span class="school lang-ko">${!rWin?'🏆 ':''}텍사스대</span>\n      <span class="score">${utR}</span>\n    </div>\n  </div>\n  \n  <!-- Participant details -->\n  \n  <!-- Rules -->\n  \n  <p class="lang-en" style="text-align:center;margin-top:2rem;font-style:italic">Over ${tot} alumni participated.${note?' '+note:''}</p>\n  <p class="lang-ko" style="text-align:center;margin-top:2rem;font-style:italic">${tot}명 이상의 동문이 참가했습니다.${note?' '+note:''}</p>\n</section>`;
       
-      let code = `<!-- Results Section -->
-<section id="results">
-  <h2 class="lang-en">2025 Inaugural Results</h2>
-  <h2 class="lang-ko">2025 창립 대회 결과</h2>
-  <p class="lang-en" style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">Ann Arbor, Michigan - September 2025</p>
-  <p class="lang-ko" style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">미시간주 앤아버 - 2025년 9월</p>
-  
-  <div class="results-box">
-    <h3 class="lang-en">⛳ Golf Championship</h3>
-    <h3 class="lang-ko">⛳ 골프 챔피언십</h3>
-    <div class="result-row">
-      <span class="school lang-en">${gWin ? '🏆 ' : ''}University of Texas</span>
-      <span class="school lang-ko">${gWin ? '🏆 ' : ''}텍사스 대학교</span>
-      <span class="score lang-en">Team Score: ${utG}</span>
-      <span class="score lang-ko">팀 점수: ${utG}</span>
-    </div>
-    <div class="result-row">
-      <span class="school lang-en">${!gWin ? '🏆 ' : ''}University of Michigan</span>
-      <span class="school lang-ko">${!gWin ? '🏆 ' : ''}미시간 대학교</span>
-      <span class="score lang-en">Team Score: ${umG}</span>
-      <span class="score lang-ko">팀 점수: ${umG}</span>
-    </div>
-  </div>
-  
-  <div class="results-box">
-    <h3 class="lang-en">🏃 10K Run Championship</h3>
-    <h3 class="lang-ko">🏃 10K 마라톤 챔피언십</h3>
-    <div class="result-row">
-      <span class="school lang-en">${rWin ? '🏆 ' : ''}University of Michigan</span>
-      <span class="school lang-ko">${rWin ? '🏆 ' : ''}미시간 대학교</span>
-      <span class="score lang-en">Avg Time: ${umR}</span>
-      <span class="score lang-ko">평균 기록: ${umR}</span>
-    </div>
-    <div class="result-row">
-      <span class="school lang-en">${!rWin ? '🏆 ' : ''}University of Texas</span>
-      <span class="school lang-ko">${!rWin ? '🏆 ' : ''}텍사스 대학교</span>
-      <span class="score lang-en">Avg Time: ${utR}</span>
-      <span class="score lang-ko">평균 기록: ${utR}</span>
-    </div>
-  </div>
-  
-  <details style="margin-top: 2rem; background: #f9f9f9; padding: 1.5rem; border-radius: 10px;">
-    <summary style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #bf5700;">
-      <span class="lang-en">📊 View Detailed Results</span>
-      <span class="lang-ko">📊 상세 결과 보기</span>
-    </summary>
-    <div style="margin-top: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
-      <div style="background: white; padding: 1rem; border-radius: 8px;">
-        <h5 style="color: #bf5700;">UT Austin Golf</h5>
-        <table style="width: 100%;"><thead><tr><th class="lang-en">Name</th><th class="lang-ko">이름</th><th class="lang-en">Score</th><th class="lang-ko">점수</th></tr></thead><tbody>`;
-      
-      utGolf.forEach(p => code += `<tr><td>${p.name}</td><td>${p.score}</td></tr>`);
-      
-      code += `</tbody></table>
-      </div>
-      <div style="background: white; padding: 1rem; border-radius: 8px;">
-        <h5 style="color: #00274c;">Michigan Golf</h5>
-        <table style="width: 100%;"><thead><tr><th class="lang-en">Name</th><th class="lang-ko">이름</th><th class="lang-en">Score</th><th class="lang-ko">점수</th></tr></thead><tbody>`;
-      
-      umGolf.forEach(p => code += `<tr><td>${p.name}</td><td>${p.score}</td></tr>`);
-      
-      code += `</tbody></table>
-      </div>
-      <div style="background: white; padding: 1rem; border-radius: 8px;">
-        <h5 style="color: #bf5700;">UT Austin 10K</h5>
-        <table style="width: 100%;"><thead><tr><th class="lang-en">Name</th><th class="lang-ko">이름</th><th class="lang-en">Time</th><th class="lang-ko">기록</th></tr></thead><tbody>`;
-      
-      utRun.forEach(p => code += `<tr><td>${p.name}</td><td>${p.score}</td></tr>`);
-      
-      code += `</tbody></table>
-      </div>
-      <div style="background: white; padding: 1rem; border-radius: 8px;">
-        <h5 style="color: #00274c;">Michigan 10K</h5>
-        <table style="width: 100%;"><thead><tr><th class="lang-en">Name</th><th class="lang-ko">이름</th><th class="lang-en">Time</th><th class="lang-ko">기록</th></tr></thead><tbody>`;
-      
-      umRun.forEach(p => code += `<tr><td>${p.name}</td><td>${p.score}</td></tr>`);
-      
-      code += `</tbody></table>
-      </div>
-    </div>
-  </details>
-  
-  <details style="margin-top: 1rem; background: #f9f9f9; padding: 1.5rem; border-radius: 10px;">
-    <summary style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #bf5700;">
-      <span class="lang-en">📋 Rules</span>
-      <span class="lang-ko">📋 규칙</span>
-    </summary>
-    <div style="margin-top: 1rem;">
-      <h4 class="lang-en">⛳ Golf Rules</h4>
-      <h4 class="lang-ko">⛳ 골프 규칙</h4>
-      <div class="lang-en" style="background: white; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">${golfEn}</div>
-      <div class="lang-ko" style="background: white; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">${golfKo}</div>
-      <h4 class="lang-en" style="margin-top: 1rem;">🏃 10K Rules</h4>
-      <h4 class="lang-ko" style="margin-top: 1rem;">🏃 10K 규칙</h4>
-      <div class="lang-en" style="background: white; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">${runEn}</div>
-      <div class="lang-ko" style="background: white; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">${runKo}</div>
-    </div>
-  </details>
-  
-  <p class="lang-en" style="text-align: center; margin-top: 2rem; font-style: italic;">Over ${tot} alumni participated.${note ? ' ' + note : ''}</p>
-  <p class="lang-ko" style="text-align: center; margin-top: 2rem; font-style: italic;">${tot}명 이상의 동문이 참가했습니다.${note ? ' ' + note : ''}</p>
-</section>`;
-      
-      document.getElementById('resultsCode').textContent = code;
-      document.getElementById('resultsCode').style.display = 'block';
-      showMsg('resultsMsg');
+      show('resultsCode', c, 'resultsMsg');
     }
 
-    // GENERATE ANNOUNCEMENT
+    function getData(tId) {
+      const rows = document.getElementById(tId).querySelector('tbody').rows;
+      const data = [];
+      for(let r of rows) {
+        const inp = r.querySelectorAll('input');
+        if(inp[0].value && inp[1].value && inp[2].value) {
+          data.push({name:inp[0].value, school:inp[1].value, score:inp[2].value});
+        }
+      }
+      return data;
+    }
+
+    function genPart() {
+      const golf = getData('golfTable');
+      const run = getData('runTable');
+      
+      // Sort golf by score (lowest to highest)
+      golf.sort((a, b) => parseInt(a.score) - parseInt(b.score));
+      
+      // Sort run by time (fastest to slowest) - convert mm:ss to seconds for comparison
+      run.sort((a, b) => {
+        const aTime = a.score.split(':').map(Number);
+        const bTime = b.score.split(':').map(Number);
+        const aSec = (aTime[0] || 0) * 60 + (aTime[1] || 0);
+        const bSec = (bTime[0] || 0) * 60 + (bTime[1] || 0);
+        return aSec - bSec;
+      });
+      
+      let c = `  <details style="margin-top:2rem;background:#f9f9f9;padding:1.5rem;border-radius:10px">\n    <summary style="cursor:pointer;font-size:1.2rem;font-weight:bold;color:#bf5700">\n      <span class="lang-en">📊 Detailed Results</span>\n      <span class="lang-ko">📊 상세 결과</span>\n    </summary>\n    <div style="margin-top:1.5rem">\n`;
+      
+      // Golf participants table
+      if (golf.length > 0) {
+        c += `      <h4 class="lang-en" style="color:#00274c;margin-bottom:1rem">⛳ Golf Participants</h4>\n      <h4 class="lang-ko" style="color:#00274c;margin-bottom:1rem">⛳ 골프 참가자</h4>\n      <div style="background:white;padding:1rem;border-radius:8px;margin-bottom:2rem">\n        <table style="width:100%;border-collapse:collapse">\n          <thead>\n            <tr style="border-bottom:2px solid #ddd">\n              <th style="text-align:left;padding:0.5rem"><span class="lang-en">Name</span><span class="lang-ko">이름</span></th>\n              <th style="text-align:left;padding:0.5rem"><span class="lang-en">School</span><span class="lang-ko">학교</span></th>\n              <th style="text-align:right;padding:0.5rem"><span class="lang-en">Score</span><span class="lang-ko">점수</span></th>\n            </tr>\n          </thead>\n          <tbody>`;
+        golf.forEach(p => c += `\n            <tr style="border-bottom:1px solid #eee"><td style="padding:0.5rem">${p.name}</td><td style="padding:0.5rem">${p.school}</td><td style="padding:0.5rem;text-align:right">${p.score}</td></tr>`);
+        c += `\n          </tbody>\n        </table>\n      </div>\n`;
+      }
+      
+      // Run participants table
+      if (run.length > 0) {
+        c += `      <h4 class="lang-en" style="color:#00274c;margin-bottom:1rem">🏃 10K Run Participants</h4>\n      <h4 class="lang-ko" style="color:#00274c;margin-bottom:1rem">🏃 10K 마라톤 참가자</h4>\n      <div style="background:white;padding:1rem;border-radius:8px">\n        <table style="width:100%;border-collapse:collapse">\n          <thead>\n            <tr style="border-bottom:2px solid #ddd">\n              <th style="text-align:left;padding:0.5rem"><span class="lang-en">Name</span><span class="lang-ko">이름</span></th>\n              <th style="text-align:left;padding:0.5rem"><span class="lang-en">School</span><span class="lang-ko">학교</span></th>\n              <th style="text-align:right;padding:0.5rem"><span class="lang-en">Time</span><span class="lang-ko">기록</span></th>\n            </tr>\n          </thead>\n          <tbody>`;
+        run.forEach(p => c += `\n            <tr style="border-bottom:1px solid #eee"><td style="padding:0.5rem">${p.name}</td><td style="padding:0.5rem">${p.school}</td><td style="padding:0.5rem;text-align:right">${p.score}</td></tr>`);
+        c += `\n          </tbody>\n        </table>\n      </div>\n`;
+      }
+      
+      c += `    </div>\n  </details>`;
+      
+      show('partCode', c, 'partMsg');
+    }
+
+    function genRules() {
+      const gEn = document.getElementById('golfEn').value;
+      const gKo = document.getElementById('golfKo').value;
+      const rEn = document.getElementById('runEn').value;
+      const rKo = document.getElementById('runKo').value;
+      
+      let c = `  <details style="margin-top:1rem;background:#f9f9f9;padding:1.5rem;border-radius:10px">\n    <summary style="cursor:pointer;font-size:1.2rem;font-weight:bold;color:#bf5700">\n      <span class="lang-en">📋 Rules</span>\n      <span class="lang-ko">📋 규칙</span>\n    </summary>\n    <div style="margin-top:1rem">\n      <h4 class="lang-en">⛳ Golf Rules</h4>\n      <h4 class="lang-ko">⛳ 골프 규칙</h4>\n      <div class="lang-en" style="background:white;padding:1rem;margin:0.5rem 0;white-space:pre-line">${gEn}</div>\n      <div class="lang-ko" style="background:white;padding:1rem;margin:0.5rem 0;white-space:pre-line">${gKo}</div>\n      <h4 class="lang-en" style="margin-top:1rem">🏃 10K Rules</h4>\n      <h4 class="lang-ko" style="margin-top:1rem">🏃 10K 규칙</h4>\n      <div class="lang-en" style="background:white;padding:1rem;margin:0.5rem 0;white-space:pre-line">${rEn}</div>\n      <div class="lang-ko" style="background:white;padding:1rem;margin:0.5rem 0;white-space:pre-line">${rKo}</div>\n    </div>\n  </details>`;
+      
+      show('rulesCode', c, 'rulesMsg');
+    }
+
     function genAnn() {
       const en = document.getElementById('annEn').value;
       const ko = document.getElementById('annKo').value;
-      
-      const code = `<!-- Announcement -->
-<div class="announcement">
-  <span class="lang-en">${en}</span>
-  <span class="lang-ko">${ko}</span>
-</div>`;
-      
-      document.getElementById('annCode').textContent = code;
-      document.getElementById('annCode').style.display = 'block';
-      showMsg('annMsg');
+      const c = `<div class="announcement">\n  <span class="lang-en">${en}</span>\n  <span class="lang-ko">${ko}</span>\n</div>`;
+      show('annCode', c, 'annMsg');
     }
 
-    // UTILITIES
+    function delRow(btn) {
+      const tbody = btn.closest('tbody');
+      if(tbody.rows.length > 1) btn.closest('tr').remove();
+    }
+
+    function parseCSV(csvId, tId) {
+      const csv = document.getElementById(csvId).value.trim();
+      if(!csv) { alert('Paste CSV!'); return; }
+      const tbody = document.getElementById(tId).querySelector('tbody');
+      tbody.innerHTML = '';
+      const type = tId === 'golfTable' ? 'number' : 'text';
+      csv.split('\n').forEach(line => {
+        const p = line.split(',').map(x => x.trim());
+        if(p.length >= 3) {
+          const r = tbody.insertRow();
+          r.innerHTML = `<td><input type="text" value="${p[0]}"></td><td><input type="text" value="${p[1]}"></td><td><input type="${type}" value="${p[2]}"></td><td><button class="btn-sm btn-red" onclick="delRow(this)">×</button></td>`;
+        }
+      });
+      document.getElementById(csvId).value = '';
+      alert('Parsed!');
+    }
+
+    function show(cId, code, mId) {
+      document.getElementById(cId).textContent = code;
+      document.getElementById(cId).style.display = 'block';
+      const msg = document.getElementById(mId);
+      msg.style.display = 'block';
+      setTimeout(() => msg.style.display = 'none', 3000);
+    }
+
     function copy(id) {
-      const text = document.getElementById(id).textContent;
-      if (!text) { alert('Generate code first!'); return; }
-      navigator.clipboard.writeText(text).then(() => alert('✅ Copied!'));
-    }
-
-    function showMsg(id) {
-      const el = document.getElementById(id);
-      el.style.display = 'block';
-      setTimeout(() => el.style.display = 'none', 3000);
+      const txt = document.getElementById(id).textContent;
+      if(!txt) { alert('Generate first!'); return; }
+      navigator.clipboard.writeText(txt).then(() => alert('✅ Copied!'));
     }
   </script>
 </body>
-</html>
+</html></parameter>
