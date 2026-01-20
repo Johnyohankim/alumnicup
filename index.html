@@ -814,48 +814,48 @@
       </p>
       
       <div class="contact-form">
-        <form id="contactForm">
+        <form id="contactForm" onsubmit="sendEmail(event)">
           <div class="form-group">
             <label class="lang-en">Name *</label>
             <label class="lang-ko">이름 *</label>
-            <input type="text" name="name" required placeholder="">
+            <input type="text" id="name" name="name" required placeholder="">
           </div>
           
           <div class="form-group">
             <label class="lang-en">Email *</label>
             <label class="lang-ko">이메일 *</label>
-            <input type="email" name="email" required placeholder="">
+            <input type="email" id="email" name="email" required placeholder="">
           </div>
           
           <div class="form-group">
             <label class="lang-en">University/Affiliation</label>
             <label class="lang-ko">대학/소속</label>
-            <input type="text" name="university" placeholder="">
+            <input type="text" id="university" name="university" placeholder="">
           </div>
           
           <div class="form-group">
             <label class="lang-en">Interest *</label>
             <label class="lang-ko">문의 유형 *</label>
-            <select name="interest" required>
+            <select id="interest" name="interest" required>
               <option value="" class="lang-en">Select one...</option>
               <option value="" class="lang-ko">선택하세요...</option>
-              <option class="lang-en">Participant Registration</option>
-              <option class="lang-ko">참가자 등록</option>
-              <option class="lang-en">School Partnership Inquiry</option>
-              <option class="lang-ko">학교 파트너십 문의</option>
-              <option class="lang-en">Sponsorship Opportunities</option>
-              <option class="lang-ko">후원 기회</option>
-              <option class="lang-en">General Questions</option>
-              <option class="lang-ko">일반 문의</option>
-              <option class="lang-en">Media/Press</option>
-              <option class="lang-ko">언론/보도</option>
+              <option value="Participant Registration" class="lang-en">Participant Registration</option>
+              <option value="참가자 등록" class="lang-ko">참가자 등록</option>
+              <option value="School Partnership Inquiry" class="lang-en">School Partnership Inquiry</option>
+              <option value="학교 파트너십 문의" class="lang-ko">학교 파트너십 문의</option>
+              <option value="Sponsorship Opportunities" class="lang-en">Sponsorship Opportunities</option>
+              <option value="후원 기회" class="lang-ko">후원 기회</option>
+              <option value="General Questions" class="lang-en">General Questions</option>
+              <option value="일반 문의" class="lang-ko">일반 문의</option>
+              <option value="Media/Press" class="lang-en">Media/Press</option>
+              <option value="언론/보도" class="lang-ko">언론/보도</option>
             </select>
           </div>
           
           <div class="form-group">
             <label class="lang-en">Message *</label>
             <label class="lang-ko">메시지 *</label>
-            <textarea name="message" required placeholder=""></textarea>
+            <textarea id="message" name="message" required placeholder=""></textarea>
           </div>
           
           <button type="submit">
@@ -910,23 +910,47 @@
       document.body.classList.add('korean');
     }
     
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+    // Fixed email function
+    function sendEmail(event) {
+      // Prevent form from submitting normally
+      event.preventDefault();
       
-      const formData = new FormData(this);
-      const data = Object.fromEntries(formData);
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const university = document.getElementById('university').value;
+      const interest = document.getElementById('interest').value;
+      const message = document.getElementById('message').value;
       
-      const subject = encodeURIComponent('Alumni Cup Inquiry: ' + data.interest);
+      // Validate required fields
+      if (!name || !email || !interest || !message) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+      
+      // Create email subject and body
+      const subject = encodeURIComponent('Alumni Cup Inquiry: ' + interest);
       const body = encodeURIComponent(
-        'Name: ' + data.name + '\n' +
-        'Email: ' + data.email + '\n' +
-        'University: ' + data.university + '\n' +
-        'Interest: ' + data.interest + '\n\n' +
-        'Message:\n' + data.message
+        'Name: ' + name + '\n' +
+        'Email: ' + email + '\n' +
+        'University: ' + university + '\n' +
+        'Interest: ' + interest + '\n\n' +
+        'Message:\n' + message
       );
       
-      window.location.href = 'mailto:letmegeton@gmail.com?subject=' + subject + '&body=' + body;
-    });
+      // Create mailto link
+      const mailtoLink = 'mailto:letmegeton@gmail.com?subject=' + subject + '&body=' + body;
+      
+      // Open email client
+      window.location.href = mailtoLink;
+      
+      // Show success message after a brief delay
+      setTimeout(function() {
+        document.getElementById('successMessage').style.display = 'block';
+        // Reset form
+        document.getElementById('contactForm').reset();
+      }, 500);
+    }
   </script>
 </body>
 </html>
