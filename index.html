@@ -155,6 +155,10 @@
       padding: 4rem 2rem;
     }
     
+    .container.contact-container {
+      padding: 4rem 1rem;
+    }
+    
     section {
       margin-bottom: 4rem;
     }
@@ -322,12 +326,18 @@
     
     /* Contact Form */
     .contact-form {
-      max-width: 600px;
+      max-width: 100%;
       margin: 2rem auto;
       background: white;
-      padding: 2rem;
+      padding: 0;
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    @media (min-width: 769px) {
+      .contact-form {
+        max-width: 600px;
+      }
     }
     
     .form-group {
@@ -802,7 +812,7 @@
   </section>
 
   <!-- Contact Section -->
-  <div class="container">
+  <div class="container contact-container">
     <section id="contact">
       <h2 class="lang-en">Get In Touch</h2>
       <h2 class="lang-ko">문의하기</h2>
