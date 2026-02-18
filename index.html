@@ -75,23 +75,23 @@
       margin: 0 auto;
       padding: 0 20px;
       display: flex;
-      justify-content: center;
       align-items: center;
+      gap: 1rem;
       position: relative;
-      height: 60px;
     }
 
     nav .logo {
       font-size: 1.5rem;
       font-weight: bold;
-      position: absolute;
-      left: 20px;
+      flex: 0 0 auto;
+      white-space: nowrap;
     }
 
     nav ul {
       list-style: none;
       display: flex;
       gap: 2rem;
+      flex: 1;
       justify-content: center;
     }
 
@@ -99,6 +99,7 @@
       color: white;
       text-decoration: none;
       transition: opacity 0.3s;
+      white-space: nowrap;
     }
 
     nav a:hover {
@@ -114,8 +115,8 @@
       cursor: pointer;
       font-weight: bold;
       transition: background 0.3s;
-      position: absolute;
-      right: 20px;
+      flex: 0 0 auto;
+      white-space: nowrap;
     }
 
     .lang-toggle:hover {
@@ -709,31 +710,17 @@
     /* Mobile */
     @media (max-width: 768px) {
       nav .container {
-        height: auto;
         flex-wrap: wrap;
-        justify-content: center;
       }
 
       .hamburger {
         display: flex;
-        position: absolute;
-        left: 20px;
-        top: 50%;
-        transform: translateY(-50%);
+        flex: 0 0 auto;
       }
 
       nav .logo {
-        position: static;
+        flex: 1;
         order: 0;
-        margin-bottom: 1rem;
-      }
-
-      .lang-toggle {
-        position: static;
-        order: 2;
-        font-size: 0.9rem;
-        padding: 0.4rem 0.8rem;
-        margin-top: 1rem;
       }
 
       nav ul {
@@ -745,9 +732,9 @@
         overflow: hidden;
         transition: max-height 0.3s ease;
         background: #a04900;
-        margin-top: 1rem;
+        margin-top: 0.5rem;
         border-radius: 5px;
-        justify-content: flex-start;
+        flex: none;
       }
 
       nav ul.active {
@@ -765,6 +752,12 @@
       nav ul a {
         display: block;
         padding: 1rem;
+      }
+
+      .lang-toggle {
+        order: 2;
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
       }
 
       /* Hero */
