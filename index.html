@@ -162,18 +162,12 @@
       font-size: 3.5rem;
       margin-bottom: 1rem;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-      display: block;
-      max-width: 100%;
-      width: 100%;
       line-height: 1.2;
     }
 
     .hero p {
       font-size: 1.5rem;
       margin-bottom: 2rem;
-      display: block;
-      max-width: 100%;
-      width: 100%;
       line-height: 1.3;
     }
 
@@ -223,10 +217,6 @@
       margin-bottom: 1rem;
       color: #bf5700;
       text-align: center;
-      display: block;
-      width: 100%;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     h3 {
@@ -234,10 +224,6 @@
       margin-bottom: 1rem;
       color: #00274c;
       text-align: center;
-      display: block;
-      width: 100%;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     /* Event Info Grid */
@@ -595,14 +581,12 @@
       max-width: 800px;
       margin-left: auto;
       margin-right: auto;
-      display: block;
     }
 
     .school-list {
       max-width: 600px;
       margin: 0 auto;
       text-align: left;
-      display: block;
     }
 
     .school-list p {
@@ -711,11 +695,22 @@
       margin-top: 0.5rem;
     }
 
-    /* Hide inactive language */
-    .lang-en { display: inline-block !important; }
+    /* Hide inactive language — inline for spans/links */
+    .lang-en { display: inline !important; }
     .lang-ko { display: none !important; }
     body.korean .lang-en { display: none !important; }
-    body.korean .lang-ko { display: inline-block !important; }
+    body.korean .lang-ko { display: inline !important; }
+
+    /* Block-level elements keep block display when visible */
+    h1.lang-en, h2.lang-en, h3.lang-en, h4.lang-en, h5.lang-en,
+    p.lang-en, div.lang-en { display: block !important; }
+    body.korean h1.lang-ko, body.korean h2.lang-ko, body.korean h3.lang-ko,
+    body.korean h4.lang-ko, body.korean h5.lang-ko,
+    body.korean p.lang-ko, body.korean div.lang-ko { display: block !important; }
+
+    /* CTA buttons need inline-block for proper sizing */
+    a.cta-button.lang-en { display: inline-block !important; }
+    body.korean a.cta-button.lang-ko { display: inline-block !important; }
 
     /* Mobile */
     @media (max-width: 768px) {
@@ -955,7 +950,7 @@
 
       .contact-info {
         font-size: 0.95rem;
-        text-align: left;
+        text-align: center;
       }
 
       .contact-form iframe {
