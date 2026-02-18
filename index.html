@@ -5,6 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alumni Cup - Collegiate Golf & 10K Competition</title>
+  <meta name="description" content="The Alumni Cup is an annual athletic competition bringing together university alumni to compete in golf and 10K running. Founded by UT Austin and University of Michigan alumni.">
+  <meta property="og:title" content="Alumni Cup - Collegiate Golf & 10K Competition">
+  <meta property="og:description" content="Where University Alumni Compete in Golf & 10K Running. Join the annual inter-university athletic competition.">
+  <meta property="og:image" content="https://winalumnicup.com/alumni-cup.jpg">
+  <meta property="og:url" content="https://winalumnicup.com">
+  <meta property="og:type" content="website">
   <link rel="icon" type="image/png" href="favicon2.png">
   <style>
     * {
@@ -12,13 +18,13 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       line-height: 1.6;
       color: #333;
     }
-    
+
     /* Navigation */
     nav {
       background: #bf5700;
@@ -29,7 +35,7 @@
       z-index: 100;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    
+
     nav .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -39,28 +45,28 @@
       align-items: center;
       position: relative;
     }
-    
+
     nav .logo {
       font-size: 1.5rem;
       font-weight: bold;
     }
-    
+
     nav ul {
       list-style: none;
       display: flex;
       gap: 2rem;
     }
-    
+
     nav a {
       color: white;
       text-decoration: none;
       transition: opacity 0.3s;
     }
-    
+
     nav a:hover {
       opacity: 0.8;
     }
-    
+
     .lang-toggle {
       background: white;
       color: #bf5700;
@@ -71,18 +77,18 @@
       font-weight: bold;
       transition: background 0.3s;
     }
-    
+
     .lang-toggle:hover {
       background: #f0f0f0;
     }
-    
+
     .hamburger {
       display: none;
       flex-direction: column;
       cursor: pointer;
       padding: 0.5rem;
     }
-    
+
     .hamburger span {
       width: 25px;
       height: 3px;
@@ -90,7 +96,7 @@
       margin: 3px 0;
       transition: 0.3s;
     }
-    
+
     /* Announcement Banner */
     .announcement {
       background: #00274c;
@@ -99,7 +105,7 @@
       padding: 1rem;
       font-weight: 500;
     }
-    
+
     /* Hero Section */
     .hero {
       background: linear-gradient(rgba(0, 39, 76, 0.8), rgba(191, 87, 0, 0.8)),
@@ -110,18 +116,18 @@
       text-align: center;
       padding: 8rem 2rem;
     }
-    
+
     .hero h1 {
       font-size: 3.5rem;
       margin-bottom: 1rem;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
-    
+
     .hero p {
       font-size: 1.5rem;
       margin-bottom: 2rem;
     }
-    
+
     .cta-button {
       display: inline-block;
       background: #bf5700;
@@ -134,48 +140,48 @@
       transition: background 0.3s;
       margin: 0.5rem;
     }
-    
+
     .cta-button:hover {
       background: #a04900;
     }
-    
+
     .cta-button.secondary {
       background: white;
       color: #bf5700;
     }
-    
+
     .cta-button.secondary:hover {
       background: #f0f0f0;
     }
-    
+
     /* Container */
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 4rem 2rem;
     }
-    
+
     .container.contact-container {
       padding: 4rem 1rem;
     }
-    
+
     section {
       margin-bottom: 4rem;
     }
-    
+
     h2 {
       font-size: 2.5rem;
       margin-bottom: 1rem;
       color: #bf5700;
       text-align: center;
     }
-    
+
     h3 {
       font-size: 1.8rem;
       margin-bottom: 1rem;
       color: #00274c;
     }
-    
+
     /* Event Info Grid */
     .event-grid {
       display: grid;
@@ -183,7 +189,7 @@
       gap: 2rem;
       margin-top: 2rem;
     }
-    
+
     .event-card {
       background: white;
       padding: 2rem;
@@ -192,16 +198,16 @@
       text-align: center;
       transition: transform 0.3s;
     }
-    
+
     .event-card:hover {
       transform: translateY(-5px);
     }
-    
+
     .event-card .icon {
       font-size: 3rem;
       margin-bottom: 1rem;
     }
-    
+
     /* Schools Section */
     .schools-grid {
       display: grid;
@@ -209,7 +215,7 @@
       gap: 2rem;
       margin-top: 2rem;
     }
-    
+
     .school-card {
       background: #f9f9f9;
       padding: 2rem;
@@ -217,22 +223,22 @@
       text-align: center;
       border: 3px solid #ddd;
     }
-    
+
     .school-card.confirmed {
       border-color: #bf5700;
     }
-    
+
     .school-card.interested {
       border-color: #ccc;
       border-style: dashed;
     }
-    
+
     .school-card h4 {
       font-size: 1.3rem;
       margin-bottom: 0.5rem;
       color: #00274c;
     }
-    
+
     .badge {
       display: inline-block;
       padding: 0.3rem 0.8rem;
@@ -241,17 +247,17 @@
       font-weight: bold;
       margin-top: 0.5rem;
     }
-    
+
     .badge.confirmed {
       background: #bf5700;
       color: white;
     }
-    
+
     .badge.founding {
       background: #00274c;
       color: white;
     }
-    
+
     /* Results Section */
     .results-box {
       background: #f5f5f5;
@@ -259,7 +265,7 @@
       border-radius: 10px;
       margin-top: 2rem;
     }
-    
+
     .result-row {
       display: flex;
       justify-content: space-between;
@@ -269,22 +275,22 @@
       border-radius: 5px;
       align-items: center;
     }
-    
+
     .result-row .school {
       font-weight: bold;
       font-size: 1.2rem;
     }
-    
+
     .result-row .score {
       font-size: 1.5rem;
       color: #bf5700;
     }
-    
+
     /* Dropdown Details */
     details {
       cursor: pointer;
     }
-    
+
     details summary {
       padding: 1rem;
       background: #fff;
@@ -295,20 +301,155 @@
       align-items: center;
       gap: 0.5rem;
     }
-    
+
     details summary:hover {
       background: #f5f5f5;
     }
-    
+
     details[open] summary {
       margin-bottom: 1rem;
       border-radius: 8px 8px 0 0;
     }
-    
+
     details table {
       font-size: 0.95rem;
     }
-    
+
+    /* Results year block */
+    .results-year {
+      margin-top: 2rem;
+      background: #f9f9f9;
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+
+    .results-year-summary {
+      cursor: pointer;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #00274c;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+    }
+
+    .results-content {
+      margin-top: 1.5rem;
+    }
+
+    .results-subtitle {
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .detail-toggle {
+      margin-top: 2rem;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+
+    .detail-toggle-summary {
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #bf5700;
+    }
+
+    .detail-grid {
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .detail-card {
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    .detail-card h5 {
+      color: #bf5700;
+    }
+
+    .rules-block {
+      background: #f9f9f9;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      white-space: pre-line;
+    }
+
+    /* Photo Gallery */
+    .photo-gallery {
+      margin-top: 3rem;
+      padding: 2rem 0;
+    }
+
+    .photo-gallery-title {
+      text-align: center;
+      color: #00274c;
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .photo-category {
+      margin-bottom: 3rem;
+    }
+
+    .photo-category:last-child {
+      margin-bottom: 2rem;
+    }
+
+    .photo-category-title {
+      text-align: center;
+      color: #bf5700;
+      margin-bottom: 1rem;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .photo-grid.single {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .photo-grid img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .photo-grid.single img {
+      height: 300px;
+    }
+
+    /* About section */
+    .trophy-image-wrapper {
+      text-align: center;
+      margin: 2rem auto;
+    }
+
+    .trophy-image {
+      max-width: 400px;
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .about-description {
+      text-align: center;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 2rem auto;
+    }
+
     /* Join Section */
     .join-section {
       background: linear-gradient(135deg, #bf5700 0%, #00274c 100%);
@@ -318,12 +459,35 @@
       border-radius: 15px;
       margin: 4rem 0;
     }
-    
+
     .join-section h2 {
       color: white;
       margin-bottom: 1.5rem;
     }
-    
+
+    .join-description {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .school-list {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .school-list p {
+      margin: 0.5rem 0;
+    }
+
+    .join-registration {
+      font-size: 1.2rem;
+      margin-top: 2rem;
+    }
+
     /* Contact Form */
     .contact-form {
       max-width: 100%;
@@ -333,24 +497,24 @@
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
-    
+
     @media (min-width: 769px) {
       .contact-form {
         max-width: 600px;
       }
     }
-    
+
     .form-group {
       margin-bottom: 1.5rem;
     }
-    
+
     .form-group label {
       display: block;
       margin-bottom: 0.5rem;
       font-weight: bold;
       color: #333;
     }
-    
+
     .form-group input,
     .form-group textarea,
     .form-group select {
@@ -360,12 +524,12 @@
       border-radius: 5px;
       font-size: 1rem;
     }
-    
+
     .form-group textarea {
       min-height: 120px;
       resize: vertical;
     }
-    
+
     button[type="submit"] {
       background: #bf5700;
       color: white;
@@ -377,11 +541,11 @@
       width: 100%;
       font-weight: bold;
     }
-    
+
     button[type="submit"]:hover {
       background: #a04900;
     }
-    
+
     .success-message {
       display: none;
       background: #4CAF50;
@@ -391,7 +555,24 @@
       margin-top: 1rem;
       text-align: center;
     }
-    
+
+    .contact-subtitle {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .contact-info {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 1.1rem;
+    }
+
+    .participation-note {
+      text-align: center;
+      margin-top: 2rem;
+      font-style: italic;
+    }
+
     /* Footer */
     footer {
       background: #00274c;
@@ -399,34 +580,38 @@
       text-align: center;
       padding: 2rem;
     }
-    
+
+    footer p + p {
+      margin-top: 0.5rem;
+    }
+
     /* Hide inactive language */
     .lang-ko { display: none; }
     body.korean .lang-en { display: none; }
     body.korean .lang-ko { display: block; }
-    
+
     /* Mobile */
     @media (max-width: 768px) {
       nav .container {
         flex-wrap: wrap;
       }
-      
+
       .hamburger {
         display: flex;
         order: 1;
       }
-      
+
       nav .logo {
         order: 0;
         flex: 1;
       }
-      
+
       .lang-toggle {
         order: 2;
         font-size: 0.9rem;
         padding: 0.4rem 0.8rem;
       }
-      
+
       nav ul {
         order: 3;
         width: 100%;
@@ -439,28 +624,28 @@
         margin-top: 1rem;
         border-radius: 5px;
       }
-      
+
       nav ul.active {
         max-height: 500px;
       }
-      
+
       nav ul li {
         border-bottom: 1px solid rgba(255,255,255,0.1);
       }
-      
+
       nav ul li:last-child {
         border-bottom: none;
       }
-      
+
       nav ul a {
         display: block;
         padding: 1rem;
       }
-      
+
       .hero h1 {
         font-size: 2rem;
       }
-      
+
       .hero p {
         font-size: 1.2rem;
       }
@@ -472,7 +657,7 @@
   <nav>
     <div class="container">
       <div class="logo">🏆 ALUMNI CUP</div>
-      <div class="hamburger" onclick="toggleMenu()">
+      <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle navigation menu" role="button" tabindex="0">
         <span></span>
         <span></span>
         <span></span>
@@ -516,24 +701,19 @@
     <section id="about">
       <h2 class="lang-en">About the Alumni Cup</h2>
       <h2 class="lang-ko">알룸나이 컵 소개</h2>
- <div style="text-align: center; margin: 2rem auto;">
-  <img src="alumni cup.jpg" 
-       alt="Alumni Cup Trophy" 
-       style="max-width: 400px; width: 100%; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
-</div>
+      <div class="trophy-image-wrapper">
+        <img src="alumni-cup.jpg" alt="Alumni Cup trophy with engraving plates for annual champions" class="trophy-image" loading="lazy">
+      </div>
 
-<div class="event-grid">
-
-<div class="event-grid">
-      <p class="lang-en" style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 2rem auto;">
+      <p class="lang-en about-description">
         The Alumni Cup is an annual athletic competition that brings together university alumni from across the nation. Founded in 2025 by the University of Texas at Austin and the University of Michigan at Ann Arbor, it celebrates school spirit, healthy competition, and lifelong connections through golf and 10K running.
 
         Each year, the winning school has its name engraved on the trophy and retains it for one year. The trophy features seven engraving slots on each of its four sides, allowing 28 years of champions to be permanently commemorated.
       </p>
-      <p class="lang-ko" style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 2rem auto;">
+      <p class="lang-ko about-description">
         알룸나이 컵은 전국의 대학 동문들이 함께하는 연례 스포츠 대회입니다. 2025년 텍사스 대학교 동문회와 미시간 대학교 동문회가 창립한 이 대회는 골프와 10K 마라톤을 통해 모교 정신 함양, 건강한 경쟁, 그리고 네트워킹을 목적으로 하고 있습니다. 우승한 학교의 이름은 트로피에 세겨지며 우승 학교가 트로피를 1년 동안 보관합니다. 4개면 7개 칸으로 만들어진 트로피에 영원히 학교의 이름을 세겨보세요!
       </p>
-      
+
       <div class="event-grid">
         <div class="event-card">
           <div class="icon">⛳</div>
@@ -546,7 +726,7 @@
           <div class="icon">🏃</div>
           <h3 class="lang-en">10K Run</h3>
           <h3 class="lang-ko">10K 마라톤</h3>
-          <p class="lang-en">Offical Participation to a major 10k marathon. Chip-timed for accurate results.</p>
+          <p class="lang-en">Official participation in a major 10K marathon. Chip-timed for accurate results.</p>
           <p class="lang-ko">메이저 대회 10k 공동참여. 칩 타이밍으로 정확한 기록 측정.</p>
         </div>
         <div class="event-card">
@@ -558,8 +738,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Events Section -->
 
     <!-- Participating Schools -->
     <section id="schools">
@@ -597,66 +775,65 @@
       </div>
     </section>
 
-    <!-- 2025 Results -->
-<!-- Results Section -->
-<section id="results">
-  <h2 class="lang-en">Results</h2>
-  <h2 class="lang-ko">대회 결과</h2>
-  
-  <!-- 2025 Results - Collapsible -->
-  <details open style="margin-top: 2rem; background: #f9f9f9; padding: 1.5rem; border-radius: 10px;">
-    <summary style="cursor: pointer; font-size: 1.5rem; font-weight: bold; color: #00274c; padding: 1rem; background: white; border-radius: 8px;">
-      <span class="lang-en">🏆 2025 Inaugural Results</span>
-      <span class="lang-ko">🏆 2025 창립 대회 결과</span>
-    </summary>
-    
-    <div style="margin-top: 1.5rem;">
-      <p class="lang-en" style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">Golf Tournament at New Springville - October / 10K Marathon at MBN Seoul Marathon November 2025</p>
-      <p class="lang-ko" style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">골프대회 @ 뉴스프링빌 / 10k 마라톤 @ MBN 서울마라톤 - 2025년 10월~11월</p>
-      
-      <div class="results-box">
-        <h3 class="lang-en">⛳ Golf Championship</h3>
-        <h3 class="lang-ko">⛳ 골프 챔피언십</h3>
-        <div class="result-row">
-          <span class="school lang-en">🏆 University of Texas</span>
-          <span class="school lang-ko">🏆 텍사스 대학교</span>
-          <span class="score lang-en">Team Score: 5.857</span>
-          <span class="score lang-ko">팀 점수: 5.857</span>
-        </div>
-        <div class="result-row">
-          <span class="school lang-en">University of Michigan</span>
-          <span class="school lang-ko">미시간 대학교</span>
-          <span class="score lang-en">Team Score: 4.143</span>
-          <span class="score lang-ko">팀 점수: 4.143</span>
-        </div>
-      </div>
-      
-      <div class="results-box">
-        <h3 class="lang-en">🏃 10K Run Championship</h3>
-        <h3 class="lang-ko">🏃 10K 마라톤 챔피언십</h3>
-        <div class="result-row">
-          <span class="school lang-en">University of Michigan</span>
-          <span class="school lang-ko">미시간 대학교</span>
-          <span class="score lang-en">Team score: 4.272</span>
-          <span class="score lang-ko">팀 점수: 4.272</span>
-        </div>
-        <div class="result-row">
-          <span class="school lang-en">🏆 University of Texas</span>
-          <span class="school lang-ko">🏆 텍사스 대학교</span>
-          <span class="score lang-en">Team score: 5.728</span>
-          <span class="score lang-ko">팀 점수: 5.728</span>
-        </div>
-      </div>
-      
-      <details style="margin-top: 2rem; background: white; padding: 1.5rem; border-radius: 10px;">
-        <summary style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #bf5700;">
-          <span class="lang-en">📊 View Detailed Results</span>
-          <span class="lang-ko">📊 상세 결과 보기</span>
+    <!-- Results Section -->
+    <section id="results">
+      <h2 class="lang-en">Results</h2>
+      <h2 class="lang-ko">대회 결과</h2>
+
+      <!-- 2025 Results - Collapsible -->
+      <details open class="results-year">
+        <summary class="results-year-summary">
+          <span class="lang-en">🏆 2025 Inaugural Results</span>
+          <span class="lang-ko">🏆 2025 창립 대회 결과</span>
         </summary>
-        <div style="margin-top: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
-          <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px;">
-            <h5 style="color: #bf5700;">Golf</h5>
-            <table style="width: 100%;"><thead><tr><th><span class="lang-en">Name</span> <span class="lang-ko">이름</span></th><th><span class="lang-en">School</span> <span class="lang-ko">학교</span> </th><th><span class="lang-en">Score</span> <span class="lang-ko">점수</span> </th></tr></thead><tbody>
+
+        <div class="results-content">
+          <p class="lang-en results-subtitle">Golf Tournament at New Springville - October / 10K Marathon at MBN Seoul Marathon November 2025</p>
+          <p class="lang-ko results-subtitle">골프대회 @ 뉴스프링빌 / 10k 마라톤 @ MBN 서울마라톤 - 2025년 10월~11월</p>
+
+          <div class="results-box">
+            <h3 class="lang-en">⛳ Golf Championship</h3>
+            <h3 class="lang-ko">⛳ 골프 챔피언십</h3>
+            <div class="result-row">
+              <span class="school lang-en">🏆 University of Texas</span>
+              <span class="school lang-ko">🏆 텍사스 대학교</span>
+              <span class="score lang-en">Team Score: 5.857</span>
+              <span class="score lang-ko">팀 점수: 5.857</span>
+            </div>
+            <div class="result-row">
+              <span class="school lang-en">University of Michigan</span>
+              <span class="school lang-ko">미시간 대학교</span>
+              <span class="score lang-en">Team Score: 4.143</span>
+              <span class="score lang-ko">팀 점수: 4.143</span>
+            </div>
+          </div>
+
+          <div class="results-box">
+            <h3 class="lang-en">🏃 10K Run Championship</h3>
+            <h3 class="lang-ko">🏃 10K 마라톤 챔피언십</h3>
+            <div class="result-row">
+              <span class="school lang-en">🏆 University of Texas</span>
+              <span class="school lang-ko">🏆 텍사스 대학교</span>
+              <span class="score lang-en">Team score: 5.728</span>
+              <span class="score lang-ko">팀 점수: 5.728</span>
+            </div>
+            <div class="result-row">
+              <span class="school lang-en">University of Michigan</span>
+              <span class="school lang-ko">미시간 대학교</span>
+              <span class="score lang-en">Team score: 4.272</span>
+              <span class="score lang-ko">팀 점수: 4.272</span>
+            </div>
+          </div>
+
+          <details class="detail-toggle">
+            <summary class="detail-toggle-summary">
+              <span class="lang-en">📊 View Detailed Results</span>
+              <span class="lang-ko">📊 상세 결과 보기</span>
+            </summary>
+            <div class="detail-grid">
+              <div class="detail-card">
+                <h5>Golf</h5>
+                <table style="width: 100%;"><thead><tr><th><span class="lang-en">Name</span> <span class="lang-ko">이름</span></th><th><span class="lang-en">School</span> <span class="lang-ko">학교</span> </th><th><span class="lang-en">Score</span> <span class="lang-ko">점수</span> </th></tr></thead><tbody>
 <tr><td>🏆김희원</td><td>Texas</td><td>80</td></tr>
 <tr><td>김건희</td><td>Texas</td><td>81</td></tr>
 <tr><td>김수환</td><td>Michigan</td><td>82</td></tr>
@@ -676,12 +853,12 @@
 <tr><td>고연경(2팀)</td><td>Michigan</td><td>111</td></tr>
 <tr><td>장영태(2팀)</td><td>Michigan</td><td>131</td></tr>
 
-</tbody></table> 
-          </div>
+</tbody></table>
+              </div>
 
-          <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px;">
-            <h5 style="color: #bf5700;">10K</h5>
-           <table style="width: 100%;"><thead><tr><th><span class="lang-en">Name</span> <span class="lang-ko">이름</span></th><th><span class="lang-en">School</span> <span class="lang-ko">학교</span> </th><th><span class="lang-en">Time</span> <span class="lang-ko">기록</span> </th></tr></thead><tbody>
+              <div class="detail-card">
+                <h5>10K</h5>
+               <table style="width: 100%;"><thead><tr><th><span class="lang-en">Name</span> <span class="lang-ko">이름</span></th><th><span class="lang-en">School</span> <span class="lang-ko">학교</span> </th><th><span class="lang-en">Time</span> <span class="lang-ko">기록</span> </th></tr></thead><tbody>
 <tr><td>🏆정상민</td><td>Texas</td><td>0:38:37</td></tr>
 <tr><td>안성진</td><td>Michigan</td><td>0:39:04</td></tr>
 <tr><td>김준성</td><td>Michigan</td><td>0:40:54</td></tr>
@@ -701,158 +878,161 @@
 <tr><td>조성민</td><td>Michigan</td><td>0:57:47</td></tr>
 <tr><td>김주해</td><td>Texas</td><td>1:00:02</td></tr>
 <tr><td>이신영</td><td>Michigan</td><td>1:06:29</td></tr>
-</tbody></table> 
-          </div>
-          
-        </div>
-      </details>
-      
-      <details style="margin-top: 1rem; background: white; padding: 1.5rem; border-radius: 10px;">
-        <summary style="cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #bf5700;">
-          <span class="lang-en">📋 Rules</span>
-          <span class="lang-ko">📋 규칙</span>
-        </summary>
-        <div style="margin-top: 1rem;">
-          <h4 class="lang-en">⛳ Golf Rules</h4>
-          <h4 class="lang-ko">⛳ 골프 규칙</h4>
-          <div class="lang-en" style="background: #f9f9f9; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">- 4 vs. 4 individual matches(competitive) + 2 teams matches(recreational). 
+</tbody></table>
+              </div>
+
+            </div>
+          </details>
+
+          <details class="detail-toggle" style="margin-top: 1rem;">
+            <summary class="detail-toggle-summary">
+              <span class="lang-en">📋 Rules</span>
+              <span class="lang-ko">📋 규칙</span>
+            </summary>
+            <div style="margin-top: 1rem;">
+              <h4 class="lang-en">⛳ Golf Rules</h4>
+              <h4 class="lang-ko">⛳ 골프 규칙</h4>
+              <div class="lang-en rules-block">- 4 vs. 4 individual matches(competitive) + 2 teams matches(recreational).
 - 1~8 ranking gets designated points (1.5, 1.357, 1.214, 1.071, 0.929, 0.786, 0.643, 0.5) total 8 points
 - For two team matches winning team takes 0.6 points while the losing team takes 0.4 total 2 points.
 - 2 mulligans, one each front and back.
 - Putter length concede.</div>
-          <div class="lang-ko" style="background: #f9f9f9; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">- 선수부 4 vs. 4는 개인전으로 일반부 4 vs. 4는 팀전으로 치뤄집니다.
+              <div class="lang-ko rules-block">- 선수부 4 vs. 4는 개인전으로 일반부 4 vs. 4는 팀전으로 치뤄집니다.
 - 선수부의 1~8등 까지는 총 8점내 다음 같은 차등 포인트를 획득힙니다. (1.5, 1.357, 1.214, 1.071, 0.929, 0.786, 0.643, 0.5)
-- 일반부 2팀은 이긴팀은 0.6점 진 팀은 0.4점을 획득합니다. 
+- 일반부 2팀은 이긴팀은 0.6점 진 팀은 0.4점을 획득합니다.
 - 멀리건은 전후반 한개씩 사용가능합니다.
 - 퍼터 거리 오케이.
 - 맥스 트리플까지 카운트합니다.</div>
-          <h4 class="lang-en" style="margin-top: 1rem;">🏃 10K Rules</h4>
-          <h4 class="lang-ko" style="margin-top: 1rem;">🏃 10K 규칙</h4>
-          <div class="lang-en" style="background: #f9f9f9; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">- 10 vs. 10 on 10k race. (At least 2 female participants)
+              <h4 class="lang-en" style="margin-top: 1rem;">🏃 10K Rules</h4>
+              <h4 class="lang-ko" style="margin-top: 1rem;">🏃 10K 규칙</h4>
+              <div class="lang-en rules-block">- 10 vs. 10 on 10k race. (At least 2 female participants)
 - Total 8 points divided into ranks. (0.64, 0.615, 0.589, 0.564, 0.539, 0.514, 0.488, 0.463, 0.438, 0.413, 0.387, 0.362, 0.337, 0.312, 0.286, 0.261, 0.236, 0.211, 0.185, 0.16)
 - The total average winning team gets 1 point
 - The team with the fastest female runner gets 0.6 points. </div>
-          <div class="lang-ko" style="background: #f9f9f9; padding: 1rem; margin: 0.5rem 0; white-space: pre-line;">- 10 대 10 10k 대결 (여자 참가자 최소 2명 참석)
+              <div class="lang-ko rules-block">- 10 대 10 10k 대결 (여자 참가자 최소 2명 참석)
 - 총 8점이 1~20등까지 차등 분배 (0.64, 0.615, 0.589, 0.564, 0.539, 0.514, 0.488, 0.463, 0.438, 0.413, 0.387, 0.362, 0.337, 0.312, 0.286, 0.261, 0.236, 0.211, 0.185, 0.16)
 - 전체 평균 우승학교 1점 획득
 - 여자 우승 학교 0.6점 획득 </div>
+            </div>
+          </details>
+
+          <!-- Photo Gallery -->
+          <div class="photo-gallery">
+            <h3 class="photo-gallery-title">
+              <span class="lang-en">📸 2025 Event Photos</span>
+              <span class="lang-ko">📸 2025 대회 사진</span>
+            </h3>
+
+            <!-- Golf Photos -->
+            <div class="photo-category">
+              <h4 class="photo-category-title">
+                <span class="lang-en">⛳ Golf Competition</span>
+                <span class="lang-ko">⛳ 골프 대회</span>
+              </h4>
+              <div class="photo-grid single">
+                <img src="pic/golf.jpg" alt="Alumni Cup 2025 golf competition group photo at New Springville" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Running Photos -->
+            <div class="photo-category">
+              <h4 class="photo-category-title">
+                <span class="lang-en">🏃 10K Run</span>
+                <span class="lang-ko">🏃 10K 마라톤</span>
+              </h4>
+              <div class="photo-grid">
+                <img src="pic/run.jpg" alt="Alumni runners competing in the MBN Seoul 10K Marathon" loading="lazy">
+                <img src="pic/run2.jpg" alt="Texas and Michigan alumni during the 10K race" loading="lazy">
+                <img src="pic/run3.jpg" alt="Alumni crossing the finish line at the 10K marathon" loading="lazy">
+              </div>
+            </div>
+
+            <!-- Trophy/Awards Photos -->
+            <div class="photo-category">
+              <h4 class="photo-category-title">
+                <span class="lang-en">🏆 Award Ceremony</span>
+                <span class="lang-ko">🏆 시상식</span>
+              </h4>
+              <div class="photo-grid">
+                <img src="pic/run-win.jpg" alt="10K run winners receiving their awards" loading="lazy">
+                <img src="pic/team-win.jpg" alt="Winning team celebrating with the Alumni Cup trophy" loading="lazy">
+                <img src="pic/school-win.jpg" alt="School champions at the Alumni Cup award ceremony" loading="lazy">
+              </div>
+            </div>
+          </div>
+
+          <p class="lang-en participation-note">Over 36 alumni participated.</p>
+          <p class="lang-ko participation-note">36명 이상의 동문이 참가했습니다.</p>
         </div>
       </details>
 
-      <!-- Photo Gallery -->
-      <div style="margin-top: 3rem; padding: 2rem 0;">
-        <h3 style="text-align: center; color: #00274c; font-size: 1.8rem; margin-bottom: 2rem;">
-          <span class="lang-en">📸 2025 Event Photos</span>
-          <span class="lang-ko">📸 2025 대회 사진</span>
-        </h3>
-        
-        <!-- Golf Photos -->
-        <div style="margin-bottom: 3rem;">
-          <h4 style="text-align: center; color: #bf5700; margin-bottom: 1rem;">
-            <span class="lang-en">⛳ Golf Competition</span>
-            <span class="lang-ko">⛳ 골프 대회</span>
-          </h4>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
-            <img src="pic/golf.jpg" alt="Golf Group Photo" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-          </div>
-        </div>
-        
-        <!-- Running Photos -->
-        <div style="margin-bottom: 3rem;">
-          <h4 style="text-align: center; color: #bf5700; margin-bottom: 1rem;">
-            <span class="lang-en">🏃 10K Run</span>
-            <span class="lang-ko">🏃 10K 마라톤</span>
-          </h4>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-            <img src="pic/run.jpg" alt="10K Run Photo 1" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <img src="pic/run2.jpg" alt="10K Run Photo 2" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <img src="pic/run3.jpg" alt="10K Run Photo 3" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-          </div>
-        </div>
-        
-        <!-- Trophy/Awards Photos -->
-        <div style="margin-bottom: 2rem;">
-          <h4 style="text-align: center; color: #bf5700; margin-bottom: 1rem;">
-            <span class="lang-en">🏆 Award Ceremony</span>
-            <span class="lang-ko">🏆 시상식</span>
-          </h4>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-            <img src="pic/run win.JPG" alt="Trophy Photo 1" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <img src="pic/team win.jpg" alt="Trophy Photo 2" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <img src="pic/school win.jpg" alt="Trophy Photo 3" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-          </div>
-        </div>
+    </section>
+
+    <!-- Join Section -->
+    <section id="join" class="join-section">
+      <h2 class="lang-en">Join the 2026 Alumni Cup!</h2>
+      <h2 class="lang-ko">2026 알룸나이 컵에 참가하세요!</h2>
+      <p class="lang-en join-description">
+        The 2026 Alumni Cup will feature 4 universities competing in golf and 10K running:
+      </p>
+      <p class="lang-ko join-description">
+        2026 알룸나이 컵은 골프와 10K 마라톤에서 경쟁하는 4개 대학이 참가합니다:
+      </p>
+      <div class="lang-en school-list">
+        <p>🤘 University of Texas at Austin</p>
+        <p>〽️ University of Michigan at Ann Arbor</p>
+        <p>🦡 University of Wisconsin-Madison</p>
+        <p>🐻 University of California, Berkeley</p>
       </div>
-      
-      <p class="lang-en" style="text-align: center; margin-top: 2rem; font-style: italic;">Over 36 alumni participated.</p>
-      <p class="lang-ko" style="text-align: center; margin-top: 2rem; font-style: italic;">36명 이상의 동문이 참가했습니다.</p>
-    </div>
-  </details>
-  
-</section>
-  <!-- Join Section -->
-  <section id="join" class="join-section">
-    <h2 class="lang-en">Join the 2026 Alumni Cup!</h2>
-    <h2 class="lang-ko">2026 알룸나이 컵에 참가하세요!</h2>
-    <p class="lang-en" style="font-size: 1.2rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-      The 2026 Alumni Cup will feature 4 universities competing in golf and 10K running:
-    </p>
-    <p class="lang-ko" style="font-size: 1.2rem; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-      2026 알룸나이 컵은 골프와 10K 마라톤에서 경쟁하는 4개 대학이 참가합니다:
-    </p>
-    <div class="lang-en" style="max-width: 600px; margin: 0 auto; text-align: left;">
-      <p style="margin: 0.5rem 0;">🤘 University of Texas at Austin</p>
-      <p style="margin: 0.5rem 0;">〽️ University of Michigan at Ann Arbor</p>
-      <p style="margin: 0.5rem 0;">🦡 University of Wisconsin-Madison</p>
-      <p style="margin: 0.5rem 0;">🐻 University of California, Berkeley</p>
-    </div>
-    <div class="lang-ko" style="max-width: 600px; margin: 0 auto; text-align: left;">
-      <p style="margin: 0.5rem 0;">🤘 텍사스 대학교 오스틴</p>
-      <p style="margin: 0.5rem 0;">〽️ 미시간 대학교</p>
-      <p style="margin: 0.5rem 0;">🦡 위스콘신 대학교 매디슨</p>
-      <p style="margin: 0.5rem 0;">🐻 캘리포니아 대학교 버클리</p>
-    </div>
-    <p class="lang-en" style="font-size: 1.2rem; margin-top: 2rem;">
-      <strong>Registration opens March 2026!</strong>
-    </p>
-    <p class="lang-ko" style="font-size: 1.2rem; margin-top: 2rem;">
-      <strong>등록은 2026년 3월 시작!</strong>
-    </p>
-    <a href="#contact" class="cta-button secondary lang-en">Contact Us for More Info</a>
-    <a href="#contact" class="cta-button secondary lang-ko">자세한 정보 문의하기</a>
-  </section>
+      <div class="lang-ko school-list">
+        <p>🤘 텍사스 대학교 오스틴</p>
+        <p>〽️ 미시간 대학교</p>
+        <p>🦡 위스콘신 대학교 매디슨</p>
+        <p>🐻 캘리포니아 대학교 버클리</p>
+      </div>
+      <p class="lang-en join-registration">
+        <strong>Registration opens March 2026!</strong>
+      </p>
+      <p class="lang-ko join-registration">
+        <strong>등록은 2026년 3월 시작!</strong>
+      </p>
+      <a href="#contact" class="cta-button secondary lang-en">Contact Us for More Info</a>
+      <a href="#contact" class="cta-button secondary lang-ko">자세한 정보 문의하기</a>
+    </section>
+  </div>
 
   <!-- Contact Section -->
   <div class="container contact-container">
     <section id="contact">
       <h2 class="lang-en">Get In Touch</h2>
       <h2 class="lang-ko">문의하기</h2>
-      <p class="lang-en" style="text-align: center; margin-bottom: 2rem;">
+      <p class="lang-en contact-subtitle">
         Questions about the event? Interested in having your school participate? Contact us below!
       </p>
-      <p class="lang-ko" style="text-align: center; margin-bottom: 2rem;">
+      <p class="lang-ko contact-subtitle">
         대회에 대한 질문이 있으신가요? 귀교의 참가에 관심이 있으신가요? 아래로 문의해주세요!
       </p>
-      
+
       <div class="contact-form">
-        <iframe 
-          src="https://docs.google.com/forms/d/e/1FAIpQLSfPvdAoYA28S_AQExCkaEArfcBwYZUQrnpfkdYTTUL978_C7g/viewform?embedded=true" 
-          width="100%" 
-          height="800" 
-          frameborder="0" 
-          marginheight="0" 
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSfPvdAoYA28S_AQExCkaEArfcBwYZUQrnpfkdYTTUL978_C7g/viewform?embedded=true"
+          width="100%"
+          height="800"
+          frameborder="0"
+          marginheight="0"
           marginwidth="0"
+          loading="lazy"
           style="border-radius: 10px;">
           Loading…
         </iframe>
       </div>
-      
-      <p class="lang-en" style="text-align: center; margin-top: 2rem; font-size: 1.1rem;">
+
+      <p class="lang-en contact-info">
         <strong>Event Coordinators:</strong><br>
         📧 letmegeton@gmail.com<br>
         📱 Contact form submissions reviewed within 48 hours
       </p>
-      <p class="lang-ko" style="text-align: center; margin-top: 2rem; font-size: 1.1rem;">
+      <p class="lang-ko contact-info">
         <strong>대회 운영진:</strong><br>
         📧 letmegeton@gmail.com<br>
         📱 문의 양식 제출은 48시간 이내에 검토됩니다
@@ -862,30 +1042,40 @@
 
   <!-- Footer -->
   <footer>
-    <p class="lang-en">&copy; 2025 Alumni Cup. All rights reserved.</p>
-    <p class="lang-ko">&copy; 2025 알룸룸나이 컵. All rights reserved.</p>
-    <p class="lang-en" style="margin-top: 0.5rem;">Founded by the University of Texas at Austin & University of Michigan at Ann Arbor Alumni</p>
-    <p class="lang-ko" style="margin-top: 0.5rem;">텍사스 대학교 및 미시간 대학교 동문회가 창립</p>
+    <p class="lang-en">&copy; <span id="yearEn">2025</span> Alumni Cup. All rights reserved.</p>
+    <p class="lang-ko">&copy; <span id="yearKo">2025</span> 알룸나이 컵. All rights reserved.</p>
+    <p class="lang-en">Founded by the University of Texas at Austin & University of Michigan at Ann Arbor Alumni</p>
+    <p class="lang-ko">텍사스 대학교 및 미시간 대학교 동문회가 창립</p>
   </footer>
 
   <script>
     function toggleMenu() {
       document.getElementById('navMenu').classList.toggle('active');
     }
-    
+
     function closeMenu() {
       document.getElementById('navMenu').classList.remove('active');
     }
-    
+
     function toggleLanguage() {
       document.body.classList.toggle('korean');
+      document.documentElement.lang = document.body.classList.contains('korean') ? 'ko' : 'en';
       localStorage.setItem('language', document.body.classList.contains('korean') ? 'ko' : 'en');
     }
-    
-    // Remember language preference ok
+
+    // Remember language preference
     if (localStorage.getItem('language') === 'ko') {
       document.body.classList.add('korean');
+      document.documentElement.lang = 'ko';
     }
+
+    // Dynamic copyright year
+    (function() {
+      var y = new Date().getFullYear();
+      var txt = y > 2025 ? '2025-' + y : '2025';
+      document.getElementById('yearEn').textContent = txt;
+      document.getElementById('yearKo').textContent = txt;
+    })();
   </script>
 </body>
 </html>
