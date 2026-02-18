@@ -75,22 +75,22 @@
       margin: 0 auto;
       padding: 0 20px;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      gap: 2rem;
       position: relative;
     }
 
     nav .logo {
       font-size: 1.5rem;
       font-weight: bold;
-      margin-right: auto;
+      flex-shrink: 0;
     }
 
     nav ul {
       list-style: none;
       display: flex;
       gap: 2rem;
+      flex: 1;
       justify-content: center;
     }
 
@@ -113,7 +113,7 @@
       cursor: pointer;
       font-weight: bold;
       transition: background 0.3s;
-      margin-left: auto;
+      flex-shrink: 0;
     }
 
     .lang-toggle:hover {
@@ -700,8 +700,7 @@
     @media (max-width: 768px) {
       nav .container {
         flex-wrap: wrap;
-        justify-content: flex-start;
-        gap: 0.5rem;
+        justify-content: space-between;
       }
 
       .hamburger {
@@ -711,15 +710,14 @@
 
       nav .logo {
         order: 0;
-        flex: 1;
-        margin-right: 0;
+        flex-shrink: 0;
       }
 
       .lang-toggle {
         order: 2;
         font-size: 0.9rem;
         padding: 0.4rem 0.8rem;
-        margin-left: 0;
+        flex-shrink: 0;
       }
 
       nav ul {
@@ -733,6 +731,7 @@
         background: #a04900;
         margin-top: 1rem;
         border-radius: 5px;
+        flex: unset;
         justify-content: flex-start;
       }
 
