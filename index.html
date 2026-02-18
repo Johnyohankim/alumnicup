@@ -75,22 +75,23 @@
       margin: 0 auto;
       padding: 0 20px;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       position: relative;
+      height: 60px;
     }
 
     nav .logo {
       font-size: 1.5rem;
       font-weight: bold;
-      flex-shrink: 0;
+      position: absolute;
+      left: 20px;
     }
 
     nav ul {
       list-style: none;
       display: flex;
       gap: 2rem;
-      flex: 1;
       justify-content: center;
     }
 
@@ -113,7 +114,8 @@
       cursor: pointer;
       font-weight: bold;
       transition: background 0.3s;
-      flex-shrink: 0;
+      position: absolute;
+      right: 20px;
     }
 
     .lang-toggle:hover {
@@ -699,25 +701,31 @@
     /* Mobile */
     @media (max-width: 768px) {
       nav .container {
+        height: auto;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: center;
       }
 
       .hamburger {
         display: flex;
-        order: 1;
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
       }
 
       nav .logo {
+        position: static;
         order: 0;
-        flex-shrink: 0;
+        margin-bottom: 1rem;
       }
 
       .lang-toggle {
+        position: static;
         order: 2;
         font-size: 0.9rem;
         padding: 0.4rem 0.8rem;
-        flex-shrink: 0;
+        margin-top: 1rem;
       }
 
       nav ul {
@@ -731,7 +739,6 @@
         background: #a04900;
         margin-top: 1rem;
         border-radius: 5px;
-        flex: unset;
         justify-content: flex-start;
       }
 
