@@ -686,10 +686,10 @@
     }
 
     /* Hide inactive language */
-    .lang-en { display: block; }
-    .lang-ko { display: none; }
-    body.korean .lang-en { display: none; }
-    body.korean .lang-ko { display: block; }
+    .lang-en { display: inline-block !important; }
+    .lang-ko { display: none !important; }
+    body.korean .lang-en { display: none !important; }
+    body.korean .lang-ko { display: inline-block !important; }
 
     /* Mobile */
     @media (max-width: 768px) {
