@@ -75,20 +75,23 @@
       margin: 0 auto;
       padding: 0 20px;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
+      gap: 2rem;
       position: relative;
     }
 
     nav .logo {
       font-size: 1.5rem;
       font-weight: bold;
+      margin-right: auto;
     }
 
     nav ul {
       list-style: none;
       display: flex;
       gap: 2rem;
+      justify-content: center;
     }
 
     nav a {
@@ -110,6 +113,7 @@
       cursor: pointer;
       font-weight: bold;
       transition: background 0.3s;
+      margin-left: auto;
     }
 
     .lang-toggle:hover {
@@ -214,6 +218,7 @@
       font-size: 1.8rem;
       margin-bottom: 1rem;
       color: #00274c;
+      text-align: center;
     }
 
     /* Event Info Grid */
@@ -695,6 +700,8 @@
     @media (max-width: 768px) {
       nav .container {
         flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 0.5rem;
       }
 
       .hamburger {
@@ -705,12 +712,14 @@
       nav .logo {
         order: 0;
         flex: 1;
+        margin-right: 0;
       }
 
       .lang-toggle {
         order: 2;
         font-size: 0.9rem;
         padding: 0.4rem 0.8rem;
+        margin-left: 0;
       }
 
       nav ul {
@@ -724,6 +733,7 @@
         background: #a04900;
         margin-top: 1rem;
         border-radius: 5px;
+        justify-content: flex-start;
       }
 
       nav ul.active {
