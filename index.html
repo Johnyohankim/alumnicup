@@ -441,6 +441,21 @@
       padding: 1rem;
       background: white;
       border-radius: 8px;
+      list-style: none;
+    }
+
+    .results-year-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .results-year-summary .triangle {
+      display: inline-block;
+      transition: transform 0.3s ease;
+      margin-right: 0.3rem;
+    }
+
+    .results-year[open] > .results-year-summary .triangle {
+      transform: rotate(180deg);
     }
 
     .results-content {
@@ -1262,8 +1277,9 @@
       <h2 class="lang-ko">대회 결과</h2>
 
       <!-- 2025 Results - Collapsible -->
-      <details open class="results-year">
+      <details class="results-year">
         <summary class="results-year-summary">
+          <span class="triangle">▼</span>
           <span class="lang-en">🏆 2025 Inaugural Results</span>
           <span class="lang-ko">🏆 2025 창립 대회 결과</span>
         </summary>
@@ -1528,16 +1544,16 @@
         <strong>Event Coordinators:</strong><br>
         🤘 <strong>Texas:</strong> John Kim (김요한) — <a href="mailto:letmegeton@gmail.com">letmegeton@gmail.com</a><br>
         〽️ <strong>Michigan:</strong> Ahn, Sungjin (안성진) — <a href="mailto:mwsmd@naver.com">mwsmd@naver.com</a><br>
-        🦡 <strong>Wisconsin:</strong> TBA<br>
-        🐻 <strong>Berkeley:</strong> TBA<br><br>
+        🦡 <strong>Wisconsin:</strong> Yoon, Junhyuk (윤준혁) — <a href="mailto:AlumniCup.Badgers@gmail.com">AlumniCup.Badgers@gmail.com</a><br>
+        🐻 <strong>Berkeley:</strong> Daniel Song (송다니엘) — <a href="mailto:ucberkeley-alumnicup@googlegroups.com">ucberkeley-alumnicup@googlegroups.com</a><br><br>
         📱 Contact form submissions reviewed within 48 hours
       </div>
       <div class="lang-ko contact-info">
         <strong>대회 운영진:</strong><br>
         🤘 <strong>텍사스:</strong> John Kim (김요한) — <a href="mailto:letmegeton@gmail.com">letmegeton@gmail.com</a><br>
         〽️ <strong>미시간:</strong> Ahn, Sungjin (안성진) — <a href="mailto:mwsmd@naver.com">mwsmd@naver.com</a><br>
-        🦡 <strong>위스콘신:</strong> 추후 공지<br>
-        🐻 <strong>버클리:</strong> 추후 공지<br><br>
+        🦡 <strong>위스콘신:</strong> Yoon, Junhyuk (윤준혁) — <a href="mailto:AlumniCup.Badgers@gmail.com">AlumniCup.Badgers@gmail.com</a><br>
+        🐻 <strong>버클리:</strong> Daniel Song (송다니엘) — <a href="mailto:ucberkeley-alumnicup@googlegroups.com">ucberkeley-alumnicup@googlegroups.com</a><br><br>
         📱 문의 양식 제출은 48시간 이내에 검토됩니다
       </div>
     </section>
